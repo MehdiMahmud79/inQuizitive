@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
+require("dotenv").config();
 
 mongoose.connect(
-  process.env.MONGODB_URI || 'mongodb://localhost/programming-thoughts',
+  process.env.MONGODB_URI || 'mongodb://localhost/mindGjm',
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
