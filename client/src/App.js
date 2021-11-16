@@ -1,6 +1,7 @@
 import React from 'react';
 
 import SignupForm from "./components/SignupForm"
+import LoginForm from "./components/LoginForm";
 import {
   ApolloProvider,
   ApolloLink,
@@ -11,7 +12,6 @@ import {
 } from "@apollo/client";
 
 import Auth from "./utils/auth";
-
 
 function App() {
   const httpLink = new HttpLink({ uri: "/graphql" });
@@ -35,8 +35,9 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <div className="container fluid">
-          <SignupForm />
-          </div>
+        <LoginForm />
+        <SignupForm />
+      </div>
     </ApolloProvider>
   );
 }
