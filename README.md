@@ -1,4 +1,4 @@
-# GjM
+# inQuizitive
 project3
 
 
