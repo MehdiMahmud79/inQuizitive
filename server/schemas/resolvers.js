@@ -8,7 +8,7 @@ const resolvers = {
       if (user) {
         return User.findOne({ _id: user._id });
       }
-      throw new AuthenticationError("Ylogged in first!");
+      throw new AuthenticationError("login first!");
     },
   },
 
