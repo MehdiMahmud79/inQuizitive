@@ -27,7 +27,7 @@ export const signUpMutation = gql`
 
 
 // mutation queries to GraphQl
-export const loginUser = gql`
+export const loginUserMutation = gql`
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
       token
