@@ -42,7 +42,7 @@ const SignupForm = () => {
     }
 
     try {
-      const { data } = await createUser({ variables: { ...userFormData } });
+      const myData = await createUser({ variables: { ...userFormData } });
     } catch (err) {
       console.error(err);
       setShowAlert(true);
