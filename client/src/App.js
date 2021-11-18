@@ -1,6 +1,7 @@
 import React from 'react';
 
 import SignupForm from "./components/SignupForm"
+import QuizSearchForm from "./components/QuizSearchForm"
 import {
   ApolloProvider,
   ApolloLink,
@@ -36,6 +37,7 @@ function App() {
     <ApolloProvider client={client}>
       <div className="container fluid">
           <SignupForm />
+          
           </div>
     </ApolloProvider>
   );
