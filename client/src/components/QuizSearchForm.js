@@ -1,6 +1,6 @@
 import React from 'react';
+import { categories as categoryOptions } from '../utils/categories';
 const options = [1,2,3,4,5,6,7,8,9,10]
-const categoryOptions = [{id:1, name:"thisCat"}]
 const difficultyOptions = ["easy", "medium","hard"]
 const typeOptions = ["multiple choice", "true/false"]
 
