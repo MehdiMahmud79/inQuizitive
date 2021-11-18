@@ -1,44 +1,22 @@
 import React from 'react';
-
-import SignupForm from "./components/SignupForm"
-import LoginForm from "./components/LoginForm";
-import {
-  ApolloProvider,
-  ApolloLink,
-  ApolloClient,
-  HttpLink,
-  InMemoryCache,
-  concat,
-} from "@apollo/client";
-
-import Auth from "./utils/auth";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import LoginForm from "./components/LoginFormT";
+import SignUpT from "./components/SignUpT";
 
 function App() {
-  const httpLink = new HttpLink({ uri: "/graphql" });
-  const authMiddleware = new ApolloLink((operation, forward) => {
-    // add the authorization to the headers
-    operation.setContext(({ headers = {} }) => ({
-      headers: {
-        ...headers,
-        authorization: Auth.loggedIn() ? Auth.getToken() : null,
-      },
-    }));
-
-    return forward(operation);
-  });
-
-  const client = new ApolloClient({
-    cache: new InMemoryCache(),
-    link: concat(authMiddleware, httpLink),
-  });
-
   return (
-    <ApolloProvider client={client}>
-      <div className="container fluid">
-        <LoginForm />
-        <SignupForm />
-      </div>
-    </ApolloProvider>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route exact path="/login" element={<LoginForm />} />
+        <Route exact path="/signup" element={<SignUpT />} />
+        {/* <Route exact path="/quiz" component={CreateQuiz} /> */}
+        <Route render={() => <h1 className="display-2">Wrong page!</h1>} />
+      </Routes>
+    </Router>
   );
 }
 export default App;
