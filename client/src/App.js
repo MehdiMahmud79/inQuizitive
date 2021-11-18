@@ -37,7 +37,7 @@ function App() {
     <ApolloProvider client={client}>
       <div className="container fluid">
           <SignupForm />
-          
+          <QuizSearchForm />
           </div>
     </ApolloProvider>
   );
