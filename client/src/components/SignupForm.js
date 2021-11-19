@@ -3,6 +3,11 @@ import { Form, Button, Alert } from "react-bootstrap";
 import { signUpMutation } from "../utils/queries";
 import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
+import { setStyle } from "../utils/validate";
+
+import { FaRegEnvelope } from "react-icons/fa";
+import { MdLockOutline } from "react-icons/md";
+import { FaUserAlt } from "react-icons/fa";
 
 const SignupForm = () => {
   // set initial form state
@@ -11,6 +16,12 @@ const SignupForm = () => {
     email: "",
     password: "",
   });
+
+  const [FaRegEnvelopeState, setFaRegEnvelopeState] =
+    useState("text-gray-400 m-2");
+  const [MdLockOutlineSate, setMdLockOutlineSate] =
+    useState("text-gray-400 m-2");
+  const [FaUserAltSate, setFaUserAltSate] = useState("text-gray-400 m-2");
   // set state for form validation
   const [validated] = useState(false);
   // set state for alert
@@ -29,20 +40,16 @@ const SignupForm = () => {
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
+    console.log(name, value.length);
+    if (name === "email") setStyle(name, value, setFaRegEnvelopeState);
+    if (name === "username") setStyle(name, value, setFaUserAltSate);
+    if (name === "password") setStyle(name, value, setMdLockOutlineSate);
   };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
-    // check if form has everything (as per react-bootstrap docs)
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
     try {
-      const myData = await createUser({ variables: { ...userFormData } });
+      await createUser({ variables: { ...userFormData } });
     } catch (err) {
       console.error(err);
       setShowAlert(true);
@@ -71,61 +78,59 @@ const SignupForm = () => {
 
         <Form.Group>
           <Form.Label htmlFor="username">Username</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Your username"
-            name="username"
-            onChange={handleInputChange}
-            value={userFormData.username}
-            required
-          />
-          <Form.Control.Feedback type="invalid">
-            Username is required!
-          </Form.Control.Feedback>
+          <div className="bg-gray-100 w-100 p-2 flex items-center mb-3 ">
+            <FaUserAlt className={FaUserAltSate} />
+            <input
+              type="test"
+              name="username"
+              placeholder="User Name"
+              className="bg-gray-100 outline-none text-sm flex-1 "
+              value={userFormData.username}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
         </Form.Group>
 
         <Form.Group>
           <Form.Label htmlFor="email">Email</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Your email address"
-            name="email"
-            onChange={handleInputChange}
-            value={userFormData.email}
-            required
-          />
-          <Form.Control.Feedback type="invalid">
-            Email is required!
-          </Form.Control.Feedback>
+          <div className="bg-gray-100 w-100 p-2 flex items-center mb-3 ">
+            <FaRegEnvelope className={FaRegEnvelopeState} />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              className="bg-gray-100 outline-none text-sm flex-1 "
+              value={userFormData.email}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
         </Form.Group>
 
         <Form.Group>
           <Form.Label htmlFor="password">Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Your password"
-            name="password"
-            onChange={handleInputChange}
-            value={userFormData.password}
-            required
-          />
-          <Form.Control.Feedback type="invalid">
-            Password is required!
-          </Form.Control.Feedback>
+          <div className="bg-gray-100 w-100 p-2 flex items-center ">
+            <MdLockOutline className={MdLockOutlineSate} />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              onChange={handleInputChange}
+              value={userFormData.password}
+              required
+              className="bg-gray-100 outline-none text-sm flex-1"
+            />
+          </div>
         </Form.Group>
-        <Button
-          disabled={
-            !(
-              userFormData.username &&
-              userFormData.email &&
-              userFormData.password
-            )
-          }
+        <button
+          disabled={!(userFormData.email && userFormData.password)}
           type="submit"
           variant="success"
+          className="border-2 w-100  rounded-full  border-green-500 px-12 py-2 inline-block mt-12 font-semibold text hover:bg-green-500 hover:text-white text-decoration-none"
         >
           Submit
-        </Button>
+        </button>
       </Form>
     </>
   );
