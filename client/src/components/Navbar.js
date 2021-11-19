@@ -6,6 +6,8 @@ import LoginForm from "./LoginForm";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import "./style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IoPersonSharp } from "react-icons/io5";
+
 import logo from "./logo200.png";
 import Auth from "../utils/auth";
 const AppNavbar = () => {
@@ -64,10 +66,14 @@ const AppNavbar = () => {
             <Modal.Title id="signup-modal">
               <Nav variant="pills">
                 <Nav.Item>
-                  <Nav.Link eventKey="login">Login</Nav.Link>
+                  <Nav.Link className="btn " eventKey="login">
+                    Login
+                  </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey="signup">Sign Up</Nav.Link>
+                  <Nav.Link className="btn" eventKey="signup">
+                    Sign Up
+                  </Nav.Link>
                 </Nav.Item>
               </Nav>
             </Modal.Title>
