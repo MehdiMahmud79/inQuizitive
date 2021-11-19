@@ -91,6 +91,7 @@ const LoginForm = () => {
           disabled={!(userFormData.email && userFormData.password)}
           type="submit"
           variant="success"
+          className="mt-2 w-100"
         >
           Submit
         </Button>

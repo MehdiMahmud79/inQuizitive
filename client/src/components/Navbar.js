@@ -5,11 +5,9 @@ import SignUpForm from "./SignupForm";
 import LoginForm from "./LoginForm";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import "./style.css";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import logo from "./logo200.png";
 import Auth from "../utils/auth";
-
 const AppNavbar = () => {
   // set modal display state
   const [showModal, setShowModal] = useState(false);
@@ -17,18 +15,28 @@ const AppNavbar = () => {
     <>
       <Navbar className="navbar" expand="lg">
         <Container fluid>
-          <Navbar.Brand as={Link} to="/"></Navbar.Brand>
+          <Navbar.Brand as={Link} to="/">
+            {" "}
+            <img src={logo} className="logo" alt="logo" />
+          </Navbar.Brand>
 
           <Navbar.Toggle aria-controls="navbar" />
           <Navbar.Collapse id="navbar">
             <Nav className="ml-auto">
+              <Nav.Link
+                className="text-gray-100 hover:text-white"
+                as={Link}
+                to="/"
+              >
+                Profile
+              </Nav.Link>
               <Nav.Link as={Link} to="/">
-                Search For quiz
+                Progress
               </Nav.Link>
               {/* if user is logged in show saved books and logout */}
               {Auth.loggedIn() ? (
                 <>
-                  <Nav.Link as={Link} to="/saved">
+                  <Nav.Link as={Link} to="/quizes">
                     See Your quizzes
                   </Nav.Link>
                   <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
