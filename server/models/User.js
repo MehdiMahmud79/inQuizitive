@@ -21,7 +21,7 @@ const userSchema = new Schema(
       required: true,
     },
     // set an avatar
-    password: {
+    avatar: {
       type: String,
       required: false,
     },
