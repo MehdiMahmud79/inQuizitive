@@ -11,11 +11,10 @@ import SignUpT from "./components/SignupForm";
 
 function App() {
   return (
-    <ApolloProvider client={client}>
-     <Router>
+    <Router>
       <Navbar />
       <SignupForm />
-       <QuizSearchForm />
+      <QuizSearchForm />
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/login" element={<LoginForm />} />
@@ -24,7 +23,6 @@ function App() {
         <Route render={() => <h1 className="display-2">Wrong page!</h1>} />
       </Routes>
     </Router>
-</ApolloProvider>
   );
 }
 export default App;
