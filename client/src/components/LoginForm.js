@@ -3,9 +3,12 @@ import { Form, Alert } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 import { FaRegEnvelope } from "react-icons/fa";
 import { MdLockOutline } from "react-icons/md";
-import { loginUserMutation } from "../utils/queries";
+
 import Auth from "../utils/auth";
+
+import { loginUserMutation } from "../utils/queries";
 import { setStyle } from "../utils/validate";
+
 const LoginForm = () => {
   const [userFormData, setUserFormData] = useState({
     email: "",

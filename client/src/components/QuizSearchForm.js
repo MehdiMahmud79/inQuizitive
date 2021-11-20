@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
-import { searchQuiz } from '../utils/trivaApi'
-import { categoryOptions, difficultyOptions, typeOptions } from '../utils/valuesForQuizForm';
 import { Alert } from "react-bootstrap";
+import { useMutation } from "@apollo/client";
+
+import AddedQuiz from './AddedQuiz';
+
+import { addQuizMutation } from "../utils/queries";
+
+import { categoryOptions, difficultyOptions, typeOptions } from '../utils/valuesForQuizForm';
+import { searchQuiz } from '../utils/trivaApi'
+
 
 const amountOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
@@ -16,11 +23,12 @@ function QuizSearchForm(props) {
     difficulty: difficultyOptions[0].value
   });
 
+  const [addQuiz, { data }] = useMutation(addQuizMutation);
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
   };
-  const [validated] = useState(false);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -35,7 +43,12 @@ function QuizSearchForm(props) {
 
     try {
       let quizData = await searchQuiz(userFormData);
-      console.log(await quizData.json())
+      const quiz = quizData.json()
+
+      const quizId = await addQuiz({ ...quiz.questions, ...123 })
+      console.log("quiz: ", quizId)
+      console.log("data: ", data)
+      return <AddedQuiz quizId={data} />
     } catch (err) {
       console.error(err);
       setShowAlert(true);
@@ -45,7 +58,7 @@ function QuizSearchForm(props) {
   };
   return (
     <>
-      <form noValidate validated={validated} onSubmit={handleFormSubmit}>
+      <form onSubmit={handleFormSubmit}>
         <Alert
           dismissible
           onClose={() => setShowAlert(false)}

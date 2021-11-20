@@ -39,3 +39,10 @@ export const loginUserMutation = gql`
     }
   }
 `;
+export const addQuizMutation = gql`
+  mutation addQuiz($questions: [String]!, $user_id: Integer!) {
+    addQuiz(questions: $questions, user_id: $user_id) {
+      _id
+    }
+  }
+`;

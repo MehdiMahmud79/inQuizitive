@@ -1,5 +1,5 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User } = require("../models");
+const { User, Quiz } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
@@ -38,6 +38,10 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
+
+    addQuiz: async (parent, { questions, user_id }) => {
+      return await Quiz.create({ questions, user_id })
+    }
   },
 };
 
