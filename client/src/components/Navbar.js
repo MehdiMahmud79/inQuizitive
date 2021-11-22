@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Navbar, Nav, Container, Modal, Tab } from "react-bootstrap";
 import SignUpForm from "./SignupForm";
-import LoginForm from "./LoginForm";
+
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import "./style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,7 +19,7 @@ const AppNavbar = () => {
         <Container fluid>
           <Navbar.Brand as={Link} to="/">
             {" "}
-            <img src={logo} className="logo" alt="logo" />
+            <img src={logo} className="w-50" alt="logo" />
           </Navbar.Brand>
 
           <Navbar.Toggle aria-controls="navbar" />
@@ -60,11 +60,11 @@ const AppNavbar = () => {
         onHide={() => setShowModal(false)}
         aria-labelledby="signup-modal"
       >
-        {/* tab container to do either signup or login component */}
+        <img src={logo} className="w-20 mx-auto w-25" alt="logo" />
         <Tab.Container defaultActiveKey="login">
           <Modal.Header closeButton>
             <Modal.Title id="signup-modal">
-              <Nav variant="pills">
+              <Nav variant="tabs">
                 <Nav.Item>
                   <Nav.Link className="btn " eventKey="login">
                     Login
@@ -82,10 +82,16 @@ const AppNavbar = () => {
           <Modal.Body>
             <Tab.Content>
               <Tab.Pane eventKey="login">
-                <LoginForm handleModalClose={() => setShowModal(false)} />
+                <SignUpForm
+                  signUp={false}
+                  handleModalClose={() => setShowModal(false)}
+                />
               </Tab.Pane>
               <Tab.Pane eventKey="signup">
-                <SignUpForm handleModalClose={() => setShowModal(false)} />
+                <SignUpForm
+                  signUp={true}
+                  handleModalClose={() => setShowModal(false)}
+                />
               </Tab.Pane>
             </Tab.Content>
           </Modal.Body>
