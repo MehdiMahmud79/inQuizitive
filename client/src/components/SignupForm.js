@@ -65,9 +65,15 @@ const SignupForm = ({ signUp }) => {
   };
 
   const handleFormSubmit = async (event) => {
+    
     event.preventDefault();
     try {
       if (signUp) {
+        if (userFormData.password != userFormData.password2) {
+          setShowAlert(true);
+          setError("passwords should match!");
+          return;
+        }
         await createUser({ variables: { ...userFormData } });
         Error = signUpError.message;
       } else {
