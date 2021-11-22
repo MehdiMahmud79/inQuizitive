@@ -70,9 +70,16 @@ const SignupForm = ({ signUp }) => {
       if (signUp) {
         await createUser({ variables: { ...userFormData } });
         setError(signUpError.message);
+        setShowAlert(true);
       } else {
-        await loginUser({ variables: { ...userFormData } });
+        await loginUser({
+          variables: {
+            email: userFormData.email,
+            password: userFormData.password,
+          },
+        });
         setError(loginError.message);
+        setShowAlert(true);
       }
 
       setUserFormData({
@@ -83,6 +90,8 @@ const SignupForm = ({ signUp }) => {
       });
     } catch (err) {
       setShowAlert(true);
+        if (!signUp)setError(loginError.message);
+       if (signUp) setError(signUpError.message);
 
       console.log(err);
     }
