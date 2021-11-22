@@ -19,7 +19,12 @@ const typeDefs = gql`
 
   type Mutation {
     login(email: String!, password: String!): Token
-    signUp(username: String!, email: String!, password: String!): Token
+    signUp(
+      username: String!
+      email: String!
+      password: String!
+      password2: String!
+    ): Token
   }
 `;
 

@@ -69,8 +69,7 @@ const SignupForm = ({ signUp }) => {
     try {
       if (signUp) {
         await createUser({ variables: { ...userFormData } });
-        setError(signUpError.message);
-        setShowAlert(true);
+        Error = signUpError.message;
       } else {
         await loginUser({
           variables: {
@@ -78,8 +77,7 @@ const SignupForm = ({ signUp }) => {
             password: userFormData.password,
           },
         });
-        setError(loginError.message);
-        setShowAlert(true);
+        Error = loginError.message;
       }
 
       setUserFormData({
@@ -90,10 +88,9 @@ const SignupForm = ({ signUp }) => {
       });
     } catch (err) {
       setShowAlert(true);
-        if (!signUp)setError(loginError.message);
-       if (signUp) setError(signUpError.message);
 
-      console.log(err);
+      setError(err.message);
+      console.log(err.message);
     }
   };
 
@@ -102,18 +99,16 @@ const SignupForm = ({ signUp }) => {
       {/* This is needed for the validation functionality above */}
       <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
         {/* show alert if server response is bad */}
-        {errorMessage ? (
-          <Alert
-            variant="danger"
-            dismissible
-            onClose={() => setShowAlert(false)}
-            show={showAlert}
-          >
-            {errorMessage}
-          </Alert>
-        ) : (
-          ""
-        )}
+
+        <Alert
+          variant="danger"
+          dismissible
+          onClose={() => setShowAlert(false)}
+          show={showAlert}
+        >
+          {errorMessage}
+        </Alert>
+
         {signUp ? (
           <Form.Group>
             <Form.Label htmlFor="username">Username</Form.Label>
