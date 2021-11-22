@@ -39,10 +39,30 @@ const resolvers = {
       return { token, user };
     },
 
-    addQuiz: async (parent, { questions, user_id }) => {
-      return await Quiz.create({ questions, user_id })
-    }
-  },
-};
+    addQuiz: async (parent, _, { user = { _id: "Anon" } }) => {
+      // if (user) {
 
+      return await Quiz.create({ user_id: user._id });
+      // } else {
+      //   return "Not added";
+
+    },
+    addQuiz2: async (parent, _, { questions }, { user }) => {
+      // if (user) {
+
+      return await Quiz.create({ user_id: user._id, questions: questions });
+      // } else {
+      //   return "Not added";
+
+    },
+
+    populateQuizWithQuestions: async (parent, { question, quiz_id }, context) => {
+      return await Quiz.findOneAndUpdate(
+        { _id: quiz_id },
+        { $addToSet: { questions: question } },
+        { new: true, runValidators: true }
+      );
+    }
+  }
+}
 module.exports = resolvers;

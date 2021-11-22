@@ -1,23 +1,9 @@
 const { Schema, model } = require("mongoose");
-
+const questionSchema = require("./questionSchema")
 const quizSchema = new Schema(
     {
-
-        questions: [{
-            question: String,
-            correct_answer: String,
-            incorrect_answers: [String],
-            category: String,
-            type: String,
-            difficulty: String,
-        }],
-
-        user_id: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: 'User'
-            }
-        ]
+        questions: [questionSchema],
+        user_id: String
     },
     // set this to use virtual below
     {
@@ -26,8 +12,6 @@ const quizSchema = new Schema(
         },
     }
 );
-
-
 
 const Quiz = model("Quiz", quizSchema);
 

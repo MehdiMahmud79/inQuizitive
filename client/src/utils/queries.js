@@ -40,9 +40,34 @@ export const loginUserMutation = gql`
   }
 `;
 export const addQuizMutation = gql`
-  mutation addQuiz($questions: [String]!, $user_id: Integer!) {
-    addQuiz(questions: $questions, user_id: $user_id) {
-      _id
+mutation addQuiz{
+  addQuiz(
+    questions: []
+  )
+  {
+    _id
+    questions {
+      question
+    }
+  }
+}
+`;
+
+export const populateQuizWithQuestionsMutation = gql`
+mutation populateQuizWithQuestions($question: String!, $correct_answer: String!, $incorrect_answers: [String!], $category: String!, $type: String!, $difficulty: String!, $quiz_id: String!){
+  populateQuizWithQuestions(
+    question: 
+      {
+      question:$question,
+      correct_answer: $correct_answer,
+      incorrect_answers: $incorrect_answers,
+      category: $category,
+      type: $type,
+      difficulty: $difficulty
+      },
+      quiz_id : $quiz_id
+  ){
+      user_id
     }
   }
 `;

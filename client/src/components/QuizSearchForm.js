@@ -4,7 +4,7 @@ import { useMutation } from "@apollo/client";
 
 import AddedQuiz from './AddedQuiz';
 
-import { addQuizMutation } from "../utils/queries";
+import { addQuizMutation, populateQuizWithQuestionsMutation } from "../utils/queries";
 
 import { categoryOptions, difficultyOptions, typeOptions } from '../utils/valuesForQuizForm';
 import { searchQuiz } from '../utils/trivaApi'
@@ -23,7 +23,8 @@ function QuizSearchForm(props) {
     difficulty: difficultyOptions[0].value
   });
 
-  const [addQuiz, { data }] = useMutation(addQuizMutation);
+  const [addQuiz, { data: quizData }] = useMutation(addQuizMutation);
+  const [populateQuizWithQuestions, { data: questionData }] = useMutation(populateQuizWithQuestionsMutation);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -34,21 +35,30 @@ function QuizSearchForm(props) {
     event.preventDefault();
 
     // check if form has everything (as per react-bootstrap docs)
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
 
-    }
+
+    event.preventDefault();
+    event.stopPropagation();
+
 
     try {
-      let quizData = await searchQuiz(userFormData);
-      const quiz = quizData.json()
 
-      const quizId = await addQuiz({ ...quiz.questions, ...123 })
+      const { results } = await searchQuiz(userFormData)
+
+      const quizId = await addQuiz([])
+      results.map(async (currentQuestion) => {
+        console.log("CATEGORY ", currentQuestion)
+
+        return await populateQuizWithQuestions({ question: { ...currentQuestion }, quiz_id: quizId })
+      })
+
+
       console.log("quiz: ", quizId)
-      console.log("data: ", data)
-      return <AddedQuiz quizId={data} />
+      console.log("data: ", quizData)
+      console.log("data: ", questionData)
+      return <AddedQuiz quizId={quizData} />
+
+
     } catch (err) {
       console.error(err);
       setShowAlert(true);
@@ -76,19 +86,19 @@ function QuizSearchForm(props) {
 
         <label>Select category: </label>
         <select value={userFormData.category.label} name="category" onChange={handleInputChange}>
-          {categoryOptions.map(({ value, label }) => <option value={value}>{label}</option>)}
+          {categoryOptions.map(({ value, label }) => <option key={label} value={value}>{label}</option>)}
         </select>
         <br />
 
         <label>Difficulty: </label>
         <select value={userFormData.difficulty.label} name="difficulty" onChange={handleInputChange}>
-          {difficultyOptions.map(({ value, label }) => <option value={value}>{label}</option>)}
+          {difficultyOptions.map(({ value, label }) => <option key={label} value={value}>{label}</option>)}
         </select>
         <br />
 
         <label>Type of question: </label>
         <select value={userFormData.type.label} name="type" onChange={handleInputChange}>
-          {typeOptions.map(({ value, label }) => <option value={value}>{label}</option>)}
+          {typeOptions.map(({ value, label }) => <option key={label} value={value}>{label}</option>)}
         </select>
         <br />
 

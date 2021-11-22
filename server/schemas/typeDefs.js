@@ -14,18 +14,27 @@ const typeDefs = gql`
     user: User!
   }
 
-  type Question {
+  input Question {
     question: String!,
     correct_answer: String!,
-    incorrect_answers: String[]!,
+    incorrect_answers: [String!],
     category: String!,
     type: String!,
     difficulty: String!
   }
 
+  type savedQuestion {
+    question: String!,
+    correct_answer: String!,
+    incorrect_answers: [String!],
+    category: String!,
+    type: String!,
+    difficulty: String!
+  }
   type Quiz {
-    _id: ID!,
-    question: Question!
+    _id:ID!,
+    user_id: String!,
+    questions: [savedQuestion!]
   }
   
   type Query {
@@ -35,7 +44,9 @@ const typeDefs = gql`
   type Mutation {
     login(email: String!, password: String!): Token
     signUp(username: String!, email: String!, password: String!): Token
-    addQuiz(userId: Interger, question: Question!): ID
+    addQuiz(questions: [String]): Quiz
+    addQuiz2(questions: [Question!]): Quiz
+    populateQuizWithQuestions(question: Question!, quiz_id: String!): Quiz
   }
 `;
 
