@@ -15,6 +15,7 @@ const SignupForm = () => {
     username: "",
     email: "",
     password: "",
+    password2: "",
   });
 
   const [FaRegEnvelopeState, setFaRegEnvelopeState] =
@@ -59,6 +60,7 @@ const SignupForm = () => {
       username: "",
       email: "",
       password: "",
+      password2: "",
     });
   };
 
@@ -118,6 +120,21 @@ const SignupForm = () => {
               placeholder="Password"
               onChange={handleInputChange}
               value={userFormData.password}
+              required
+              className="bg-gray-100 outline-none text-sm flex-1"
+            />
+          </div>
+        </Form.Group>
+        <Form.Group>
+          <Form.Label htmlFor="password2">Repeat Password</Form.Label>
+          <div className="bg-gray-100 w-100 p-2 flex items-center ">
+            <MdLockOutline className={MdLockOutlineSate} />
+            <input
+              type="password"
+              name="password2"
+              placeholder="Repeat Password"
+              onChange={handleInputChange}
+              value={userFormData.password2}
               required
               className="bg-gray-100 outline-none text-sm flex-1"
             />
