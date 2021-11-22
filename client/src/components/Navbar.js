@@ -82,10 +82,16 @@ const AppNavbar = () => {
           <Modal.Body>
             <Tab.Content>
               <Tab.Pane eventKey="login">
-                <SignUpForm handleModalClose={() => setShowModal(false)} />
+                <SignUpForm
+                  signUp={false}
+                  handleModalClose={() => setShowModal(false)}
+                />
               </Tab.Pane>
               <Tab.Pane eventKey="signup">
-                <SignUpForm handleModalClose={() => setShowModal(false)} />
+                <SignUpForm
+                  signUp={true}
+                  handleModalClose={() => setShowModal(false)}
+                />
               </Tab.Pane>
             </Tab.Content>
           </Modal.Body>

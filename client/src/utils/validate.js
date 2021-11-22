@@ -26,6 +26,15 @@ export const setStyle = (name, value, callback) => {
         }
       }
       break;
+    case "password2":
+      if (value) {
+        if (value.length >= 6) {
+          return callback("text-green-600 m-2");
+        } else {
+          return callback("text-red-600 m-2");
+        }
+      }
+      break;
     case "username":
       if (value) {
         if (value.length > 2) {
