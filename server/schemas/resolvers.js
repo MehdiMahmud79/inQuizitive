@@ -4,12 +4,13 @@ const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
-    getUser: async (parent, args, context) => {
-      console.log("getUser", context.user);
-      // if (context) {
-      return User.findOne({ _id: context.user._id });
-      // }
-      throw new AuthenticationError("login first!");
+    getUser: async (parent, args, { user }) => {
+      console.log("getUser");
+      if (user) {
+        return User.findOne({ _id: user._id });
+      } else {
+        throw new AuthenticationError("login first!");
+      }
     },
   },
 
@@ -54,7 +55,7 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    addQuiz: async (parent, { title, questions }, context) => {
+    addQuiz: async (parent, { title, questions }, { user }) => {
       console.log("title", title);
       // console.log("user", context);
       if (user) {
