@@ -8,7 +8,7 @@ import "./style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IoPersonSharp } from "react-icons/io5";
 
-import logo from "./logo200.png";
+import logo from "../images/logo200.png";
 import Auth from "../utils/auth";
 const AppNavbar = () => {
   // set modal display state

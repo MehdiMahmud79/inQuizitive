@@ -11,6 +11,7 @@ import { setStyle } from "../utils/validate";
 import { FaRegEnvelope } from "react-icons/fa";
 import { MdLockOutline } from "react-icons/md";
 import { FaUserAlt } from "react-icons/fa";
+import Avatars from "../utils/avatars";
 
 const SignupForm = ({ signUp }) => {
   // set initial form state
@@ -118,6 +119,26 @@ const SignupForm = ({ signUp }) => {
 
         {signUp ? (
           <Form.Group>
+            <label className="block text-left m-2" htmlFor="avatar">
+              <span className="text-gray-700">Select an Avatar: </span>
+
+              <select
+                className="form-select block w-full mt-1"
+                value={Avatars.avatarData[0].image}
+                name="avatar"
+                onChange={handleInputChange}
+              >
+                <option>{Avatars.avatarData[0].image}</option>
+                <option>{Avatars.avatarData[1].image}</option>
+                <option>{Avatars.avatarData[2].image}</option>
+                {/* {Avatars.map((image) => {
+                  <option key={image} value={image}>
+                    {image}
+                  </option>;
+                })} */}
+              </select>
+            </label>
+
             <Form.Label htmlFor="username">Username</Form.Label>
             <div className="bg-gray-100 w-100 p-2 flex items-center mb-3 ">
               <FaUserAlt className={FaUserAltSate} />
