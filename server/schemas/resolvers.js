@@ -12,6 +12,28 @@ const resolvers = {
         throw new AuthenticationError("login first!");
       }
     },
+    getQuiz: async (parent, { _id }, { user }) => {
+      console.log("get A Single Quiz for the current logged in user", _id);
+      if (user) {
+        return await Quiz.findById(_id);
+      } else {
+        throw new AuthenticationError("login first!");
+      }
+    },
+
+    getAllQuizzes: async () => {
+      console.log("get All Quizzes in the Database");
+      return await Quiz.find();
+    },
+
+    getUserQuizzes: async (parent, args, { user }) => {
+      console.log("get all Quizzes for the logged in user");
+      if (user) {
+        return await Quiz.find({ Author_id: user._id });
+      } else {
+        throw new AuthenticationError("login first!");
+      }
+    },
   },
 
   Mutation: {
@@ -71,7 +93,6 @@ const resolvers = {
         } catch (err) {
           throw new AuthenticationError(err);
         }
-
       } else {
         throw new AuthenticationError("Login first please!");
       }
