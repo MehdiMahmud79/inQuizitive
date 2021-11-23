@@ -121,7 +121,7 @@ const SignupForm = ({ signUp }) => {
             <div className="bg-gray-100 w-100 p-2 flex items-center mb-3 ">
               <FaUserAlt className={FaUserAltSate} />
               <input
-                type="test"
+                type="text"
                 name="username"
                 placeholder="User Name"
                 className="bg-gray-100 outline-none text-sm flex-1 "

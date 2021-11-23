@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Alert } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 
@@ -15,10 +15,12 @@ import { searchQuiz } from "../utils/trivaApi";
 
 const amountOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-function QuizSearchForm(props) {
+function QuizSearchForm() {
   const [showAlert, setShowAlert] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [userFormData, setUserFormData] = useState({
+    title: "",
     amount: amountOptions[0],
     category: categoryOptions[0].value,
     type: typeOptions[0].value,
@@ -26,6 +28,10 @@ function QuizSearchForm(props) {
   });
 
   const [addQuiz, { data: quizData, error }] = useMutation(addQuizMutation);
+  useEffect(() => {
+    if (!quizData) return;
+    // do st
+  }, [quizData]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -35,22 +41,21 @@ function QuizSearchForm(props) {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     // check if form has everything (as per react-bootstrap docs)
-    event.preventDefault();
     event.stopPropagation();
+    console.log("search for the quiz");
 
     try {
-      const { results } = await searchQuiz(userFormData);
+      const { results: questions } = await searchQuiz(userFormData);
+      console.log(questions);
+      const title = userFormData.title;
+      await addQuiz({ variables: { title, questions } });
 
-      const quizId = await addQuiz([]);
-      results.map(async (currentQuestion) => {
-        console.log("CATEGORY ", currentQuestion);
-      });
-
-      console.log("quiz: ", quizId);
-
-      return <AddedQuiz quizId={quizData} />;
+      // questions.map(async (currentQuestion) => {
+      //   console.log("CATEGORY ", currentQuestion);
+      // });
+      // return <AddedQuiz quizId={quizData} />;
     } catch (err) {
-      console.error(err);
+      setErrorMessage(err.message);
       setShowAlert(true);
     }
   };
@@ -63,10 +68,22 @@ function QuizSearchForm(props) {
           show={showAlert}
           variant="danger"
         >
-          Something went wrong with your quiz search!
+          {errorMessage}
         </Alert>
         <h1 className="text-green-800 m-3 text-center">Choose your Quiz</h1>
         <div className="container w-25">
+          <label className="block text-left m-2" htmlFor="amount">
+            <span className="text-gray-700">Quiz Title: </span>
+            <input
+              type="text"
+              name="title"
+              placeholder="Place the Quiz title here"
+              className="bg-gray-100 my-2 text-red-600 font-bold shadow-md rounded  py-2 px-2  flex-1 "
+              value={userFormData.title}
+              onChange={handleInputChange}
+              required
+            />
+          </label>
           <label className="block text-left m-2" htmlFor="amount">
             <span className="text-gray-700">Amount of questions: </span>
 
@@ -136,10 +153,10 @@ function QuizSearchForm(props) {
           </label>
 
           <button
-            disabled={!(userFormData.email && userFormData.password)}
+            disabled={!userFormData.title}
             type="submit"
             variant="success"
-            className="border-2 w-100  rounded-full  border-green-500 px-12 py-2 inline-block mt-2 font-semibold text hover:bg-green-500 hover:text-white text-decoration-none"
+            className="border-2 w-100 shadow-md rounded-full  border-green-500 px-12 py-2 inline-block mt-2 font-semibold text hover:bg-green-500 hover:text-white text-decoration-none"
           >
             Submit
           </button>

@@ -51,9 +51,8 @@ export const loginUserMutation = gql`
 `;
 
 export const addQuizMutation = gql`
-  mutation addQuiz {
-    addQuiz(questions: []) {
-      _id
+  mutation addQuiz($title: String!, $questions: [Question!]) {
+    addQuiz(title: $title, questions: $questions) {
       questions {
         question
       }
