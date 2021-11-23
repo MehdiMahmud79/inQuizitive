@@ -1,101 +1,134 @@
-import React, {useState} from 'react';
-import {searchQuiz} from '../utils/API'
-// import { categories as categoryOptions } from '../utils/categories';
-import { Form, Button, Alert } from "react-bootstrap";
+import React, { useState } from "react";
+import { Alert } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 
-const options = [1,2,3,4,5,6,7,8,9,10]
-// const difficultyOptions = ["easy", "medium","hard"]
-// const typeOptions = ["multiple choice", "true/false"]
+import AddedQuiz from "./AddedQuiz";
+
+import { addQuizMutation } from "../utils/queries";
+
+import {
+  categoryOptions,
+  difficultyOptions,
+  typeOptions,
+} from "../utils/valuesForQuizForm";
+import { searchQuiz } from "../utils/trivaApi";
+
+const amountOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 function QuizSearchForm(props) {
   const [showAlert, setShowAlert] = useState(false);
 
   const [userFormData, setUserFormData] = useState({
-    amount: "5",
-    category: "18",
-    type: "multiple",
-difficulty:"easy"
+    amount: amountOptions[0],
+    category: categoryOptions[0].value,
+    type: typeOptions[0].value,
+    difficulty: difficultyOptions[0].value,
   });
+
+  const [addQuiz, { data: quizData, error }] = useMutation(addQuizMutation);
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
   };
-  const [validated] = useState(false);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
     // check if form has everything (as per react-bootstrap docs)
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
+    event.preventDefault();
+    event.stopPropagation();
 
     try {
-      let quizData=  await searchQuiz(userFormData );
-      console.log(quizData)
+      const { results } = await searchQuiz(userFormData);
+
+      const quizId = await addQuiz([]);
+      results.map(async (currentQuestion) => {
+        console.log("CATEGORY ", currentQuestion);
+      });
+
+      console.log("quiz: ", quizId);
+
+      return <AddedQuiz quizId={quizData} />;
     } catch (err) {
       console.error(err);
       setShowAlert(true);
     }
-
-    setUserFormData({
-      amount: "5",
-      category: "18",
-      type: "multiple",
-  difficulty:"easy"
-    });
   };
   return (
-    <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
-          <Alert
+    <>
+      <form onSubmit={handleFormSubmit}>
+        <Alert
           dismissible
           onClose={() => setShowAlert(false)}
           show={showAlert}
           variant="danger"
         >
           Something went wrong with your quiz search!
-        </Alert>  
-        <Form.Group>
-        <Form.Label htmlFor="amount">amount of questions</Form.Label>
-        <Form.Select value="amount" name="amount" onChange={handleInputChange}>
-        {options.map((number) => <option key={number} value={number}>{number}</option>)}
-        </Form.Select>
-        </Form.Group>
-      
-
-    {/* <div >
-<h2> select category </h2>
-        <select value="category" name="category">
-        {categoryOptions.map(({id, name}) => <option value={id}>{name}</option>)}
-        </select>
-    </div>
-
-    <div >
-<h2> difficulty </h2>
-        <select value="difficulty" name="difficulty">
-        {difficultyOptions.map((difficultyoption) => <option value={difficultyoption}>{difficultyoption}</option>)}
-        </select>
-    </div>
-
-    <div >
-<h2> type of question </h2>
-        <select value="type" name="type">
-        {typeOptions.map((typeoption) => <option value={typeoption}>{typeoption}</option>)}
-        </select>
-    </div>
-       */}
-              
-        <Button
-
-          type="submit"
-          variant="success"
+        </Alert>
+        <br />
+        <br />
+        <hr />
+        <br />
+        <br />
+        <label htmlFor="amount">Amount of questions: </label>
+        <select
+          value={userFormData.amount}
+          name="amount"
+          onChange={handleInputChange}
         >
-          Submit
-        </Button>
-    </Form>
+          {amountOptions.map((number) => (
+            <option key={number} value={number}>
+              {number}
+            </option>
+          ))}
+        </select>
+        <br />
+
+        <label>Select category: </label>
+        <select
+          value={userFormData.category.label}
+          name="category"
+          onChange={handleInputChange}
+        >
+          {categoryOptions.map(({ value, label }) => (
+            <option key={label} value={value}>
+              {label}
+            </option>
+          ))}
+        </select>
+        <br />
+
+        <label>Difficulty: </label>
+        <select
+          value={userFormData.difficulty.label}
+          name="difficulty"
+          onChange={handleInputChange}
+        >
+          {difficultyOptions.map(({ value, label }) => (
+            <option key={label} value={value}>
+              {label}
+            </option>
+          ))}
+        </select>
+        <br />
+
+        <label>Type of question: </label>
+        <select
+          value={userFormData.type.label}
+          name="type"
+          onChange={handleInputChange}
+        >
+          {typeOptions.map(({ value, label }) => (
+            <option key={label} value={value}>
+              {label}
+            </option>
+          ))}
+        </select>
+        <br />
+
+        <button type="submit">Submit</button>
+      </form>
+    </>
   );
 }
 
@@ -104,7 +137,7 @@ difficulty:"easy"
 //   category:18,
 //   difficulty:"easy",
 //   type:"multiple"
-  
+
 //   }
 
 export default QuizSearchForm;

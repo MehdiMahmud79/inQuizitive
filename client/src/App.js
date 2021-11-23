@@ -1,7 +1,6 @@
 import React from 'react';
 
 import QuizSearchForm from "./components/QuizSearchForm";
-import Auth from "./utils/auth";
 
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Navbar from "./components/Navbar";

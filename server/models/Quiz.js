@@ -3,7 +3,22 @@ const questionSchema = require("./questionSchema");
 
 const quizSchema = new Schema(
   {
-    user_id: String,
+    title: {
+      type: String,
+      required: true,
+    },
+    Author_id: {
+      type: String,
+      required: true,
+    },
+    Author: {
+      type: String,
+      required: true,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
     questions: [questionSchema],
   },
   // set this to use virtual below

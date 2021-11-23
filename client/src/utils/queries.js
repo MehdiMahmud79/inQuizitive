@@ -49,3 +49,14 @@ export const loginUserMutation = gql`
     }
   }
 `;
+
+export const addQuizMutation = gql`
+  mutation addQuiz {
+    addQuiz(questions: []) {
+      _id
+      questions {
+        question
+      }
+    }
+  }
+`;

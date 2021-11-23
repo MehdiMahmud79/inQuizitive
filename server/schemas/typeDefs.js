@@ -26,7 +26,11 @@ const typeDefs = gql`
     difficulty: String!
   }
   type Quiz {
-    user_id: String!
+    _id: ID!
+    title: String!
+    Author_id: String!
+    Author: String!
+    createdAt: String!
     questions: [savedQuestion!]
   }
   type Token {
