@@ -65,7 +65,8 @@ const SignupForm = ({ signUp }) => {
   };
 
   const handleFormSubmit = async (event) => {
-    
+    setShowAlert(false);
+
     event.preventDefault();
     try {
       if (signUp) {

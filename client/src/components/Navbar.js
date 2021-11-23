@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Navbar, Nav, Container, Modal, Tab } from "react-bootstrap";
 import SignUpForm from "./SignupForm";
 
@@ -15,7 +15,7 @@ const AppNavbar = () => {
   const [showModal, setShowModal] = useState(false);
   return (
     <>
-      <Navbar className="navbar" expand="lg">
+      <Navbar className="navbar " expand="lg">
         <Container fluid>
           <Navbar.Brand as={Link} to="/">
             {" "}
@@ -25,28 +25,53 @@ const AppNavbar = () => {
           <Navbar.Toggle aria-controls="navbar" />
           <Navbar.Collapse id="navbar">
             <Nav className="ml-auto">
-              <Nav.Link
-                className="text-gray-100 hover:text-white"
+              <a
+                className="ml-2 px-2 cursor-pointer  bg-green-600 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
                 as={Link}
                 to="/"
               >
                 Profile
-              </Nav.Link>
-              <Nav.Link as={Link} to="/">
+              </a>
+              <a
+                className="ml-2 px-2 cursor-pointer  bg-green-600 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
+                as={Link}
+                to="/"
+              >
                 Progress
-              </Nav.Link>
+              </a>
               {/* if user is logged in show saved books and logout */}
               {Auth.loggedIn() ? (
                 <>
-                  <Nav.Link as={Link} to="/quizes">
+                  <Link
+                    to="/addQuiz"
+                    className="ml-2 px-2 cursor-pointer  bg-red-600 py-1  rounded-lg text-red-100 no-underline hover:bg-red-100 hover:text-red-600"
+                    onClick={Auth.logout}
+                  >
+                    add Quiz
+                  </Link>
+                  <a
+                    className="ml-2 px-2 cursor-pointer  bg-green-600 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
+                    as={Link}
+                    to="/quizes"
+                  >
                     See Your quizzes
-                  </Nav.Link>
-                  <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
+                  </a>
+                  <a
+                    as={Link}
+                    className="ml-2 px-2 cursor-pointer  bg-green-600 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
+                    onClick={Auth.logout}
+                  >
+                    Logout
+                  </a>
                 </>
               ) : (
-                <Nav.Link onClick={() => setShowModal(true)}>
+                <a
+                  as={Link}
+                  className="ml-2 px-2 cursor-pointer  bg-green-600 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
+                  onClick={() => setShowModal(true)}
+                >
                   Login/Sign Up
-                </Nav.Link>
+                </a>
               )}
             </Nav>
           </Navbar.Collapse>
