@@ -65,8 +65,9 @@ function QuizSearchForm(props) {
         >
           Something went wrong with your quiz search!
         </Alert>
-        <div className="container w-50">
-          <label className="block text-left" htmlFor="amount">
+        <h1 className="text-green-800 m-3 text-center">Choose your Quiz</h1>
+        <div className="container w-25">
+          <label className="block text-left m-2" htmlFor="amount">
             <span className="text-gray-700">Amount of questions: </span>
 
             <select
@@ -83,7 +84,7 @@ function QuizSearchForm(props) {
             </select>
           </label>
 
-          <label className="block text-left" htmlFor="category">
+          <label className="block text-left m-2" htmlFor="category">
             <span className="text-gray-700">Select category:</span>
 
             <select
@@ -100,35 +101,48 @@ function QuizSearchForm(props) {
             </select>
           </label>
 
-          <label>Difficulty: </label>
-          <select
-            value={userFormData.difficulty.label}
-            name="difficulty"
-            onChange={handleInputChange}
-          >
-            {difficultyOptions.map(({ value, label }) => (
-              <option key={label} value={value}>
-                {label}
-              </option>
-            ))}
-          </select>
-          <br />
+          <label className="block text-left m-2" htmlFor="category">
+            <span className="text-gray-700">Difficulty:</span>
 
-          <label>Type of question: </label>
-          <select
-            value={userFormData.type.label}
-            name="type"
-            onChange={handleInputChange}
-          >
-            {typeOptions.map(({ value, label }) => (
-              <option key={label} value={value}>
-                {label}
-              </option>
-            ))}
-          </select>
-          <br />
+            <select
+              className="form-select block w-full mt-1"
+              value={userFormData.difficulty.label}
+              name="difficulty"
+              onChange={handleInputChange}
+            >
+              {difficultyOptions.map(({ value, label }) => (
+                <option key={label} value={value}>
+                  {label}
+                </option>
+              ))}
+            </select>
+          </label>
 
-          <button type="submit">Submit</button>
+          <label className="block text-left m-2" htmlFor="category">
+            <span className="text-gray-700">Type of question:</span>
+
+            <select
+              className="form-select block w-full mt-1"
+              value={userFormData.type.label}
+              name="type"
+              onChange={handleInputChange}
+            >
+              {typeOptions.map(({ value, label }) => (
+                <option key={label} value={value}>
+                  {label}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <button
+            disabled={!(userFormData.email && userFormData.password)}
+            type="submit"
+            variant="success"
+            className="border-2 w-100  rounded-full  border-green-500 px-12 py-2 inline-block mt-2 font-semibold text hover:bg-green-500 hover:text-white text-decoration-none"
+          >
+            Submit
+          </button>
         </div>
       </form>
     </>

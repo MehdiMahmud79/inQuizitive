@@ -4,12 +4,10 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
-import AddQuiz from "./components/AddQuiz";
 function App() {
   return (
     <Router>
       <Navbar />
-      <AddQuiz />
 
       <Routes>
         <Route exact path="/" element={<Home />} />
