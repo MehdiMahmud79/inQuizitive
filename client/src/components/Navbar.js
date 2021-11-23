@@ -15,18 +15,24 @@ const AppNavbar = () => {
   const [showModal, setShowModal] = useState(false);
   return (
     <>
-      <Navbar className="navbar " expand="lg">
-        <Container fluid>
+      <Navbar
+        expand="lg"
+        className="bg-gradient-to-r from-purple-100 to-purple-900"
+      >
+        <Container
+          fluid
+          className="bg-gradient-to-r from-purple-100 to-purple-900"
+        >
           <Navbar.Brand as={Link} to="/">
             {" "}
-            <img src={logo} className="w-50" alt="logo" />
+            <img src={logo} className="w-75" alt="logo" />
           </Navbar.Brand>
 
           <Navbar.Toggle aria-controls="navbar" />
           <Navbar.Collapse id="navbar">
             <Nav className="ml-auto">
               <a
-                className="ml-2 px-2 cursor-pointer  bg-green-600 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
+                className="ml-2  px-2 cursor-pointer  bg-green-600 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
                 as={Link}
                 to="/"
               >
@@ -45,7 +51,6 @@ const AppNavbar = () => {
                   <Link
                     to="/addQuiz"
                     className="ml-2 px-2 cursor-pointer  bg-red-600 py-1  rounded-lg text-red-100 no-underline hover:bg-red-100 hover:text-red-600"
-                    onClick={Auth.logout}
                   >
                     add Quiz
                   </Link>
@@ -85,7 +90,7 @@ const AppNavbar = () => {
         onHide={() => setShowModal(false)}
         aria-labelledby="signup-modal"
       >
-        <img src={logo} className="w-20 mx-auto w-25" alt="logo" />
+        <img src={logo} href="/" className="w-20 mx-auto w-25" alt="logo" />
         <Tab.Container defaultActiveKey="login">
           <Modal.Header closeButton>
             <Modal.Title id="signup-modal">

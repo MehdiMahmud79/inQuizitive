@@ -2,7 +2,7 @@
     Transform:scale(1.01);
 }
 .navbar{
-    background-color: rgb(94, 94, 253);
+    padding:0;
 }
 .logo{
     width: 100px;
