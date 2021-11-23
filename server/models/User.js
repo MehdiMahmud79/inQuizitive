@@ -26,6 +26,11 @@ const userSchema = new Schema(
       required: true,
       minlength: 6,
     },
+    // avatar: {
+    //   type: String,
+    //   required: true,
+    //   trim: true,
+    // },
   },
 
   // set this to use virtual below

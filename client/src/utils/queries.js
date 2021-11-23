@@ -22,7 +22,6 @@ export const getSingleQuiz = gql`
       created_at
       scores
       questions {
-        _id
         question
         correct_answer
         incorrect_answers
@@ -43,7 +42,6 @@ export const getAllQuizzes = gql`
       created_at
       scores
       questions {
-        _id
         question
         correct_answer
         incorrect_answers
@@ -65,7 +63,6 @@ export const getUserQuizzes = gql`
       created_at
       scores
       questions {
-        _id
         question
         correct_answer
         incorrect_answers
@@ -119,11 +116,40 @@ export const addQuizMutation = gql`
   mutation addQuiz($title: String!, $questions: [Question!]) {
     addQuiz(title: $title, questions: $questions) {
       _id
-      Author_id
-      Author
+      title
+      author_id
+      author
+      created_at
       questions {
         question
+        correct_answer
+        incorrect_answers
+        category
+        type
+        difficulty
       }
+      scores
+    }
+  }
+`;
+
+export const AddScoreToQuizMutation = gql`
+  mutation AddScoreToQuiz($id: ID!, $score: String!) {
+    AddScoreToQuiz(_id: $id, score: $score) {
+      _id
+      title
+      author_id
+      author
+      created_at
+      questions {
+        question
+        correct_answer
+        incorrect_answers
+        category
+        type
+        difficulty
+      }
+      scores
     }
   }
 `;

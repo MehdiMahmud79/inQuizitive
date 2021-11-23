@@ -24,6 +24,7 @@ const typeDefs = gql`
     author: String!
     created_at: String!
     questions: [savedQuestion!]
+    scores: [String]
   }
 
   type Token {
@@ -53,6 +54,7 @@ const typeDefs = gql`
       password2: String!
     ): Token
     addQuiz(title: String!, questions: [Question!]): Quiz!
+    AddScoreToQuiz(_id: ID!, score: String!): Quiz!
   }
 `;
 

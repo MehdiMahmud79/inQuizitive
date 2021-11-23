@@ -84,12 +84,29 @@ const resolvers = {
         const myquestions = JSON.parse(JSON.stringify(questions, null, 2));
         try {
           const newQuiz = await Quiz.create({
-            Author_id: user._id,
-            Author: user.username,
+            author_id: user._id,
+            author: user.username,
             title: title,
             questions: myquestions,
           });
           return newQuiz;
+        } catch (err) {
+          throw new AuthenticationError(err);
+        }
+      } else {
+        throw new AuthenticationError("Login first please!");
+      }
+    },
+    AddScoreToQuiz: async (parent, { _id, score }, { user }) => {
+      console.log("add score to a quiz");
+      // console.log("user", context);
+      if (user) {
+        try {
+          const updatedQuiz = await Quiz.findByIdAndUpdate(_id, {
+            $push: { scores: score },
+          });
+
+          return updatedQuiz;
         } catch (err) {
           throw new AuthenticationError(err);
         }
