@@ -20,6 +20,7 @@ const quizSchema = new Schema(
       default: Date.now,
     },
     questions: [questionSchema],
+    scores: [Number],
   },
   // set this to use virtual below
   {

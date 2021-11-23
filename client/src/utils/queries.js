@@ -13,68 +13,68 @@ export const getUser = gql`
 `;
 
 export const getSingleQuiz = gql`
-  query getQuiz{
+  query getQuiz {
     getQuiz(_id: ID) {
+      _id
+      title
+      author_id
+      author
+      created_at
+      scores
+      questions {
         _id
-        title
-        author_id
-        author
-        created_at
-        questions{
-          _id
-          question
-          correct_answer
-          incorrect_answers
-          category
-          type
-          difficulty
-        }
+        question
+        correct_answer
+        incorrect_answers
+        category
+        type
+        difficulty
+      }
     }
   }
-  
 `;
 export const getAllQuizzes = gql`
-  query{
-    getAllQuizzes{
+  query {
+    getAllQuizzes {
+      _id
+      title
+      author_id
+      author
+      created_at
+      scores
+      questions {
         _id
-        title
-        author_id
-        author
-        created_at
-        questions{
-          _id
-          question
-          correct_answer
-          incorrect_answers
-          category
-          type
-          difficulty
-        }
+        question
+        correct_answer
+        incorrect_answers
+        category
+        type
+        difficulty
+      }
     }
   }
-  
 `;
 
 export const getUserQuizzes = gql`
-  query{
-    getUserQuizzes{
+  query {
+    getUserQuizzes {
+      _id
+      title
+      author_id
+      author
+      created_at
+      scores
+      questions {
         _id
-        title
-        author_id
-        author
-        created_at
-        questions{
-          _id
-          question
-          correct_answer
-          incorrect_answers
-          category
-          type
-          difficulty
-        }
+        question
+        correct_answer
+        incorrect_answers
+        category
+        type
+        difficulty
+      }
     }
   }
-  
 `;
 
 // Graphql Mutations
