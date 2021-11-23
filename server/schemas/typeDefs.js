@@ -9,6 +9,26 @@ const typeDefs = gql`
     image: String
   }
 
+  input Question {
+    question: String!
+    correct_answer: String!
+    incorrect_answers: [String!]
+    category: String!
+    type: String!
+    difficulty: String!
+  }
+  type savedQuestion {
+    question: String!
+    correct_answer: String!
+    incorrect_answers: [String!]
+    category: String!
+    type: String!
+    difficulty: String!
+  }
+  type Quiz {
+    user_id: String!
+    questions: [savedQuestion!]
+  }
   type Token {
     token: String!
     user: User!
@@ -25,6 +45,7 @@ const typeDefs = gql`
       password: String!
       password2: String!
     ): Token
+    addQuiz(questions: [Question!]): Quiz
   }
 `;
 
