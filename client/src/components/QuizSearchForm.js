@@ -48,10 +48,10 @@ function QuizSearchForm() {
       const { results: questions } = await searchQuiz(userFormData);
       console.log(questions);
       const title = userFormData.title;
-      const quizDATA = await addQuiz({ variables: { title, questions } });
-
+      const { data } = await addQuiz({ variables: { title, questions } });
+      const quiz_id = data.addQuiz._id;
       // questions.map(async (currentQuestion) => {
-      console.log("quizDATA ", quizDATA);
+      console.log("quizDATA_id ", quiz_id);
       // });
       // return <AddedQuiz quizId={quizData} />;
     } catch (err) {
