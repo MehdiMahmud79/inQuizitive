@@ -25,6 +25,7 @@ const typeDefs = gql`
     createdAt: String!
     questions: [savedQuestion!]
   }
+
   type Token {
     token: String!
     user: User!
@@ -48,7 +49,7 @@ const typeDefs = gql`
       password: String!
       password2: String!
     ): Token
-    addQuiz(title: String!, questions: [Question!]): Quiz
+    addQuiz(title: String!, questions: [Question!]): Quiz!
   }
 `;
 

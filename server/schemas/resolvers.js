@@ -61,15 +61,17 @@ const resolvers = {
       if (user) {
         const myquestions = JSON.parse(JSON.stringify(questions, null, 2));
         try {
-          return await Quiz.create({
+          const newQuiz = await Quiz.create({
             Author_id: user._id,
             Author: user.username,
             title: title,
             questions: myquestions,
           });
+          return newQuiz;
         } catch (err) {
           throw new AuthenticationError(err);
         }
+
       } else {
         throw new AuthenticationError("Login first please!");
       }
