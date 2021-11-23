@@ -2,6 +2,7 @@ const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
   input Question {
+    _id: ID!
     question: String!
     correct_answer: String!
     incorrect_answers: [String!]
@@ -10,6 +11,7 @@ const typeDefs = gql`
     difficulty: String!
   }
   type savedQuestion {
+    _id: ID!
     question: String!
     correct_answer: String!
     incorrect_answers: [String!]
