@@ -49,3 +49,16 @@ export const loginUserMutation = gql`
     }
   }
 `;
+
+export const addQuizMutation = gql`
+  mutation addQuiz($title: String!, $questions: [Question!]) {
+    addQuiz(title: $title, questions: $questions) {
+      _id
+      Author_id
+      Author
+      questions {
+        question
+      }
+    }
+  }
+`;

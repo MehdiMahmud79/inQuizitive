@@ -9,23 +9,25 @@ const userSchema = new Schema(
       type: String,
       required: true,
       unique: true,
+      trim: true,
     },
     email: {
       type: String,
       required: true,
       unique: true,
-      match: [/.+@.+\..+/, "Must use a valid email address"],
+      trim: true,
+      match: [
+        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        "Must use a valid email address",
+      ],
     },
     password: {
       type: String,
       required: true,
-    },
-    // set an avatar
-    password: {
-      type: String,
-      required: false,
+      minlength: 6,
     },
   },
+
   // set this to use virtual below
   {
     toJSON: {

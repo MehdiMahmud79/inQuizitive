@@ -1,14 +1,16 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User } = require("../models");
+const { User, Quiz } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
     getUser: async (parent, args, { user }) => {
+      console.log("getUser");
       if (user) {
         return User.findOne({ _id: user._id });
+      } else {
+        throw new AuthenticationError("login first!");
       }
-      throw new AuthenticationError("login first!");
     },
   },
 
@@ -52,6 +54,27 @@ const resolvers = {
 
       const token = signToken(user);
       return { token, user };
+    },
+    addQuiz: async (parent, { title, questions }, { user }) => {
+      console.log("title", title);
+      // console.log("user", context);
+      if (user) {
+        const myquestions = JSON.parse(JSON.stringify(questions, null, 2));
+        try {
+          const newQuiz = await Quiz.create({
+            Author_id: user._id,
+            Author: user.username,
+            title: title,
+            questions: myquestions,
+          });
+          return newQuiz;
+        } catch (err) {
+          throw new AuthenticationError(err);
+        }
+
+      } else {
+        throw new AuthenticationError("Login first please!");
+      }
     },
   },
 };
