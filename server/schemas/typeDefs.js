@@ -49,7 +49,7 @@ const typeDefs = gql`
       password: String!
       password2: String!
     ): Token
-    addQuiz(questions: [Question!]): Quiz
+    addQuiz(title: String!, questions: [Question!]): Quiz
   }
 `;
 

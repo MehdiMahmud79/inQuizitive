@@ -65,68 +65,71 @@ function QuizSearchForm(props) {
         >
           Something went wrong with your quiz search!
         </Alert>
-        <br />
-        <br />
-        <hr />
-        <br />
-        <br />
-        <label htmlFor="amount">Amount of questions: </label>
-        <select
-          value={userFormData.amount}
-          name="amount"
-          onChange={handleInputChange}
-        >
-          {amountOptions.map((number) => (
-            <option key={number} value={number}>
-              {number}
-            </option>
-          ))}
-        </select>
-        <br />
+        <div className="container w-50">
+          <label className="block text-left" htmlFor="amount">
+            <span className="text-gray-700">Amount of questions: </span>
 
-        <label>Select category: </label>
-        <select
-          value={userFormData.category.label}
-          name="category"
-          onChange={handleInputChange}
-        >
-          {categoryOptions.map(({ value, label }) => (
-            <option key={label} value={value}>
-              {label}
-            </option>
-          ))}
-        </select>
-        <br />
+            <select
+              className="form-select block w-full mt-1"
+              value={userFormData.amount}
+              name="amount"
+              onChange={handleInputChange}
+            >
+              {amountOptions.map((number) => (
+                <option key={number} value={number}>
+                  {number}
+                </option>
+              ))}
+            </select>
+          </label>
 
-        <label>Difficulty: </label>
-        <select
-          value={userFormData.difficulty.label}
-          name="difficulty"
-          onChange={handleInputChange}
-        >
-          {difficultyOptions.map(({ value, label }) => (
-            <option key={label} value={value}>
-              {label}
-            </option>
-          ))}
-        </select>
-        <br />
+          <label className="block text-left" htmlFor="category">
+            <span className="text-gray-700">Select category:</span>
 
-        <label>Type of question: </label>
-        <select
-          value={userFormData.type.label}
-          name="type"
-          onChange={handleInputChange}
-        >
-          {typeOptions.map(({ value, label }) => (
-            <option key={label} value={value}>
-              {label}
-            </option>
-          ))}
-        </select>
-        <br />
+            <select
+              className="form-select block w-full mt-1"
+              value={userFormData.category.label}
+              name="category"
+              onChange={handleInputChange}
+            >
+              {categoryOptions.map(({ value, label }) => (
+                <option key={label} value={value}>
+                  {label}
+                </option>
+              ))}
+            </select>
+          </label>
 
-        <button type="submit">Submit</button>
+          <label>Difficulty: </label>
+          <select
+            value={userFormData.difficulty.label}
+            name="difficulty"
+            onChange={handleInputChange}
+          >
+            {difficultyOptions.map(({ value, label }) => (
+              <option key={label} value={value}>
+                {label}
+              </option>
+            ))}
+          </select>
+          <br />
+
+          <label>Type of question: </label>
+          <select
+            value={userFormData.type.label}
+            name="type"
+            onChange={handleInputChange}
+          >
+            {typeOptions.map(({ value, label }) => (
+              <option key={label} value={value}>
+                {label}
+              </option>
+            ))}
+          </select>
+          <br />
+
+          <button type="submit">Submit</button>
+        </div>
       </form>
     </>
   );
