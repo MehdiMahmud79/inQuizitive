@@ -29,7 +29,7 @@ const resolvers = {
     getUserQuizzes: async (parent, args, { user }) => {
       console.log("get all Quizzes for the logged in user");
       if (user) {
-        return await Quiz.find({ Author_id: user._id });
+        return await Quiz.find({ author_id: user._id });
       } else {
         throw new AuthenticationError("login first!");
       }

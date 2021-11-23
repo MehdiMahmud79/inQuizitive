@@ -7,15 +7,15 @@ const quizSchema = new Schema(
       type: String,
       required: true,
     },
-    Author_id: {
+    author_id: {
       type: String,
       required: true,
     },
-    Author: {
+    author: {
       type: String,
       required: true,
     },
-    createdAt: {
+    created_at: {
       type: Date,
       default: Date.now,
     },

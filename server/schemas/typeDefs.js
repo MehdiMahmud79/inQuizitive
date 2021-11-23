@@ -20,9 +20,9 @@ const typeDefs = gql`
   type Quiz {
     _id: ID!
     title: String!
-    Author_id: String!
-    Author: String!
-    createdAt: String!
+    author_id: String!
+    author: String!
+    created_at: String!
     questions: [savedQuestion!]
   }
 
