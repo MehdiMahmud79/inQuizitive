@@ -104,7 +104,7 @@ function QuizSearchForm() {
               type="text"
               name="title"
               placeholder="Place the Quiz title here"
-              className="bg-gray-100 my-2 text-red-600 font-bold shadow-md rounded  py-2 px-2  flex-1 "
+              className="bg-gray-100 my-2 text-green-600 font-bold shadow-md rounded  py-2 px-2  flex-1 "
               value={userFormData.title}
               onChange={handleInputChange}
               required

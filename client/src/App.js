@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import AddQuiz from "./pages/AddQuiz";
 
+import "@material-tailwind/react/tailwind.css";
 
 
 function App() {
