@@ -61,7 +61,7 @@ function QuizSearchForm() {
           return { question, correct_answer, incorrect_answers };
         }
       );
-
+      console.log(Quiz);
       const { data } = await addQuiz({ variables: Quiz });
       const quiz_id = data.addQuiz._id;
 
