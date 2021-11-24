@@ -78,12 +78,14 @@ export const getUserQuizzes = gql`
 
 export const signUpMutation = gql`
   mutation signUp(
+    $avatar: String!
     $username: String!
     $email: String!
     $password: String!
     $password2: String!
   ) {
     signUp(
+      avatar: $avatar
       username: $username
       email: $email
       password: $password
@@ -92,6 +94,7 @@ export const signUpMutation = gql`
       token
       user {
         _id
+        avatar
         email
         username
       }
@@ -105,6 +108,7 @@ export const loginUserMutation = gql`
       token
       user {
         _id
+        avatar
         username
         email
       }

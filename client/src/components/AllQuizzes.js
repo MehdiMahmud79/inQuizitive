@@ -12,13 +12,13 @@ const AllQuizzes = () => {
 
   return (
     <div className="flex-row">
-      <SingleCard />
+      {/* <SingleCard />
       {!data ? "your data" : data.getAllQuizzes[0].questions[0].type}{" "}
       {loading ? (
         <div class="spinner-border text-primary" role="status">
           <span class="visually-hidden">Loading...</span>
         </div>
-      ) : null}
+      ) : null} */}
     </div>
   );
 };

@@ -31,10 +31,10 @@ const typeDefs = gql`
   }
   type User {
     _id: ID!
+    avatar: String!
     username: String!
     email: String!
     password: String!
-    image: String
   }
   type Query {
     getUser: User
@@ -46,6 +46,7 @@ const typeDefs = gql`
   type Mutation {
     login(email: String!, password: String!): Token
     signUp(
+      avatar: String!
       username: String!
       email: String!
       password: String!

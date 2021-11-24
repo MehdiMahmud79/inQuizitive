@@ -16,6 +16,7 @@ import Avatars from "../utils/avatars";
 const SignupForm = ({ signUp }) => {
   // set initial form state
   const [userFormData, setUserFormData] = useState({
+    avatar: Avatars.avatarData[0].image,
     username: "",
     email: "",
     password: "",
@@ -92,6 +93,7 @@ const SignupForm = ({ signUp }) => {
       }
 
       setUserFormData({
+        avatar: Avatars.avatarData[0].image,
         username: "",
         email: "",
         password: "",
