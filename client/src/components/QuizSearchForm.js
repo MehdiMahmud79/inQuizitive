@@ -22,11 +22,13 @@ function QuizSearchForm() {
   const [userFormData, setUserFormData] = useState({
     title: "",
     amount: amountOptions[0],
-    category: [categoryOptions[0].value, categoryOptions[0].label],
+    category: {
+      label: categoryOptions[0].label,
+      value: categoryOptions[0].value,
+    },
     type: typeOptions[0].value,
     difficulty: difficultyOptions[0].value,
   });
-
   const [addQuiz, { data: quizData, error }] = useMutation(addQuizMutation);
   useEffect(() => {
     if (!quizData) return;
@@ -42,15 +44,15 @@ function QuizSearchForm() {
     event.preventDefault();
     // check if form has everything (as per react-bootstrap docs)
     event.stopPropagation();
-    console.log("search for the quiz");
 
     try {
+      debugger;
       const { results } = await searchQuiz(userFormData);
-      // console.log(results);
+
       let Quiz = {};
       Quiz.title = userFormData.title;
       Quiz.amount = userFormData.amount.toString();
-      Quiz.category = userFormData.category[1];
+      Quiz.category = userFormData.category.label;
       Quiz.type = userFormData.type;
       Quiz.difficulty = userFormData.difficulty;
 
@@ -60,7 +62,7 @@ function QuizSearchForm() {
           return { question, correct_answer, incorrect_answers };
         }
       );
-      console.log(Quiz);
+
       const { data } = await addQuiz({ variables: Quiz });
       const quiz_id = data.addQuiz._id;
 
@@ -71,7 +73,10 @@ function QuizSearchForm() {
       setUserFormData({
         title: "",
         amount: amountOptions[0],
-        category: categoryOptions[0].value,
+        category: {
+          label: categoryOptions[0].label,
+          value: categoryOptions[0].value,
+        },
         type: typeOptions[0].value,
         difficulty: difficultyOptions[0].value,
       });
@@ -145,7 +150,7 @@ function QuizSearchForm() {
 
             <select
               className="form-select block w-full mt-1"
-              value={userFormData.category[1]}
+              value={userFormData.category}
               name="category"
               onChange={handleInputChange}
             >
