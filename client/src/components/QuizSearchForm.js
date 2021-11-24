@@ -17,7 +17,7 @@ const amountOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 function QuizSearchForm() {
   const [showAlert, setShowAlert] = useState({ Error: false, Success: false });
-  const [errorMessage, setErrorMessage] = useState("");
+  const [alertMessage, setAlertMessage] = useState("");
 
   const [userFormData, setUserFormData] = useState({
     title: "",
@@ -54,7 +54,7 @@ function QuizSearchForm() {
       // questions.map(async (currentQuestion) => {
       console.log("quizDATA_id ", quiz_id);
       setShowAlert({ Error: false, Success: true });
-      setErrorMessage("Form submitted successfully.");
+      setAlertMessage("Form submitted successfully.");
       setUserFormData({
         title: "",
         amount: amountOptions[0],
@@ -64,7 +64,7 @@ function QuizSearchForm() {
       });
       // return <AddedQuiz quizId={quizData} />;
     } catch (err) {
-      setErrorMessage(err.message);
+      setAlertMessage(err.message);
       setShowAlert({ Error: true, Success: false });
     }
   };
@@ -78,7 +78,7 @@ function QuizSearchForm() {
             show={showAlert}
             variant="danger"
           >
-            {errorMessage}
+            {alertMessage}
           </Alert>
         ) : (
           ""
@@ -90,7 +90,7 @@ function QuizSearchForm() {
             show={showAlert}
             variant="success"
           >
-            {errorMessage}
+            {alertMessage}
           </Alert>
         ) : (
           ""

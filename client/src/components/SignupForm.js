@@ -21,7 +21,6 @@ const SignupForm = ({ signUp }) => {
     password: "",
     password2: "",
   });
-  const [errorMessage, setError] = useState("");
 
   const [FaRegEnvelopeState, setFaRegEnvelopeState] =
     useState("text-gray-400 m-2");
@@ -35,7 +34,8 @@ const SignupForm = ({ signUp }) => {
   // set state for form validation
   const [validated] = useState(false);
   // set state for alert
-  const [showAlert, setShowAlert] = useState(false);
+  const [showAlert, setShowAlert] = useState({ Error: false, Success: false });
+  const [alertMessage, setAlertMessage] = useState("");
 
   //Mutation request to crteate a user
   let [createUser, { data: signUpData, error: signUpError }] =
@@ -54,7 +54,7 @@ const SignupForm = ({ signUp }) => {
   }, [loginData, signUpData]);
 
   const handleInputChange = (event) => {
-    setError("");
+    setAlertMessage("");
     setShowAlert(false);
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
@@ -73,11 +73,12 @@ const SignupForm = ({ signUp }) => {
       if (signUp) {
         if (userFormData.password != userFormData.password2) {
           setShowAlert(true);
-          setError("passwords should match!");
-          return;
+          setAlertMessage("passwords should match!");
         }
         await createUser({ variables: { ...userFormData } });
-        Error = signUpError.message;
+
+        setAlertMessage("You Signed up successfully.");
+        setShowAlert({ Error: false, Success: true });
       } else {
         await loginUser({
           variables: {
@@ -85,7 +86,9 @@ const SignupForm = ({ signUp }) => {
             password: userFormData.password,
           },
         });
-        Error = loginError.message;
+
+        setAlertMessage("You Loggedin successfully.");
+        setShowAlert({ Error: false, Success: true });
       }
 
       setUserFormData({
@@ -95,9 +98,9 @@ const SignupForm = ({ signUp }) => {
         password2: "",
       });
     } catch (err) {
-      setShowAlert(true);
+      setShowAlert({ Error: true, Success: false });
 
-      setError(err.message);
+      setAlertMessage(err.message);
       console.log(err.message);
     }
   };
@@ -108,14 +111,30 @@ const SignupForm = ({ signUp }) => {
       <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
         {/* show alert if server response is bad */}
 
-        <Alert
-          variant="danger"
-          dismissible
-          onClose={() => setShowAlert(false)}
-          show={showAlert}
-        >
-          {errorMessage}
-        </Alert>
+        {showAlert.Error ? (
+          <Alert
+            dismissible
+            onClose={() => setShowAlert(false)}
+            show={showAlert}
+            variant="danger"
+          >
+            {alertMessage}
+          </Alert>
+        ) : (
+          ""
+        )}
+        {showAlert.Success ? (
+          <Alert
+            dismissible
+            onClose={() => setShowAlert(false)}
+            show={showAlert}
+            variant="success"
+          >
+            {alertMessage}
+          </Alert>
+        ) : (
+          ""
+        )}
 
         {signUp ? (
           <Form.Group>
