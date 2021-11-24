@@ -20,14 +20,14 @@ export const getSingleQuiz = gql`
       author_id
       author
       created_at
+      category
+      type
+      difficulty
       scores
       questions {
         question
         correct_answer
         incorrect_answers
-        category
-        type
-        difficulty
       }
     }
   }
@@ -40,14 +40,14 @@ export const getAllQuizzes = gql`
       author_id
       author
       created_at
+      category
+      type
+      difficulty
       scores
       questions {
         question
         correct_answer
         incorrect_answers
-        category
-        type
-        difficulty
       }
     }
   }
@@ -61,14 +61,14 @@ export const getUserQuizzes = gql`
       author_id
       author
       created_at
+      category
+      type
+      difficulty
       scores
       questions {
         question
         correct_answer
         incorrect_answers
-        category
-        type
-        difficulty
       }
     }
   }
@@ -113,22 +113,36 @@ export const loginUserMutation = gql`
 `;
 
 export const addQuizMutation = gql`
-  mutation addQuiz($title: String!, $questions: [Question!]) {
-    addQuiz(title: $title, questions: $questions) {
+  mutation addQuiz(
+    $title: String!
+    $category: String!
+    $amount: String!
+    $type: String!
+    $difficulty: String!
+    $questions: [Question!]
+  ) {
+    addQuiz(
+      title: $title
+      category: $category
+      amount: $amount
+      type: $type
+      difficulty: $difficulty
+      questions: $questions
+    ) {
       _id
       title
       author_id
       author
       created_at
+      category
+      type
+      difficulty
+      scores
       questions {
         question
         correct_answer
         incorrect_answers
-        category
-        type
-        difficulty
       }
-      scores
     }
   }
 `;
@@ -141,15 +155,15 @@ export const AddScoreToQuizMutation = gql`
       author_id
       author
       created_at
+      category
+      type
+      difficulty
+      scores
       questions {
         question
         correct_answer
         incorrect_answers
-        category
-        type
-        difficulty
       }
-      scores
     }
   }
 `;

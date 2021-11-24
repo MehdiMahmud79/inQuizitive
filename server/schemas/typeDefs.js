@@ -5,17 +5,11 @@ const typeDefs = gql`
     question: String!
     correct_answer: String!
     incorrect_answers: [String!]
-    category: String!
-    type: String!
-    difficulty: String!
   }
   type savedQuestion {
     question: String!
     correct_answer: String!
     incorrect_answers: [String!]
-    category: String!
-    type: String!
-    difficulty: String!
   }
   type Quiz {
     _id: ID!
@@ -23,6 +17,10 @@ const typeDefs = gql`
     author_id: String!
     author: String!
     created_at: String!
+    category: String!
+    amount: String!
+    type: String!
+    difficulty: String!
     questions: [savedQuestion!]
     scores: [String]
   }
@@ -53,7 +51,15 @@ const typeDefs = gql`
       password: String!
       password2: String!
     ): Token
-    addQuiz(title: String!, questions: [Question!]): Quiz!
+    addQuiz(
+      title: String!
+      category: String!
+      amount: String!
+      type: String!
+      difficulty: String!
+      amount: String!
+      questions: [Question!]
+    ): Quiz!
     AddScoreToQuiz(_id: ID!, score: String!): Quiz!
   }
 `;

@@ -77,17 +77,34 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    addQuiz: async (parent, { title, questions }, { user }) => {
-      console.log("title", title);
+
+    addQuiz: async (
+      parent,
+      { title, category, amount, type, difficulty, questions },
+      { user }
+    ) => {
+      console.log(
+        "title",
+        title,
+        category,
+        amount,
+        type,
+        difficulty,
+        questions
+      );
       // console.log("user", context);
       if (user) {
-        const myquestions = JSON.parse(JSON.stringify(questions, null, 2));
+        // const myquestions = JSON.parse(JSON.stringify(questions, null, 2));
         try {
           const newQuiz = await Quiz.create({
             author_id: user._id,
             author: user.username,
-            title: title,
-            questions: myquestions,
+            title,
+            category,
+            amount,
+            type,
+            difficulty,
+            questions: questions,
           });
           return newQuiz;
         } catch (err) {

@@ -22,7 +22,7 @@ function QuizSearchForm() {
   const [userFormData, setUserFormData] = useState({
     title: "",
     amount: amountOptions[0],
-    category: categoryOptions[0].value,
+    category: [categoryOptions[0].value, categoryOptions[0].label],
     type: typeOptions[0].value,
     difficulty: difficultyOptions[0].value,
   });
@@ -45,10 +45,23 @@ function QuizSearchForm() {
     console.log("search for the quiz");
 
     try {
-      const { results: questions } = await searchQuiz(userFormData);
-      console.log(questions);
-      const title = userFormData.title;
-      const { data } = await addQuiz({ variables: { title, questions } });
+      const { results } = await searchQuiz(userFormData);
+      // console.log(results);
+      let Quiz = {};
+      Quiz.title = userFormData.title;
+      Quiz.amount = userFormData.amount.toString();
+      Quiz.category = userFormData.category[1];
+      Quiz.type = userFormData.type;
+      Quiz.difficulty = userFormData.difficulty;
+
+      Quiz.questions = [];
+      Quiz.questions = results.map(
+        ({ question, correct_answer, incorrect_answers }) => {
+          return { question, correct_answer, incorrect_answers };
+        }
+      );
+      console.log(Quiz);
+      const { data } = await addQuiz({ variables: Quiz });
       const quiz_id = data.addQuiz._id;
 
       // questions.map(async (currentQuestion) => {
@@ -132,7 +145,7 @@ function QuizSearchForm() {
 
             <select
               className="form-select block w-full mt-1"
-              value={userFormData.category.label}
+              value={userFormData.category[1]}
               name="category"
               onChange={handleInputChange}
             >
@@ -144,7 +157,7 @@ function QuizSearchForm() {
             </select>
           </label>
 
-          <label className="block text-left m-2" htmlFor="category">
+          <label className="block text-left m-2" htmlFor="difficulty">
             <span className="text-gray-700">Difficulty:</span>
 
             <select
@@ -161,7 +174,7 @@ function QuizSearchForm() {
             </select>
           </label>
 
-          <label className="block text-left m-2" htmlFor="category">
+          <label className="block text-left m-2" htmlFor="type">
             <span className="text-gray-700">Type of question:</span>
 
             <select
