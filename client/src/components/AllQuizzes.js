@@ -2,14 +2,7 @@ import React, { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { getAllQuizzes } from "../utils/queries";
 import SingleCard from "./SingleCard";
-const AllQuizzes = () => {
-  const { loading, error, data, refetch } = useQuery(getAllQuizzes);
-  useEffect(() => {
-    if (!data) return;
-    console.log("got data ", data);
-    // data.getAllQuizzes[0].author;
-  }, [data, loading]);
-
+const AllQuizzes = (props) => {
   return (
     <div className="flex-row">
       {/* <SingleCard />

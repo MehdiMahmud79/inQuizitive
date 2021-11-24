@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Navbar, Nav, Container, Modal, Tab } from "react-bootstrap";
-import SignUpForm from "./SignupForm";
 
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import "./style.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IoPersonSharp } from "react-icons/io5";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import SignUpForm from "./SignupForm";
+import "./style.css";
 import logo from "../images/logo200.png";
 import Auth from "../utils/auth";
+
 const AppNavbar = () => {
   // set modal display state
   const [showModal, setShowModal] = useState(false);
@@ -91,6 +92,7 @@ const AppNavbar = () => {
         aria-labelledby="signup-modal"
       >
         <img src={logo} href="/" className="w-35 my-2 mx-auto" alt="logo" />
+
         <Tab.Container defaultActiveKey="login">
           <Modal.Header closeButton>
             <Modal.Title id="signup-modal">
@@ -113,13 +115,13 @@ const AppNavbar = () => {
             <Tab.Content>
               <Tab.Pane eventKey="login">
                 <SignUpForm
-                  signUp={false}
+                  signUpForm={false}
                   handleModalClose={() => setShowModal(false)}
                 />
               </Tab.Pane>
               <Tab.Pane eventKey="signup">
                 <SignUpForm
-                  signUp={true}
+                  signUpForm={true}
                   handleModalClose={() => setShowModal(false)}
                 />
               </Tab.Pane>

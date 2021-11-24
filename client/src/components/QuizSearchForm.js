@@ -16,7 +16,7 @@ import { searchQuiz } from "../utils/trivaApi";
 const amountOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 function QuizSearchForm() {
-  const [showAlert, setShowAlert] = useState({ Error: false, Success: false });
+  const [showAlert, setShowAlert] = useState({ Fail: false, Success: false });
   const [alertMessage, setAlertMessage] = useState("");
 
   const [userFormData, setUserFormData] = useState({
@@ -47,6 +47,7 @@ function QuizSearchForm() {
 
     try {
       const { results } = await searchQuiz(userFormData);
+
       console.log(results);
       let Quiz = {};
       Quiz.title = userFormData.title;
@@ -67,7 +68,7 @@ function QuizSearchForm() {
 
       // questions.map(async (currentQuestion) => {
       console.log("quizDATA_id ", quiz_id);
-      setShowAlert({ Error: false, Success: true });
+      setShowAlert({ Fail: false, Success: false });
       setAlertMessage("Form submitted successfully.");
       setUserFormData({
         title: "",
@@ -82,7 +83,7 @@ function QuizSearchForm() {
       // return <AddedQuiz quizId={quizData} />;
     } catch (err) {
       setAlertMessage(err.message);
-      setShowAlert({ Error: true, Success: false });
+      setShowAlert({ Fail: false, Success: false });
     }
   };
   return (

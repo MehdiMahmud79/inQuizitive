@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button, Alert } from "react-bootstrap";
-
-import { useMutation } from "@apollo/client";
-import { signUpMutation } from "../utils/queries";
-import { loginUserMutation } from "../utils/queries";
-
-import Auth from "../utils/auth";
-import { setStyle } from "../utils/validate";
-
+import { Form, Alert } from "react-bootstrap";
+// react icons
 import { FaRegEnvelope } from "react-icons/fa";
 import { MdLockOutline } from "react-icons/md";
 import { FaUserAlt } from "react-icons/fa";
+
+import { useMutation } from "@apollo/client";
+
+import { signUpMutation } from "../utils/queries";
+import { loginUserMutation } from "../utils/queries";
 import Avatars from "../utils/avatars";
 
-const SignupForm = ({ signUp }) => {
+import Auth from "../utils/auth";
+
+import { setStyle } from "../utils/validate";
+
+const SignupForm = ({ signUpForm }) => {
   // set initial form state
   const [userFormData, setUserFormData] = useState({
     avatar: Avatars.avatarData[0].image,
@@ -45,7 +47,7 @@ const SignupForm = ({ signUp }) => {
     useMutation(loginUserMutation);
 
   useEffect(() => {
-    if (signUp) {
+    if (signUpForm) {
       if (!signUpData) return;
       Auth.login(signUpData.signUp.token);
     } else {
@@ -71,7 +73,7 @@ const SignupForm = ({ signUp }) => {
 
     event.preventDefault();
     try {
-      if (signUp) {
+      if (signUpForm) {
         if (userFormData.password != userFormData.password2) {
           setShowAlert(true);
           setAlertMessage("passwords should match!");
@@ -138,7 +140,7 @@ const SignupForm = ({ signUp }) => {
           ""
         )}
 
-        {signUp ? (
+        {signUpForm ? (
           <Form.Group>
             <label className="block text-left m-2" htmlFor="avatar">
               <span className="text-gray-700">Select an Avatar: </span>
@@ -207,7 +209,7 @@ const SignupForm = ({ signUp }) => {
             />
           </div>
         </Form.Group>
-        {signUp ? (
+        {signUpForm ? (
           <Form.Group>
             <Form.Label htmlFor="password2">Repeat Password</Form.Label>
             <div className="bg-gray-100 w-100 p-2 flex items-center ">
