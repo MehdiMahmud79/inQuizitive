@@ -16,7 +16,7 @@ import { searchQuiz } from "../utils/trivaApi";
 const amountOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 function QuizSearchForm() {
-  const [showAlert, setShowAlert] = useState(false);
+  const [showAlert, setShowAlert] = useState({ Error: false, Success: false });
   const [errorMessage, setErrorMessage] = useState("");
 
   const [userFormData, setUserFormData] = useState({
@@ -50,26 +50,52 @@ function QuizSearchForm() {
       const title = userFormData.title;
       const { data } = await addQuiz({ variables: { title, questions } });
       const quiz_id = data.addQuiz._id;
+
       // questions.map(async (currentQuestion) => {
       console.log("quizDATA_id ", quiz_id);
-      // });
+      setShowAlert({ Error: false, Success: true });
+      setErrorMessage("Form submitted successfully.");
+      setUserFormData({
+        title: "",
+        amount: amountOptions[0],
+        category: categoryOptions[0].value,
+        type: typeOptions[0].value,
+        difficulty: difficultyOptions[0].value,
+      });
       // return <AddedQuiz quizId={quizData} />;
     } catch (err) {
       setErrorMessage(err.message);
-      setShowAlert(true);
+      setShowAlert({ Error: true, Success: false });
     }
   };
   return (
     <>
       <form onSubmit={handleFormSubmit}>
-        <Alert
-          dismissible
-          onClose={() => setShowAlert(false)}
-          show={showAlert}
-          variant="danger"
-        >
-          {errorMessage}
-        </Alert>
+        {showAlert.Error ? (
+          <Alert
+            dismissible
+            onClose={() => setShowAlert(false)}
+            show={showAlert}
+            variant="danger"
+          >
+            {errorMessage}
+          </Alert>
+        ) : (
+          ""
+        )}
+        {showAlert.Success ? (
+          <Alert
+            dismissible
+            onClose={() => setShowAlert(false)}
+            show={showAlert}
+            variant="success"
+          >
+            {errorMessage}
+          </Alert>
+        ) : (
+          ""
+        )}
+
         <h1 className="text-green-800 m-3 text-center">Choose your Quiz</h1>
         <div className="container w-25">
           <label className="block text-left m-2" htmlFor="amount">
