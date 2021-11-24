@@ -46,9 +46,8 @@ function QuizSearchForm() {
     event.stopPropagation();
 
     try {
-      debugger;
       const { results } = await searchQuiz(userFormData);
-
+      console.log(results);
       let Quiz = {};
       Quiz.title = userFormData.title;
       Quiz.amount = userFormData.amount.toString();
