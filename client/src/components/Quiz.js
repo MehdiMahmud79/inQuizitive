@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, ListGroup, ProgressBar } from "react-bootstrap";
+
 const quizQuestions = [
     {
         category: "Entertainment: Video Games",
@@ -40,8 +41,7 @@ const quizQuestions = [
 ]
 
 
-
-const Quiz = ({ _id, user_id }) => {
+const Quiz = ({ quizData: quizQuestionsA }) => {
 
     const [questionNumber, setquestionNumber] = useState(0)
     const [activeQuestion, setActiveQuestion] = useState(0)
