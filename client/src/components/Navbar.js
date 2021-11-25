@@ -86,7 +86,7 @@ const AppNavbar = () => {
       {/* set modal data up */}
 
       <Modal
-        size="lg"
+        size="md"
         show={showModal}
         onHide={() => setShowModal(false)}
         aria-labelledby="signup-modal"
@@ -111,7 +111,7 @@ const AppNavbar = () => {
             </Modal.Title>
           </Modal.Header>
 
-          <Modal.Body>
+          <Modal.Body className="bg-gray-100 m-3 shadow-md rounded-xl">
             <Tab.Content>
               <Tab.Pane eventKey="login">
                 <SignUpForm

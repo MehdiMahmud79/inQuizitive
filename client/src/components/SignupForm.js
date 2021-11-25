@@ -231,7 +231,7 @@ const SignupForm = ({ signUpForm }) => {
           disabled={!(userFormData.email && userFormData.password)}
           type="submit"
           variant="success"
-          className="border-2 w-100  rounded-full  border-green-500 px-12 py-2 inline-block mt-12 font-semibold text hover:bg-green-500 hover:text-white text-decoration-none"
+          className="border-2 w-100  rounded-full text-center border-green-500 px-12 py-2 inline-block mt-4 font-semibold text hover:bg-green-500 hover:text-white text-decoration-none"
         >
           Submit
         </button>
