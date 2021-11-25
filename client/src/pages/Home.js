@@ -38,6 +38,7 @@ return (
               key={quiz._id}
               quizData={quiz}
               noOfQuestions={quiz.questions.length + 1}
+              toDelet="false"
             />
           );
         })

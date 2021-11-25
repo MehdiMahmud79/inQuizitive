@@ -135,6 +135,17 @@ const resolvers = {
         throw new AuthenticationError("Login first please!");
       }
     },
+    removeQuiz: async (parent, { _id }, { user }) => {
+      if (user) {
+        const quiz = await Quiz.findOneAndDelete({
+          _id: _id,
+          author_id: user._id,
+        });
+
+        return quiz;
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
   },
 };
 
