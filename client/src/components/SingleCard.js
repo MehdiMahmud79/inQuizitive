@@ -25,22 +25,24 @@ const SingleCard = ({ quizData, noOfQuestions }) => {
 
         <div className="px-6 py-4">
           <div className="font-bold text-yellow-200 text-xl mb-2">
-            <i className="fas fa-angle-double-right text-green-500"> </i>{" "}
+            <i className="fas fa-angle-double-right text-green-500"> </i> Title:{" "}
             {quizData.title}
           </div>
           <div className=" text-yellow-200 text-xl mb-2">
-            <i className="fas fa-chart-pie text-green-500"> </i>{" "}
+            <i className="fas fa-chart-pie text-green-500"> </i> Difficulty:{" "}
             {quizData.difficulty}
           </div>
           <div className=" text-yellow-200 text-xl mb-2">
-            <i className="fas fa-list-ul text-green-500"> </i> {noOfQuestions}
+            <i className="fas fa-list-ul text-green-500"> </i> No. of Questions:{" "}
+            {noOfQuestions}
           </div>
           <div className=" text-yellow-200 text-xl mb-2">
-            <i className="fas fa-layer-group text-green-500"> </i>{" "}
+            <i className="fas fa-layer-group text-green-500"> </i> Category:{" "}
             {quizData.category}
           </div>
           <div className="text-yellow-200 text-xl mb-2">
-            <i className="fas fa-check text-green-500"> </i> {quizData.type}
+            <i className="fas fa-check text-green-500"> </i> Quiz Type:{" "}
+            {quizData.type}
           </div>
           <button className="btn btn-secondary w-100">Try the Quiz</button>
         </div>
