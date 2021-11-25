@@ -81,7 +81,6 @@ const SignupForm = ({ signUpForm }) => {
         await createUser({ variables: { ...userFormData } });
 
         setAlertMessage("You Signed up successfully.");
-        setShowAlert({ Error: false, Success: true });
       } else {
         await loginUser({
           variables: {
@@ -91,8 +90,8 @@ const SignupForm = ({ signUpForm }) => {
         });
 
         setAlertMessage("You Loggedin successfully.");
-        setShowAlert({ Error: false, Success: true });
       }
+      setShowAlert({ Error: false, Success: true });
 
       setUserFormData({
         avatar: Avatars.avatarData[0].image,
