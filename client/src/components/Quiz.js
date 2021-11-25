@@ -71,6 +71,7 @@ const Quiz = ({ quizData: quizQuestionsA }) => {
     const timer = setTimeout(() => {
         if (timeLeft <= 0) {
             clearTimeout(timer)
+            setComplete(true)
         } else {
             setTimeLeft(timeLeft - 1)
         }
