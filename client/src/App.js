@@ -3,13 +3,16 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import AddQuiz from "./pages/AddQuiz";
+// import Quiz from './components/Quiz';
+
 import Profile from "./pages/Profile";
+
 
 function App() {
   return (
     <Router>
       <Navbar />
-
+      {/* <Quiz /> */}
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/addquiz" element={<AddQuiz />} />
