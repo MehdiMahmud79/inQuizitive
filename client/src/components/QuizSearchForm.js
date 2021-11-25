@@ -40,13 +40,24 @@ function QuizSearchForm() {
     if (name === "category") {
       setUserFormData({
         ...userFormData,
-        [name]: { value: value, label: name },
+        [name]: {
+          value: event.target.value.split(",")[0],
+          label: event.target.value.split(",")[1],
+        },
+      });
+    } else if (name === "type") {
+      let newValue;
+      if (value === "boolean") newValue = "True/False type";
+      if (value === "multiple") newValue = "Mutiple choice type";
+      setUserFormData({
+        ...userFormData,
+        [name]: newValue,
       });
     } else {
       setUserFormData({ ...userFormData, [name]: value });
     }
   };
-
+  console.log(userFormData);
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     // check if form has everything (as per react-bootstrap docs)
@@ -162,7 +173,7 @@ function QuizSearchForm() {
               onChange={handleInputChange}
             >
               {categoryOptions.map(({ value, label }) => (
-                <option key={label} value={value}>
+                <option key={label} value={value + "," + label}>
                   {label}
                 </option>
               ))}
