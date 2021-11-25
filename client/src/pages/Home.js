@@ -18,7 +18,7 @@ const Home = () => {
         </h2>
       </div>
 
-      <div className="flex flex-wrap justify-center">
+      <div className="flex flex-wrap justify-center bg-gray-100 m-3 p-3 rounded-xl shadow-md">
         {loading ? (
           <div
             key="loading"
