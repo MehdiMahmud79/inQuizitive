@@ -1,28 +1,41 @@
 import React from "react";
-//{ Author, created_at, questions, title, _id }
-const SingleCard = () => {
+import logo from "../images/logo.png";
+
+const SingleCard = ({ quizData }) => {
   return (
     <>
-      <div className="max-w-sm rounded overflow-hidden shadow-lg">
-        <img className="w-full" src="" alt="tetst" />
-        <div className="px-6 py-4">
-          <div className="font-bold text-xl mb-2">title</div>
-          <p className="text-gray-700 text-base">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Voluptatibus quia, nulla! Maiores et perferendis eaque,
-            exercitationem praesentium nihil.
-          </p>
+      <div className="max-w-sm rounded-xl  overflow-hidden bg-red-800 text-red-200 shadow-lg m-3 ">
+        <div className="flex justify-between">
+          <img
+            className="w-25 bg-red-200 rounded-xl m-2"
+            src={logo}
+            alt="inquizer logo"
+          />
+          <div className="p-2 m-2">
+            <i className="fas fa-user-edit "> </i>{" "}
+            <span className="text-blue-400">
+              {quizData.author.toUpperCase()}
+            </span>
+          </div>
         </div>
-        <div className="px-6 pt-4 pb-2">
-          <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-            #photography
-          </span>
-          <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-            #travel
-          </span>
-          <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-            #winter
-          </span>
+
+        <div className="px-6 py-4">
+          <div className="font-bold text-yellow-200 text-xl mb-2">
+            <i className="fas fa-angle-double-right text-green-500"> </i>{" "}
+            {quizData.title}
+          </div>
+          <div className=" text-yellow-200 text-xl mb-2">
+            <i className="fas fa-angle-double-up text-green-500"> </i>{" "}
+            {quizData.difficulty}
+          </div>
+          <div className=" text-yellow-200 text-xl mb-2">
+            <i className="fas fa-layer-group text-green-500"> </i>{" "}
+            {quizData.category}
+          </div>
+          <div className="text-yellow-200 text-xl mb-2">
+            <i className="fas fa-check text-green-500"> </i> {quizData.type}
+          </div>
+          <button className="btn btn-secondary w-100">Try the Quiz</button>
         </div>
       </div>
     </>
