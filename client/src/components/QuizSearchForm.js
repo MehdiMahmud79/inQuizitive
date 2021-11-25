@@ -16,17 +16,19 @@ import { searchQuiz } from "../utils/trivaApi";
 const amountOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 function QuizSearchForm() {
-  const [showAlert, setShowAlert] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [showAlert, setShowAlert] = useState({ Fail: false, Success: false });
+  const [alertMessage, setAlertMessage] = useState("");
 
   const [userFormData, setUserFormData] = useState({
     title: "",
     amount: amountOptions[0],
-    category: categoryOptions[0].value,
+    category: {
+      label: categoryOptions[0].label,
+      value: categoryOptions[0].value,
+    },
     type: typeOptions[0].value,
     difficulty: difficultyOptions[0].value,
   });
-
   const [addQuiz, { data: quizData, error }] = useMutation(addQuizMutation);
   useEffect(() => {
     if (!quizData) return;
@@ -42,34 +44,76 @@ function QuizSearchForm() {
     event.preventDefault();
     // check if form has everything (as per react-bootstrap docs)
     event.stopPropagation();
-    console.log("search for the quiz");
 
     try {
-      const { results: questions } = await searchQuiz(userFormData);
-      console.log(questions);
-      const title = userFormData.title;
-      const { data } = await addQuiz({ variables: { title, questions } });
+      const { results } = await searchQuiz(userFormData);
+
+      console.log(results);
+      let Quiz = {};
+      Quiz.title = userFormData.title;
+      Quiz.amount = userFormData.amount.toString();
+      Quiz.category = userFormData.category.label;
+      Quiz.type = userFormData.type;
+      Quiz.difficulty = userFormData.difficulty;
+
+      Quiz.questions = [];
+      Quiz.questions = results.map(
+        ({ question, correct_answer, incorrect_answers }) => {
+          return { question, correct_answer, incorrect_answers };
+        }
+      );
+      console.log(Quiz);
+      const { data } = await addQuiz({ variables: Quiz });
       const quiz_id = data.addQuiz._id;
+
       // questions.map(async (currentQuestion) => {
       console.log("quizDATA_id ", quiz_id);
-      // });
+      setShowAlert({ Fail: false, Success: false });
+      setAlertMessage("Form submitted successfully.");
+      setUserFormData({
+        title: "",
+        amount: amountOptions[0],
+        category: {
+          label: categoryOptions[0].label,
+          value: categoryOptions[0].value,
+        },
+        type: typeOptions[0].value,
+        difficulty: difficultyOptions[0].value,
+      });
       // return <AddedQuiz quizId={quizData} />;
     } catch (err) {
-      setErrorMessage(err.message);
-      setShowAlert(true);
+      setAlertMessage(err.message);
+      setShowAlert({ Fail: false, Success: false });
     }
   };
   return (
     <>
       <form onSubmit={handleFormSubmit}>
-        <Alert
-          dismissible
-          onClose={() => setShowAlert(false)}
-          show={showAlert}
-          variant="danger"
-        >
-          {errorMessage}
-        </Alert>
+        {showAlert.Error ? (
+          <Alert
+            dismissible
+            onClose={() => setShowAlert(false)}
+            show={showAlert}
+            variant="danger"
+          >
+            {alertMessage}
+          </Alert>
+        ) : (
+          ""
+        )}
+        {showAlert.Success ? (
+          <Alert
+            dismissible
+            onClose={() => setShowAlert(false)}
+            show={showAlert}
+            variant="success"
+          >
+            {alertMessage}
+          </Alert>
+        ) : (
+          ""
+        )}
+
         <h1 className="text-green-800 m-3 text-center">Choose your Quiz</h1>
         <div className="container w-25">
           <label className="block text-left m-2" htmlFor="amount">
@@ -78,7 +122,7 @@ function QuizSearchForm() {
               type="text"
               name="title"
               placeholder="Place the Quiz title here"
-              className="bg-gray-100 my-2 text-red-600 font-bold shadow-md rounded  py-2 px-2  flex-1 "
+              className="bg-gray-100 my-2 text-green-600 font-bold shadow-md rounded  py-2 px-2  flex-1 "
               value={userFormData.title}
               onChange={handleInputChange}
               required
@@ -106,7 +150,7 @@ function QuizSearchForm() {
 
             <select
               className="form-select block w-full mt-1"
-              value={userFormData.category.label}
+              value={userFormData.category}
               name="category"
               onChange={handleInputChange}
             >
@@ -118,7 +162,7 @@ function QuizSearchForm() {
             </select>
           </label>
 
-          <label className="block text-left m-2" htmlFor="category">
+          <label className="block text-left m-2" htmlFor="difficulty">
             <span className="text-gray-700">Difficulty:</span>
 
             <select
@@ -135,7 +179,7 @@ function QuizSearchForm() {
             </select>
           </label>
 
-          <label className="block text-left m-2" htmlFor="category">
+          <label className="block text-left m-2" htmlFor="type">
             <span className="text-gray-700">Type of question:</span>
 
             <select
