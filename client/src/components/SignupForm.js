@@ -1,27 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button, Alert } from "react-bootstrap";
-
-import { useMutation } from "@apollo/client";
-import { signUpMutation } from "../utils/queries";
-import { loginUserMutation } from "../utils/queries";
-
-import Auth from "../utils/auth";
-import { setStyle } from "../utils/validate";
-
+import { Form, Alert } from "react-bootstrap";
+// react icons
 import { FaRegEnvelope } from "react-icons/fa";
 import { MdLockOutline } from "react-icons/md";
 import { FaUserAlt } from "react-icons/fa";
+
+import { useMutation } from "@apollo/client";
+
+import { signUpMutation } from "../utils/queries";
+import { loginUserMutation } from "../utils/queries";
 import Avatars from "../utils/avatars";
 
-const SignupForm = ({ signUp }) => {
+import Auth from "../utils/auth";
+
+import { setStyle } from "../utils/validate";
+
+const SignupForm = ({ signUpForm }) => {
   // set initial form state
   const [userFormData, setUserFormData] = useState({
+    avatar: Avatars.avatarData[0].image,
     username: "",
     email: "",
     password: "",
     password2: "",
   });
-  const [errorMessage, setError] = useState("");
 
   const [FaRegEnvelopeState, setFaRegEnvelopeState] =
     useState("text-gray-400 m-2");
@@ -35,7 +37,8 @@ const SignupForm = ({ signUp }) => {
   // set state for form validation
   const [validated] = useState(false);
   // set state for alert
-  const [showAlert, setShowAlert] = useState(false);
+  const [showAlert, setShowAlert] = useState({ Error: false, Success: false });
+  const [alertMessage, setAlertMessage] = useState("");
 
   //Mutation request to crteate a user
   let [createUser, { data: signUpData, error: signUpError }] =
@@ -44,7 +47,7 @@ const SignupForm = ({ signUp }) => {
     useMutation(loginUserMutation);
 
   useEffect(() => {
-    if (signUp) {
+    if (signUpForm) {
       if (!signUpData) return;
       Auth.login(signUpData.signUp.token);
     } else {
@@ -54,7 +57,7 @@ const SignupForm = ({ signUp }) => {
   }, [loginData, signUpData]);
 
   const handleInputChange = (event) => {
-    setError("");
+    setAlertMessage("");
     setShowAlert(false);
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
@@ -70,14 +73,14 @@ const SignupForm = ({ signUp }) => {
 
     event.preventDefault();
     try {
-      if (signUp) {
+      if (signUpForm) {
         if (userFormData.password != userFormData.password2) {
           setShowAlert(true);
-          setError("passwords should match!");
-          return;
+          setAlertMessage("passwords should match!");
         }
         await createUser({ variables: { ...userFormData } });
-        Error = signUpError.message;
+
+        setAlertMessage("You Signed up successfully.");
       } else {
         await loginUser({
           variables: {
@@ -85,19 +88,22 @@ const SignupForm = ({ signUp }) => {
             password: userFormData.password,
           },
         });
-        Error = loginError.message;
+
+        setAlertMessage("You Loggedin successfully.");
       }
+      setShowAlert({ Error: false, Success: true });
 
       setUserFormData({
+        avatar: Avatars.avatarData[0].image,
         username: "",
         email: "",
         password: "",
         password2: "",
       });
     } catch (err) {
-      setShowAlert(true);
+      setShowAlert({ Error: true, Success: false });
 
-      setError(err.message);
+      setAlertMessage(err.message);
       console.log(err.message);
     }
   };
@@ -108,16 +114,32 @@ const SignupForm = ({ signUp }) => {
       <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
         {/* show alert if server response is bad */}
 
-        <Alert
-          variant="danger"
-          dismissible
-          onClose={() => setShowAlert(false)}
-          show={showAlert}
-        >
-          {errorMessage}
-        </Alert>
+        {showAlert.Error ? (
+          <Alert
+            dismissible
+            onClose={() => setShowAlert(false)}
+            show={showAlert}
+            variant="danger"
+          >
+            {alertMessage}
+          </Alert>
+        ) : (
+          ""
+        )}
+        {showAlert.Success ? (
+          <Alert
+            dismissible
+            onClose={() => setShowAlert(false)}
+            show={showAlert}
+            variant="success"
+          >
+            {alertMessage}
+          </Alert>
+        ) : (
+          ""
+        )}
 
-        {signUp ? (
+        {signUpForm ? (
           <Form.Group>
             <label className="block text-left m-2" htmlFor="avatar">
               <span className="text-gray-700">Select an Avatar: </span>
@@ -140,13 +162,13 @@ const SignupForm = ({ signUp }) => {
             </label>
 
             <Form.Label htmlFor="username">Username</Form.Label>
-            <div className="bg-gray-100 w-100 p-2 flex items-center mb-3 ">
+            <div className="bg-gray-200 rounded-xl  w-100 p-2 flex items-center mb-3 ">
               <FaUserAlt className={FaUserAltSate} />
               <input
                 type="text"
                 name="username"
                 placeholder="User Name"
-                className="bg-gray-100 outline-none text-sm flex-1 "
+                className="bg-gray-200 rounded-xl outline-none text-sm flex-1 p-2 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent"
                 value={userFormData.username}
                 onChange={handleInputChange}
                 required
@@ -158,13 +180,13 @@ const SignupForm = ({ signUp }) => {
         )}
         <Form.Group>
           <Form.Label htmlFor="email">Email</Form.Label>
-          <div className="bg-gray-100 w-100 p-2 flex items-center mb-3 ">
+          <div className="bg-gray-200 rounded-xl w-100 p-2 flex items-center mb-3 ">
             <FaRegEnvelope className={FaRegEnvelopeState} />
             <input
               type="email"
               name="email"
               placeholder="Email"
-              className="bg-gray-100 outline-none text-sm flex-1 "
+              className="bg-gray-200 rounded-xl outline-none text-sm flex-1 p-2 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent"
               value={userFormData.email}
               onChange={handleInputChange}
               required
@@ -173,7 +195,7 @@ const SignupForm = ({ signUp }) => {
         </Form.Group>
         <Form.Group>
           <Form.Label htmlFor="password">Password</Form.Label>
-          <div className="bg-gray-100 w-100 p-2 flex items-center ">
+          <div className="bg-gray-200  rounded-xl w-100 p-2 flex items-center ">
             <MdLockOutline className={MdLockOutlineSate} />
             <input
               type="password"
@@ -182,14 +204,14 @@ const SignupForm = ({ signUp }) => {
               onChange={handleInputChange}
               value={userFormData.password}
               required
-              className="bg-gray-100 outline-none text-sm flex-1"
+              className="bg-gray-200 rounded-xl outline-none text-sm flex-1 p-2 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent"
             />
           </div>
         </Form.Group>
-        {signUp ? (
+        {signUpForm ? (
           <Form.Group>
             <Form.Label htmlFor="password2">Repeat Password</Form.Label>
-            <div className="bg-gray-100 w-100 p-2 flex items-center ">
+            <div className="bg-gray-200 rounded-xl  w-100 p-2 flex items-center ">
               <MdLockOutline className={MdLockOutlineSate2} />
               <input
                 type="password"
@@ -198,7 +220,7 @@ const SignupForm = ({ signUp }) => {
                 onChange={handleInputChange}
                 value={userFormData.password2}
                 required
-                className="bg-gray-100 outline-none text-sm flex-1"
+                className="bg-gray-200 rounded-xl outline-none text-sm flex-1 p-2 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent"
               />
             </div>
           </Form.Group>
@@ -209,7 +231,7 @@ const SignupForm = ({ signUp }) => {
           disabled={!(userFormData.email && userFormData.password)}
           type="submit"
           variant="success"
-          className="border-2 w-100  rounded-full  border-green-500 px-12 py-2 inline-block mt-12 font-semibold text hover:bg-green-500 hover:text-white text-decoration-none"
+          className="border-2 w-100  rounded-full text-center border-green-500 px-12 py-2 inline-block mt-4 font-semibold text hover:bg-green-500 hover:text-white text-decoration-none"
         >
           Submit
         </button>
