@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Navbar, Nav, Container, Modal, Tab } from "react-bootstrap";
-import SignUpForm from "./SignupForm";
 
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import "./style.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IoPersonSharp } from "react-icons/io5";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import SignUpForm from "./SignupForm";
+import "./style.css";
 import logo from "../images/logo200.png";
 import Auth from "../utils/auth";
+
 const AppNavbar = () => {
   // set modal display state
   const [showModal, setShowModal] = useState(false);
@@ -85,12 +86,13 @@ const AppNavbar = () => {
       {/* set modal data up */}
 
       <Modal
-        size="lg"
+        size="md"
         show={showModal}
         onHide={() => setShowModal(false)}
         aria-labelledby="signup-modal"
       >
         <img src={logo} href="/" className="w-35 my-2 mx-auto" alt="logo" />
+
         <Tab.Container defaultActiveKey="login">
           <Modal.Header closeButton>
             <Modal.Title id="signup-modal">
@@ -109,17 +111,17 @@ const AppNavbar = () => {
             </Modal.Title>
           </Modal.Header>
 
-          <Modal.Body>
+          <Modal.Body className="bg-gray-100 m-3 shadow-md rounded-xl">
             <Tab.Content>
               <Tab.Pane eventKey="login">
                 <SignUpForm
-                  signUp={false}
+                  signUpForm={false}
                   handleModalClose={() => setShowModal(false)}
                 />
               </Tab.Pane>
               <Tab.Pane eventKey="signup">
                 <SignUpForm
-                  signUp={true}
+                  signUpForm={true}
                   handleModalClose={() => setShowModal(false)}
                 />
               </Tab.Pane>
@@ -128,9 +130,11 @@ const AppNavbar = () => {
         </Tab.Container>
       </Modal>
       {Auth.loggedIn() ? (
-        <h4 className="px-3 bg-dark text-center">
+        <h4 className="px-3 bg-gradient-to-r from-purple-900 to-purple-100 text-center p-2 ">
           <FontAwesomeIcon icon={faUser} className="text-danger ml-4" />{" "}
-          <span className="text-white ">{Auth.getProfile().data.username}</span>{" "}
+          <span className="text-white p-2">
+            {Auth.getProfile().data.username}
+          </span>{" "}
         </h4>
       ) : (
         ""

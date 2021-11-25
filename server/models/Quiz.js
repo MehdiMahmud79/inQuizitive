@@ -1,5 +1,6 @@
 const { Schema, model } = require("mongoose");
 const questionSchema = require("./questionSchema");
+const dateFormat = require("../utils/dateFormat");
 
 const quizSchema = new Schema(
   {
@@ -7,19 +8,25 @@ const quizSchema = new Schema(
       type: String,
       required: true,
     },
-    Author_id: {
+    author_id: {
       type: String,
       required: true,
     },
-    Author: {
+    author: {
       type: String,
       required: true,
     },
-    createdAt: {
+    created_at: {
       type: Date,
       default: Date.now,
+      get: (timestamp) => dateFormat(timestamp),
     },
+    category: { type: String, required: true },
+    type: { type: String, required: true },
+    amount: { type: String, required: true },
+    difficulty: { type: String, required: true },
     questions: [questionSchema],
+    scores: [String],
   },
   // set this to use virtual below
   {
