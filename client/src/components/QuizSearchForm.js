@@ -168,7 +168,9 @@ function QuizSearchForm() {
 
             <select
               className="form-select block w-full mt-1"
-              value={userFormData.category}
+              value={
+                userFormData.category.value + "," + userFormData.category.label
+              }
               name="category"
               onChange={handleInputChange}
             >
