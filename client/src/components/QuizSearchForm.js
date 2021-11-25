@@ -37,7 +37,14 @@ function QuizSearchForm() {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setUserFormData({ ...userFormData, [name]: value });
+    if (name === "category") {
+      setUserFormData({
+        ...userFormData,
+        [name]: { value: value, label: name },
+      });
+    } else {
+      setUserFormData({ ...userFormData, [name]: value });
+    }
   };
 
   const handleFormSubmit = async (event) => {
@@ -48,7 +55,7 @@ function QuizSearchForm() {
     try {
       const { results } = await searchQuiz(userFormData);
 
-      console.log(results);
+      // console.log(results);
       let Quiz = {};
       Quiz.title = userFormData.title;
       Quiz.amount = userFormData.amount.toString();
@@ -68,8 +75,8 @@ function QuizSearchForm() {
 
       // questions.map(async (currentQuestion) => {
       console.log("quizDATA_id ", quiz_id);
-      setShowAlert({ Fail: false, Success: false });
-      setAlertMessage("Form submitted successfully.");
+      setShowAlert({ Fail: false, Success: true });
+      setAlertMessage("Your Quizz added successfully.");
       setUserFormData({
         title: "",
         amount: amountOptions[0],
@@ -83,7 +90,7 @@ function QuizSearchForm() {
       // return <AddedQuiz quizId={quizData} />;
     } catch (err) {
       setAlertMessage(err.message);
-      setShowAlert({ Fail: false, Success: false });
+      setShowAlert({ Fail: true, Success: false });
     }
   };
   return (
