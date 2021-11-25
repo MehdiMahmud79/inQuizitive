@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, ListGroup, ProgressBar } from "react-bootstrap";
+
 const quizQuestions = [
     {
         category: "Entertainment: Video Games",
@@ -40,39 +41,58 @@ const quizQuestions = [
 ]
 
 
+const Quiz = ({ quizData: quizQuestionsA }) => {
 
-const Quiz = (props) => {
     const [questionNumber, setquestionNumber] = useState(0)
     const [activeQuestion, setActiveQuestion] = useState(0)
     const [correctAnswers, setCorrectAnswers] = useState(0)
+    const [answers, setAnswers] = useState([])
 
+    const [isComplete, setComplete] = useState(false)
+
+    useEffect(() => {
+        let answerArray = []
+        quizQuestions[questionNumber].incorrect_answers.forEach(answer => {
+            if (Math.round(Math.random())) {
+                answerArray.push(answer)
+            } else {
+                answerArray.unshift(answer)
+            }
+        })
+        setAnswers([...[quizQuestions[questionNumber].correct_answer], ...answerArray])
+    }
+        , [questionNumber])
 
     const handleClick = (event) => {
         setActiveQuestion(event.target.id)
         console.log(event.target.value)
     }
+
     const handleSubmit = (event) => {
+        if (activeQuestion !== 0) {
+            const answerIndex = parseInt(activeQuestion.replace(/[^0-9]/g, ''));
+            if (answers[answerIndex] === quizQuestions[questionNumber].correct_answer
+            ) {
+                setCorrectAnswers(correctAnswers + 1)
+            }
 
-        const answer = parseInt(activeQuestion.replace(/[^0-9]/g, ''));
-        if (answer) {
-            setCorrectAnswers(correctAnswers + 1)
-        }
-        if (questionNumber < quizQuestions.length) {
-            setquestionNumber(questionNumber + 1)
-        }
+            if (questionNumber < quizQuestions.length - 1) {
 
+                setquestionNumber(questionNumber + 1)
+
+            } else { setComplete(true) }
+        }
     }
 
-
-    return (
-        <>
+    if (isComplete) { return <p>{correctAnswers} out of {quizQuestions.length}</p> } else {
+        return <>
             <h1>Correct answers: {correctAnswers}</h1>
             <h2>Question</h2>
             <p>{quizQuestions[questionNumber].question}</p>
 
             <ListGroup as="ul">
 
-                {quizQuestions[questionNumber].incorrect_answers.map((answer, index) => `answer-${index}` === activeQuestion ?
+                {answers.map((answer, index) => `answer-${index}` === activeQuestion ?
                     <ListGroup.Item key={index} action onClick={handleClick} active id={`answer-${index}`}>{answer}</ListGroup.Item >
                     :
                     <ListGroup.Item key={index} action onClick={handleClick} id={`answer-${index}`}>{answer}</ListGroup.Item>)
@@ -90,7 +110,7 @@ const Quiz = (props) => {
             <br />
             <ProgressBar now={((questionNumber) * 100) / quizQuestions.length} />
         </>
-    );
-};
+    }
+}
 
 export default Quiz;
