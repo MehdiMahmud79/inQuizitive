@@ -1,8 +1,13 @@
+import React, { useEffect } from "react";
+
+import { useQuery } from "@apollo/client";
+import { getAllQuizzes } from "../utils/queries";
+
 import "./style.css";
-import AllQuizzes from "../components/AllQuizzes";
+import SingleCard from "../components/SingleCard";
 
 const Home = () => {
-  // create state for holding our search field data
+  const { loading, data } = useQuery(getAllQuizzes);
 
   return (
     <>
@@ -13,8 +18,20 @@ const Home = () => {
         </h2>
       </div>
 
-      <div className="container">
-        <AllQuizzes />
+      <div className="flex flex-wrap justify-center">
+        {loading ? (
+          <div
+            key="loading"
+            className="spinner-border text-success"
+            role="status"
+          >
+            <span className="sr-only">Loading...</span>
+          </div>
+        ) : (
+          data.getAllQuizzes.map((quiz) => {
+            return <SingleCard key={quiz._id} quizData={quiz} />;
+          })
+        )}
       </div>
     </>
   );
