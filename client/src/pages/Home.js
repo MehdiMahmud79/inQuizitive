@@ -8,9 +8,10 @@ import SingleCard from "../components/SingleCard";
 
 const Home = () => {
   const { loading, data } = useQuery(getAllQuizzes);
-  useEffect(() => {
-    if (!data) return;
-  }, [data]);
+const quizData = data?.getAllQuizzes || [];
+useEffect(() => {
+  if (!data) return;
+}, [data]);
 console.log(data);
 return (
   <>
@@ -31,7 +32,7 @@ return (
           <span className="sr-only">Loading...</span>
         </div>
       ) : (
-        data.getAllQuizzes.map((quiz) => {
+        quizData.map((quiz) => {
           return (
             <SingleCard
               key={quiz._id}
