@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 
+// Graphql queries
 export const getUser = gql`
   query getMe {
     me {
@@ -10,6 +11,73 @@ export const getUser = gql`
     }
   }
 `;
+
+export const getSingleQuiz = gql`
+  query getQuiz {
+    getQuiz(_id: ID) {
+      _id
+      title
+      author_id
+      author
+      created_at
+      scores
+      questions {
+        _id
+        question
+        correct_answer
+        incorrect_answers
+        category
+        type
+        difficulty
+      }
+    }
+  }
+`;
+export const getAllQuizzes = gql`
+  query {
+    getAllQuizzes {
+      _id
+      title
+      author_id
+      author
+      created_at
+      scores
+      questions {
+        _id
+        question
+        correct_answer
+        incorrect_answers
+        category
+        type
+        difficulty
+      }
+    }
+  }
+`;
+
+export const getUserQuizzes = gql`
+  query {
+    getUserQuizzes {
+      _id
+      title
+      author_id
+      author
+      created_at
+      scores
+      questions {
+        _id
+        question
+        correct_answer
+        incorrect_answers
+        category
+        type
+        difficulty
+      }
+    }
+  }
+`;
+
+// Graphql Mutations
 
 export const signUpMutation = gql`
   mutation signUp(
@@ -34,9 +102,6 @@ export const signUpMutation = gql`
   }
 `;
 
-
-
-// mutation queries to GraphQl
 export const loginUserMutation = gql`
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {

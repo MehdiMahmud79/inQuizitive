@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import AddQuiz from "./pages/AddQuiz";
+import QuizDisplay from "./components/QuizDisplay"
 
 import Auth from "./utils/auth";
 
@@ -41,14 +42,14 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <Navbar />
-        {/* <AddQuiz /> */}
+     
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/addquiz" element={<AddQuiz />} />
-
           {/* <Route exact path="/quiz" component={CreateQuiz} /> */}
           <Route render={() => <h1 className="display-2">Wrong page!</h1>} />
         </Routes>
+        
       </Router>
     </ApolloProvider>
   );
