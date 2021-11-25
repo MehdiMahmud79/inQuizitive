@@ -16,6 +16,10 @@ const SingleCard = ({ quizData }) => {
             <span className="text-blue-400">
               {quizData.author.toUpperCase()}
             </span>
+            <div className="mt-2">
+              <i className="far fa-calendar-check "> </i>{" "}
+              <span className="text-green-400">{quizData.created_at}</span>
+            </div>
           </div>
         </div>
 
