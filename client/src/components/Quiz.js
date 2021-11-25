@@ -40,15 +40,18 @@ const quizQuestions = [
     }
 ]
 
+const TIME_PER_QUESTION = 5;
+
 
 const Quiz = ({ quizData: quizQuestionsA }) => {
 
     const [questionNumber, setquestionNumber] = useState(0)
     const [activeQuestion, setActiveQuestion] = useState(0)
     const [correctAnswers, setCorrectAnswers] = useState(0)
+    const [timeLeft, setTimeLeft] = useState(TIME_PER_QUESTION * quizQuestions.length)
     const [answers, setAnswers] = useState([])
-
     const [isComplete, setComplete] = useState(false)
+    const [score, setScore] = useState(0)
 
     useEffect(() => {
         let answerArray = []
@@ -63,6 +66,17 @@ const Quiz = ({ quizData: quizQuestionsA }) => {
     }
         , [questionNumber])
 
+
+
+    const timer = setTimeout(() => {
+        if (timeLeft <= 0) {
+            clearTimeout(timer)
+        } else {
+            setTimeLeft(timeLeft - 1)
+        }
+    }, [1000]);
+
+
     const handleClick = (event) => {
         setActiveQuestion(event.target.id)
         console.log(event.target.value)
@@ -73,20 +87,30 @@ const Quiz = ({ quizData: quizQuestionsA }) => {
             const answerIndex = parseInt(activeQuestion.replace(/[^0-9]/g, ''));
             if (answers[answerIndex] === quizQuestions[questionNumber].correct_answer
             ) {
-                setCorrectAnswers(correctAnswers + 1)
+                setCorrectAnswers(correctAnswers + 1);
             }
 
             if (questionNumber < quizQuestions.length - 1) {
 
-                setquestionNumber(questionNumber + 1)
+                setquestionNumber(questionNumber + 1);
 
-            } else { setComplete(true) }
+            } else {
+                const totalQuestions = quizQuestions.length;
+                const totalScore = (correctAnswers / totalQuestions) * ((timer) / totalQuestions) * TIME_PER_QUESTION;
+                setScore(Math.round(totalScore))
+                setComplete(true)
+            }
         }
     }
 
-    if (isComplete) { return <p>{correctAnswers} out of {quizQuestions.length}</p> } else {
+    if (isComplete) {
+        return <p>{correctAnswers} out of {quizQuestions.length} --- Total score is {score}</p>
+    } else {
         return <>
             <h1>Correct answers: {correctAnswers}</h1>
+            <hr />
+            <h3>Time left {timeLeft}</h3>
+            <hr />
             <h2>Question</h2>
             <p>{quizQuestions[questionNumber].question}</p>
 
