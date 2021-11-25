@@ -86,7 +86,7 @@ const AppNavbar = () => {
       {/* set modal data up */}
 
       <Modal
-        size="lg"
+        size="md"
         show={showModal}
         onHide={() => setShowModal(false)}
         aria-labelledby="signup-modal"
@@ -111,7 +111,7 @@ const AppNavbar = () => {
             </Modal.Title>
           </Modal.Header>
 
-          <Modal.Body>
+          <Modal.Body className="bg-gray-100 m-3 shadow-md rounded-xl">
             <Tab.Content>
               <Tab.Pane eventKey="login">
                 <SignUpForm
@@ -130,9 +130,11 @@ const AppNavbar = () => {
         </Tab.Container>
       </Modal>
       {Auth.loggedIn() ? (
-        <h4 className="px-3 bg-dark text-center">
+        <h4 className="px-3 bg-gradient-to-r from-purple-900 to-purple-100 text-center p-2 ">
           <FontAwesomeIcon icon={faUser} className="text-danger ml-4" />{" "}
-          <span className="text-white ">{Auth.getProfile().data.username}</span>{" "}
+          <span className="text-white p-2">
+            {Auth.getProfile().data.username}
+          </span>{" "}
         </h4>
       ) : (
         ""

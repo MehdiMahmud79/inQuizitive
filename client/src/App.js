@@ -8,7 +8,7 @@ function App() {
   return (
     <Router>
       <Navbar />
-      {/* <AddQuiz /> */}
+
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/addquiz" element={<AddQuiz />} />

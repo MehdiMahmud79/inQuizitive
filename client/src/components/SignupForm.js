@@ -81,7 +81,6 @@ const SignupForm = ({ signUpForm }) => {
         await createUser({ variables: { ...userFormData } });
 
         setAlertMessage("You Signed up successfully.");
-        setShowAlert({ Error: false, Success: true });
       } else {
         await loginUser({
           variables: {
@@ -91,8 +90,8 @@ const SignupForm = ({ signUpForm }) => {
         });
 
         setAlertMessage("You Loggedin successfully.");
-        setShowAlert({ Error: false, Success: true });
       }
+      setShowAlert({ Error: false, Success: true });
 
       setUserFormData({
         avatar: Avatars.avatarData[0].image,
@@ -163,13 +162,13 @@ const SignupForm = ({ signUpForm }) => {
             </label>
 
             <Form.Label htmlFor="username">Username</Form.Label>
-            <div className="bg-gray-100 w-100 p-2 flex items-center mb-3 ">
+            <div className="bg-gray-200 rounded-xl  w-100 p-2 flex items-center mb-3 ">
               <FaUserAlt className={FaUserAltSate} />
               <input
                 type="text"
                 name="username"
                 placeholder="User Name"
-                className="bg-gray-100 outline-none text-sm flex-1 "
+                className="bg-gray-200 rounded-xl outline-none text-sm flex-1 p-2 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent"
                 value={userFormData.username}
                 onChange={handleInputChange}
                 required
@@ -181,13 +180,13 @@ const SignupForm = ({ signUpForm }) => {
         )}
         <Form.Group>
           <Form.Label htmlFor="email">Email</Form.Label>
-          <div className="bg-gray-100 w-100 p-2 flex items-center mb-3 ">
+          <div className="bg-gray-200 rounded-xl w-100 p-2 flex items-center mb-3 ">
             <FaRegEnvelope className={FaRegEnvelopeState} />
             <input
               type="email"
               name="email"
               placeholder="Email"
-              className="bg-gray-100 outline-none text-sm flex-1 "
+              className="bg-gray-200 rounded-xl outline-none text-sm flex-1 p-2 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent"
               value={userFormData.email}
               onChange={handleInputChange}
               required
@@ -196,7 +195,7 @@ const SignupForm = ({ signUpForm }) => {
         </Form.Group>
         <Form.Group>
           <Form.Label htmlFor="password">Password</Form.Label>
-          <div className="bg-gray-100 w-100 p-2 flex items-center ">
+          <div className="bg-gray-200  rounded-xl w-100 p-2 flex items-center ">
             <MdLockOutline className={MdLockOutlineSate} />
             <input
               type="password"
@@ -205,14 +204,14 @@ const SignupForm = ({ signUpForm }) => {
               onChange={handleInputChange}
               value={userFormData.password}
               required
-              className="bg-gray-100 outline-none text-sm flex-1"
+              className="bg-gray-200 rounded-xl outline-none text-sm flex-1 p-2 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent"
             />
           </div>
         </Form.Group>
         {signUpForm ? (
           <Form.Group>
             <Form.Label htmlFor="password2">Repeat Password</Form.Label>
-            <div className="bg-gray-100 w-100 p-2 flex items-center ">
+            <div className="bg-gray-200 rounded-xl  w-100 p-2 flex items-center ">
               <MdLockOutline className={MdLockOutlineSate2} />
               <input
                 type="password"
@@ -221,7 +220,7 @@ const SignupForm = ({ signUpForm }) => {
                 onChange={handleInputChange}
                 value={userFormData.password2}
                 required
-                className="bg-gray-100 outline-none text-sm flex-1"
+                className="bg-gray-200 rounded-xl outline-none text-sm flex-1 p-2 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent"
               />
             </div>
           </Form.Group>
@@ -232,7 +231,7 @@ const SignupForm = ({ signUpForm }) => {
           disabled={!(userFormData.email && userFormData.password)}
           type="submit"
           variant="success"
-          className="border-2 w-100  rounded-full  border-green-500 px-12 py-2 inline-block mt-12 font-semibold text hover:bg-green-500 hover:text-white text-decoration-none"
+          className="border-2 w-100  rounded-full text-center border-green-500 px-12 py-2 inline-block mt-4 font-semibold text hover:bg-green-500 hover:text-white text-decoration-none"
         >
           Submit
         </button>

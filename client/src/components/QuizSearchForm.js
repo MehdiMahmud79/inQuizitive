@@ -37,9 +37,27 @@ function QuizSearchForm() {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setUserFormData({ ...userFormData, [name]: value });
+    if (name === "category") {
+      setUserFormData({
+        ...userFormData,
+        [name]: {
+          value: event.target.value.split(",")[0],
+          label: event.target.value.split(",")[1],
+        },
+      });
+    } else if (name === "type") {
+      let newValue;
+      if (value === "boolean") newValue = "True/False type";
+      if (value === "multiple") newValue = "Mutiple choice type";
+      setUserFormData({
+        ...userFormData,
+        [name]: newValue,
+      });
+    } else {
+      setUserFormData({ ...userFormData, [name]: value });
+    }
   };
-
+  console.log(userFormData);
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     // check if form has everything (as per react-bootstrap docs)
@@ -48,7 +66,7 @@ function QuizSearchForm() {
     try {
       const { results } = await searchQuiz(userFormData);
 
-      console.log(results);
+      // console.log(results);
       let Quiz = {};
       Quiz.title = userFormData.title;
       Quiz.amount = userFormData.amount.toString();
@@ -68,8 +86,8 @@ function QuizSearchForm() {
 
       // questions.map(async (currentQuestion) => {
       console.log("quizDATA_id ", quiz_id);
-      setShowAlert({ Fail: false, Success: false });
-      setAlertMessage("Form submitted successfully.");
+      setShowAlert({ Fail: false, Success: true });
+      setAlertMessage("Your Quizz added successfully.");
       setUserFormData({
         title: "",
         amount: amountOptions[0],
@@ -83,7 +101,7 @@ function QuizSearchForm() {
       // return <AddedQuiz quizId={quizData} />;
     } catch (err) {
       setAlertMessage(err.message);
-      setShowAlert({ Fail: false, Success: false });
+      setShowAlert({ Fail: true, Success: false });
     }
   };
   return (
@@ -150,12 +168,14 @@ function QuizSearchForm() {
 
             <select
               className="form-select block w-full mt-1"
-              value={userFormData.category}
+              value={
+                userFormData.category.value + "," + userFormData.category.label
+              }
               name="category"
               onChange={handleInputChange}
             >
               {categoryOptions.map(({ value, label }) => (
-                <option key={label} value={value}>
+                <option key={label} value={value + "," + label}>
                   {label}
                 </option>
               ))}
