@@ -32,20 +32,20 @@ const AppNavbar = () => {
           <Navbar.Toggle aria-controls="navbar" />
           <Navbar.Collapse id="navbar">
             <Nav className="ml-auto">
-              <a
+              <Link
                 className="ml-2  px-2 cursor-pointer  bg-green-600 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
-                as={Link}
-                to="/"
+                
+                to="/profile"
               >
                 Profile
-              </a>
-              <a
+              </Link>
+              <Link
                 className="ml-2 px-2 cursor-pointer  bg-green-600 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
                 as={Link}
                 to="/"
               >
                 Progress
-              </a>
+              </Link>
               {/* if user is logged in show saved books and logout */}
               {Auth.loggedIn() ? (
                 <>
@@ -55,13 +55,13 @@ const AppNavbar = () => {
                   >
                     add Quiz
                   </Link>
-                  <a
+                  <Link
                     className="ml-2 px-2 cursor-pointer  bg-green-600 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
                     as={Link}
                     to="/quizes"
                   >
                     See Your quizzes
-                  </a>
+                  </Link>
                   <a
                     as={Link}
                     className="ml-2 px-2 cursor-pointer  bg-green-600 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
