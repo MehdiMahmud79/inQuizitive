@@ -162,13 +162,13 @@ const SignupForm = ({ signUpForm }) => {
             </label>
 
             <Form.Label htmlFor="username">Username</Form.Label>
-            <div className="bg-gray-100 w-100 p-2 flex items-center mb-3 ">
+            <div className="bg-gray-200 rounded-xl  w-100 p-2 flex items-center mb-3 ">
               <FaUserAlt className={FaUserAltSate} />
               <input
                 type="text"
                 name="username"
                 placeholder="User Name"
-                className="bg-gray-100 outline-none text-sm flex-1 "
+                className="bg-gray-200 rounded-xl outline-none text-sm flex-1 p-2 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent"
                 value={userFormData.username}
                 onChange={handleInputChange}
                 required
@@ -180,13 +180,13 @@ const SignupForm = ({ signUpForm }) => {
         )}
         <Form.Group>
           <Form.Label htmlFor="email">Email</Form.Label>
-          <div className="bg-gray-100 w-100 p-2 flex items-center mb-3 ">
+          <div className="bg-gray-200 rounded-xl w-100 p-2 flex items-center mb-3 ">
             <FaRegEnvelope className={FaRegEnvelopeState} />
             <input
               type="email"
               name="email"
               placeholder="Email"
-              className="bg-gray-100 outline-none text-sm flex-1 "
+              className="bg-gray-200 rounded-xl outline-none text-sm flex-1 p-2 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent"
               value={userFormData.email}
               onChange={handleInputChange}
               required
@@ -195,7 +195,7 @@ const SignupForm = ({ signUpForm }) => {
         </Form.Group>
         <Form.Group>
           <Form.Label htmlFor="password">Password</Form.Label>
-          <div className="bg-gray-100 w-100 p-2 flex items-center ">
+          <div className="bg-gray-200  rounded-xl w-100 p-2 flex items-center ">
             <MdLockOutline className={MdLockOutlineSate} />
             <input
               type="password"
@@ -204,14 +204,14 @@ const SignupForm = ({ signUpForm }) => {
               onChange={handleInputChange}
               value={userFormData.password}
               required
-              className="bg-gray-100 outline-none text-sm flex-1"
+              className="bg-gray-200 rounded-xl outline-none text-sm flex-1 p-2 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent"
             />
           </div>
         </Form.Group>
         {signUpForm ? (
           <Form.Group>
             <Form.Label htmlFor="password2">Repeat Password</Form.Label>
-            <div className="bg-gray-100 w-100 p-2 flex items-center ">
+            <div className="bg-gray-200 rounded-xl  w-100 p-2 flex items-center ">
               <MdLockOutline className={MdLockOutlineSate2} />
               <input
                 type="password"
@@ -220,7 +220,7 @@ const SignupForm = ({ signUpForm }) => {
                 onChange={handleInputChange}
                 value={userFormData.password2}
                 required
-                className="bg-gray-100 outline-none text-sm flex-1"
+                className="bg-gray-200 rounded-xl outline-none text-sm flex-1 p-2 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent"
               />
             </div>
           </Form.Group>
