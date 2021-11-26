@@ -1,12 +1,24 @@
 import React from "react";
 import logo from "../images/logo.png";
+
 import { removeQuizMutation } from "../utils/queries";
 import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
 
-const SingleCard = ({ quizData, noOfQuestions, toDelet }) => {
+var date = new Date();
+var author = "";
+const SingleCard = ({ quizData, noOfQuestions, userName, toDelet }) => {
   const [delQuiz, { data: userData, error: reqError }] =
     useMutation(removeQuizMutation);
+  author = userName;
+
+  if (quizData.created_at) {
+    date = quizData.created_at;
+  }
+  if (quizData.username) {
+    author = quizData.username;
+  }
+
   return (
     <>
       <div className="max-w-sm rounded-xl  overflow-hidden bg-gray-800 text-red-200 opacity-90 m-3 shadow-md ">
@@ -18,12 +30,10 @@ const SingleCard = ({ quizData, noOfQuestions, toDelet }) => {
           />
           <div className="p-2 m-2">
             <i className="fas fa-user-edit "> </i>{" "}
-            <span className="text-blue-400">
-              {quizData.author.toUpperCase()}
-            </span>
+            <span className="text-blue-400">{author}</span>
             <div className="mt-2">
               <i className="far fa-calendar-check "> </i>{" "}
-              <span className="text-green-400">{quizData.created_at}</span>
+              <span className="text-green-400">{date}</span>
             </div>
           </div>
         </div>
