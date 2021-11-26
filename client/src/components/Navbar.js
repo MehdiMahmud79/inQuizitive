@@ -33,14 +33,13 @@ const AppNavbar = () => {
           <Navbar.Collapse id="navbar">
             <Nav className="ml-auto">
               <Link
-                className="ml-2  px-2 cursor-pointer  bg-green-600 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
-                
+                className="ml-2 px-2 cursor-pointer text-xl  bg-green-800 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
                 to="/profile"
               >
                 Profile
               </Link>
               <Link
-                className="ml-2 px-2 cursor-pointer  bg-green-600 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
+                className="ml-2 px-2 cursor-pointer text-xl  bg-green-800 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
                 as={Link}
                 to="/"
               >
@@ -51,12 +50,12 @@ const AppNavbar = () => {
                 <>
                   <Link
                     to="/addQuiz"
-                    className="ml-2 px-2 cursor-pointer  bg-red-600 py-1  rounded-lg text-red-100 no-underline hover:bg-red-100 hover:text-red-600"
+                    className="ml-2 px-2 cursor-pointer text-xl  bg-green-800 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
                   >
                     add Quiz
                   </Link>
                   <Link
-                    className="ml-2 px-2 cursor-pointer  bg-green-600 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
+                    className="ml-2 px-2 cursor-pointer text-xl  bg-green-800 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
                     as={Link}
                     to="/quizes"
                   >
@@ -64,16 +63,16 @@ const AppNavbar = () => {
                   </Link>
                   <a
                     as={Link}
-                    className="ml-2 px-2 cursor-pointer  bg-green-600 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
+                    className="ml-2 px-2 cursor-pointer text-xl  bg-green-800 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
                     onClick={Auth.logout}
                   >
-                    Logout
+                    <i class="fas fa-sign-out-alt text-red-200"></i> Logout
                   </a>
                 </>
               ) : (
                 <a
                   as={Link}
-                  className="ml-2 px-2 cursor-pointer  bg-green-600 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
+                  className="ml-2 px-2 cursor-pointer text-xl  bg-green-800 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
                   onClick={() => setShowModal(true)}
                 >
                   Login/Sign Up
