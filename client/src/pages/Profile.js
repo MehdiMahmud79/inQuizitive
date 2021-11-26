@@ -7,12 +7,7 @@ import "./style.css";
 import SingleCard from "../components/SingleCard";
 
 const Profile = ({userQuizes,userName}) => {
-//   const { loading, data } = useQuery(getUserQuizzes);
-//   const[quizData, setUserQuiz]=useState([...data.getUserQuizzes])
-// useEffect(() => {
-//   if (!data) return;
-//   setUserQuiz(data.getUserQuizzes)
-// }, [quizData]);
+
 const loading=false
 
 return (
@@ -42,6 +37,7 @@ return (
     </div>
   </>
 );
+
 };
 
 export default Profile;
