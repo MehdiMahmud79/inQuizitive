@@ -3,7 +3,7 @@ import { Alert } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
 
 import AddedQuiz from "./AddedQuiz";
-import Profile from "../../pages/Profile";
+import ProfileCards from "../ProfileCards";
 import { addQuizMutation, getUserQuizzes } from "../../utils/queries";
 
 import {
@@ -248,7 +248,7 @@ function QuizSearchForm() {
         </form>
       </div>
       <div className="col-span-2  shadow-md bg-gray-600 rounded-xl">
-        <Profile userQuizes={userQuizes} userName={userName} />
+        <ProfileCards userQuizes={userQuizes} userName={userName} />
       </div>
     </div>
   );

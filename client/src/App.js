@@ -2,10 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
-import AddQuiz from "./pages/AddQuiz";
-import Quiz from "./components/Quiz/QuizLogic";
-
 import Profile from "./pages/Profile";
+import Quiz from "./components/Quiz/QuizLogic";
 
 function App() {
   return (
@@ -14,8 +12,6 @@ function App() {
       {/* <Quiz /> */}
       <Routes>
         <Route exact path="/" element={<Home />} />
-        <Route exact path="/addquiz" element={<AddQuiz />} />
-
         <Route exact path="/profile" element={<Profile />} />
 
         {/* <Route exact path="/quiz" component={CreateQuiz} /> */}
