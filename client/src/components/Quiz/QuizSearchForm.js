@@ -116,8 +116,8 @@ function QuizSearchForm() {
     }
   };
   return (
-    <div className="grid lg:grid-cols-2  gap-2">
-      <div className="flex-auto bg-purple-100 rounded-xl">
+    <div className=" grid grid-cols-1 lg:grid-cols-3 gap-2">
+      <div className="w-100 bg-purple-100 rounded-xl ">
         <form onSubmit={handleFormSubmit}>
           {showAlert.Error ? (
             <Alert
@@ -150,7 +150,7 @@ function QuizSearchForm() {
       </h2>
     </div> */}
 
-          <h1 className="text-green-800 m-3 text-center">Add a New Quiz</h1>
+          <h1 className="text-green-800 m-5 text-center">Add a New Quiz</h1>
           <div className="container w-full">
             <label className="block text-left m-2" htmlFor="amount">
               <span className="text-gray-700">Quiz Title: </span>
@@ -247,7 +247,7 @@ function QuizSearchForm() {
           </div>
         </form>
       </div>
-      <div className="flex-auto shadow-md bg-gray-600 rounded-xl">
+      <div className="col-span-2  shadow-md bg-gray-600 rounded-xl">
         <Profile userQuizes={userQuizes} userName={userName} />
       </div>
     </div>
