@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { ListGroup, ProgressBar } from "react-bootstrap";
 import logo from "../../images/logo.png";
 import QuizResult from "./QuizResult";
+import { useQuery } from "@apollo/client";
+
 const quizQuestions = [
   {
     category: "Entertainment: Video Games",
