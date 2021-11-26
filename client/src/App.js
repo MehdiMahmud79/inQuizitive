@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Quiz from "./components/Quiz/QuizLogic";
+import Auth from "./utils/auth";
 
 function App() {
   return (
@@ -12,7 +13,11 @@ function App() {
       {/* <Quiz /> */}
       <Routes>
         <Route exact path="/" element={<Home />} />
-        <Route exact path="/profile" element={<Profile />} />
+        <Route
+          exact
+          path="/profile"
+          element={Auth.loggedIn() ? <Profile /> : <Home />}
+        />
 
         {/* <Route exact path="/quiz" component={CreateQuiz} /> */}
         <Route render={() => <h1 className="display-2">Wrong page!</h1>} />

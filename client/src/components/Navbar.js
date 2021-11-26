@@ -48,19 +48,17 @@ const AppNavbar = () => {
               {/* if user is logged in show saved books and logout */}
               {Auth.loggedIn() ? (
                 <>
-                  <Link
-                    to="/profile"
-                    className="ml-2 px-2 cursor-pointer text-xl  bg-green-800 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
-                  >
-                    Profile
-                  </Link>
-                  <Link
-                    className="ml-2 px-2 cursor-pointer text-xl  bg-green-800 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
-                    as={Link}
-                    to="/quizes"
-                  >
-                    See Your quizzes
-                  </Link>
+                  {Auth.loggedIn() ? (
+                    <Link
+                      to="/profile"
+                      className="ml-2 px-2 cursor-pointer text-xl  bg-green-800 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
+                    >
+                      Profile
+                    </Link>
+                  ) : (
+                    ""
+                  )}
+
                   <a
                     as={Link}
                     className="ml-2 px-2 cursor-pointer text-xl  bg-green-800 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
