@@ -88,7 +88,7 @@ const AppNavbar = () => {
         onHide={() => setShowModal(false)}
         aria-labelledby="signup-modal"
       >
-        <img src={logo} href="/" className="w-35 my-2 mx-auto" alt="logo" />
+        <img src={logo} href="/" className="w-25 my-2 mx-auto" alt="logo" />
 
         <Tab.Container defaultActiveKey="login">
           <Modal.Header closeButton>
