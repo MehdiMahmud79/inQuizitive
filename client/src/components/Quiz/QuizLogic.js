@@ -47,6 +47,7 @@ const Quiz = () => {
   const { loading, data } = useQuery(getSingleQuiz, {
     variables: { _id: quizId },
   });
+
   const [quizQuestions, setQuestions] = useState(initialQuestions);
   useEffect(
     (loading) => {
@@ -75,16 +76,9 @@ const Quiz = () => {
       });
       console.log(myQuestions);
       console.log(quizQuestions);
-
-      // return setQuestions([...myQuestions]);
-      // const quizQuestionss = Questions.map((questionData) => {
-      //   const correct_answer = questionData.correct_answer;
-      //   const incorrect_answers = questionData.incorrect_answers;
-      //   const question = questionData.correct_answer;
-      //   return { correct_answer, incorrect_answers, question };
-      // });
+      // setQuestions(myQuestions);
     },
-    [data]
+    [loading]
   );
   // console.log(quizQuestions);
   const [questionNumber, setquestionNumber] = useState(0);
