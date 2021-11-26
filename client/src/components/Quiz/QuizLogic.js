@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import { getSingleQuiz } from "../../utils/queries";
 
 // var quizQuestions = [];
-const quizQuestions = [
+const initialQuestions = [
   {
     category: "Entertainment: Video Games",
     type: "multiple",
@@ -47,7 +47,7 @@ const Quiz = () => {
   const { loading, data } = useQuery(getSingleQuiz, {
     variables: { _id: quizId },
   });
-
+  const [quizQuestions, setQuestions] = useState(initialQuestions);
   useEffect(
     (loading) => {
       if (loading) return;
@@ -59,8 +59,24 @@ const Quiz = () => {
       const difficulty = quizData.difficulty;
       const author = quizData.author;
 
-      const Questions = quizData.questions;
-      console.log(Questions);
+      const Questions = quizData?.questions || [];
+      const myQuestions = Questions.map((Q) => {
+        const correct_answer = Q.correct_answer;
+        const incorrect_answers = Q.incorrect_answers;
+        const question = Q.correct_answer;
+        return {
+          category,
+          type,
+          difficulty,
+          correct_answer,
+          incorrect_answers,
+          question,
+        };
+      });
+      console.log(myQuestions);
+      console.log(quizQuestions);
+
+      // return setQuestions([...myQuestions]);
       // const quizQuestionss = Questions.map((questionData) => {
       //   const correct_answer = questionData.correct_answer;
       //   const incorrect_answers = questionData.incorrect_answers;
