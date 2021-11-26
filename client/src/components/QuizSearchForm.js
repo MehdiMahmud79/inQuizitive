@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Alert } from "react-bootstrap";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery} from "@apollo/client";
 
 import AddedQuiz from "./AddedQuiz";
-
+import Profile from "../pages/Profile";
 import { addQuizMutation } from "../utils/queries";
+import { getUserQuizzes } from "../utils/queries";
 
 import {
   categoryOptions,
@@ -12,13 +13,23 @@ import {
   typeOptions,
 } from "../utils/valuesForQuizForm";
 import { searchQuiz } from "../utils/trivaApi";
+import Auth from "../utils/auth";
 
 const amountOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 function QuizSearchForm() {
+  const userName=Auth.getProfile().data.username
   const [showAlert, setShowAlert] = useState({ Fail: false, Success: false });
   const [alertMessage, setAlertMessage] = useState("");
 
+  const { loading, data:userQuizData } = useQuery(getUserQuizzes);
+
+  const[userQuizes, setUserQuizes]=useState([])
+
+useEffect(()=>{
+  if(!userQuizData) return
+  setUserQuizes([...userQuizData.getUserQuizzes])
+},[userQuizData])
   const [userFormData, setUserFormData] = useState({
     title: "",
     amount: amountOptions[0],
@@ -62,7 +73,6 @@ function QuizSearchForm() {
     event.preventDefault();
     // check if form has everything (as per react-bootstrap docs)
     event.stopPropagation();
-
     try {
       const { results } = await searchQuiz(userFormData);
 
@@ -81,6 +91,8 @@ function QuizSearchForm() {
         }
       );
       console.log(Quiz);
+      // update state to include new quiz here and then push to setQuiz([...quizData, Quiz])
+      setUserQuizes([...userQuizes, Quiz])
       const { data } = await addQuiz({ variables: Quiz });
       const quiz_id = data.addQuiz._id;
 
@@ -131,6 +143,12 @@ function QuizSearchForm() {
         ) : (
           ""
         )}
+    <div className="jumbotron">
+      <h1 className="display-4 text-center mt-3">Welcome to</h1>
+      <h2 className="display-4 text-center mb-3">
+        in<span className="text-red-700 font-bold">Q</span>uizitive
+      </h2>
+    </div>
 
         <h1 className="text-green-800 m-3 text-center">Choose your Quiz</h1>
         <div className="container w-25">
@@ -226,6 +244,7 @@ function QuizSearchForm() {
           </button>
         </div>
       </form>
+      <Profile userQuizes={userQuizes} userName={userName}/>
     </>
   );
 }
