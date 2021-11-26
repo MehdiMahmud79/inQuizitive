@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ListGroup, ProgressBar } from "react-bootstrap";
 import logo from "../../images/logo.png";
-
+import QuizResult from "./QuizResult";
 const quizQuestions = [
   {
     category: "Entertainment: Video Games",
@@ -101,10 +101,11 @@ const Quiz = ({ quizData: quizQuestionsA }) => {
 
   if (isComplete) {
     return (
-      <p>
-        {correctAnswers} out of {quizQuestions.length} --- Total score is{" "}
-        {score}
-      </p>
+      <QuizResult
+        correctAnswers={correctAnswers}
+        quizLength={quizQuestions.length}
+        Result={score}
+      />
     );
   } else {
     return (
