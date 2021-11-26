@@ -6,22 +6,17 @@ import { getUserQuizzes } from "../utils/queries";
 import "./style.css";
 import SingleCard from "../components/SingleCard";
 
-const Profile = () => {
-  const { loading, data } = useQuery(getUserQuizzes);
-  const[quizData, setUserQuiz]=useState([])
-useEffect(() => {
-  if (!data) return;
-  setUserQuiz(data.getUserQuizzes)
-}, [quizData]);
-console.log(quizData);
+const Profile = ({userQuizes,userName}) => {
+//   const { loading, data } = useQuery(getUserQuizzes);
+//   const[quizData, setUserQuiz]=useState([...data.getUserQuizzes])
+// useEffect(() => {
+//   if (!data) return;
+//   setUserQuiz(data.getUserQuizzes)
+// }, [quizData]);
+const loading=false
+
 return (
   <>
-    <div className="jumbotron">
-      <h1 className="display-4 text-center mt-3">Welcome to</h1>
-      <h2 className="display-4 text-center mb-3">
-        in<span className="text-red-700 font-bold">Q</span>uizitive
-      </h2>
-    </div>
 
     <div className="flex flex-wrap justify-center bg-gray-100 m-3 p-3 rounded-xl shadow-md">
       {loading ? (
@@ -33,12 +28,13 @@ return (
           <span className="sr-only">Loading...</span>
         </div>
       ) : (
-        quizData.map((quiz) => {
+        userQuizes.map((quiz) => {
           return (
             <SingleCard
               key={quiz._id}
               quizData={quiz}
               noOfQuestions={quiz.questions.length + 1}
+              userName={userName}
             />
           );
         })
