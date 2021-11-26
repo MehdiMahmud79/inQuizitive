@@ -5,9 +5,11 @@ import { getAllQuizzes } from "../utils/queries";
 
 import "./style.css";
 import SingleCard from "../components/SingleCard";
+import QuizSearchForm from "../components/QuizSearchForm";
 
 const Home = () => {
   const { loading, data } = useQuery(getAllQuizzes);
+
 const quizData = data?.getAllQuizzes || [];
 useEffect(() => {
   if (!data) return;
@@ -38,6 +40,7 @@ return (
               key={quiz._id}
               quizData={quiz}
               noOfQuestions={quiz.questions.length + 1}
+              userName={quiz.author}
             />
           );
         })

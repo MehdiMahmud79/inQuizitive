@@ -1,7 +1,16 @@
 import React from "react";
 import logo from "../images/logo.png";
+var date=new Date();
+var author=""
+const SingleCard = ({ quizData, noOfQuestions,userName }) => {
+ author=userName
+  if(quizData.created_at){
+     date=quizData.created_at
+  }
+  if(quizData.username){
+    author=quizData.username
+ }
 
-const SingleCard = ({ quizData, noOfQuestions }) => {
   return (
     <>
       <div className="max-w-sm rounded-xl  overflow-hidden bg-gray-800 text-red-200 opacity-90 m-3 shadow-md ">
@@ -14,11 +23,11 @@ const SingleCard = ({ quizData, noOfQuestions }) => {
           <div className="p-2 m-2">
             <i className="fas fa-user-edit "> </i>{" "}
             <span className="text-blue-400">
-              {quizData.author.toUpperCase()}
+            {author}
             </span>
             <div className="mt-2">
               <i className="far fa-calendar-check "> </i>{" "}
-              <span className="text-green-400">{quizData.created_at}</span>
+              <span className="text-green-400">{date}</span>
             </div>
           </div>
         </div>
