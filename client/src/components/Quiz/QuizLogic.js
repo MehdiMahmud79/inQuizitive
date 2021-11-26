@@ -3,6 +3,7 @@ import { ListGroup, ProgressBar } from "react-bootstrap";
 import logo from "../../images/logo.png";
 import QuizResult from "./QuizResult";
 import { useQuery } from "@apollo/client";
+import { useParams } from "react-router-dom";
 
 const quizQuestions = [
   {
@@ -48,6 +49,9 @@ const Quiz = ({ quizData: quizQuestionsA }) => {
   const [answers, setAnswers] = useState([]);
   const [isComplete, setComplete] = useState(false);
   const [score, setScore] = useState(0);
+
+  const { quizId } = useParams();
+  console.log(quizId);
 
   useEffect(() => {
     let answerArray = [];

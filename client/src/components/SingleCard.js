@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "../images/logo.png";
+import { Link } from "react-router-dom";
 
 import { removeQuizMutation } from "../utils/queries";
 import { useMutation } from "@apollo/client";
@@ -61,9 +62,12 @@ const SingleCard = ({ quizData, noOfQuestions, userName, toDelet }) => {
           </div>
           <div className="flex flex-1 bg-gray-700 rounded-xl  mt-5">
             {Auth.loggedIn() ? (
-              <button className="hover:bg-green-900 hover:text-green-100 focus:outline-none focus:ring-2  rounded-xl bg-green-500 w-100 text-gray-800 m-3 p-2">
+              <Link
+                to={`quiz/${quizData._id}`}
+                className="cursor-pointer no-underline text-center hover:bg-green-900 hover:text-green-100 focus:outline-none focus:ring-2  rounded-xl bg-green-500 w-100 text-gray-800 m-3 p-2"
+              >
                 <i className="fas fa-play-circle "></i> Start the Quiz
-              </button>
+              </Link>
             ) : (
               <button
                 className=" disabled:opacity-50  rounded-xl bg-red-500 w-100 text-red-100 m-3 p-2 cursor-help"
