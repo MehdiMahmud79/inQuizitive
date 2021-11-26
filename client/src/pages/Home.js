@@ -8,6 +8,7 @@ import SingleCard from "../components/SingleCard";
 
 const Home = () => {
   const { loading, data } = useQuery(getAllQuizzes);
+  
 const quizData = data?.getAllQuizzes || [];
 useEffect(() => {
   if (!data) return;

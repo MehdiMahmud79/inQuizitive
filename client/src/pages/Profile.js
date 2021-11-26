@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useQuery } from "@apollo/client";
 import { getUserQuizzes } from "../utils/queries";
@@ -8,11 +8,12 @@ import SingleCard from "../components/SingleCard";
 
 const Profile = () => {
   const { loading, data } = useQuery(getUserQuizzes);
-const quizData = data?.getUserQuizzes || [];
+  const[quizData, setUserQuiz]=useState([])
 useEffect(() => {
   if (!data) return;
-}, [data]);
-console.log(data);
+  setUserQuiz(data.getUserQuizzes)
+}, [quizData]);
+console.log(quizData);
 return (
   <>
     <div className="jumbotron">
