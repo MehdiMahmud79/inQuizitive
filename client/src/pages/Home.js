@@ -10,10 +10,12 @@ const Home = () => {
   const { loading, data } = useQuery(getAllQuizzes);
 
   const quizData = data?.getAllQuizzes || [];
+
   useEffect(() => {
-    if (!data) return;
+    if (data);
   }, [data]);
   console.log(data);
+
   return (
     <>
       <div className="jumbotron">

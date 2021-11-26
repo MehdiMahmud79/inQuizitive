@@ -20,6 +20,7 @@ function App() {
           element={Auth.loggedIn() ? <Profile /> : <Home />}
         />
         <Route exact path="/quiz/:quizId" element={<QuizLogic />} />
+        <Route exact path="/profile/quiz/:quizId" element={<QuizLogic />} />
 
         {/* <Route exact path="/quiz" component={CreateQuiz} /> */}
         <Route render={() => <h1 className="display-2">Wrong page!</h1>} />

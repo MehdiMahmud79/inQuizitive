@@ -25,7 +25,7 @@ const SingleCard = ({ quizData, noOfQuestions, userName, toDelet }) => {
       <div className="max-w-sm rounded-xl  overflow-hidden bg-gray-800 text-red-200 opacity-90 m-3 shadow-md ">
         <div className="flex justify-between ">
           <img
-            className="w-25 bg-red-200 rounded-xl m-2"
+            className="w-25 bg-yellow-100 rounded-xl m-2"
             src={logo}
             alt="inquizer logo"
           />
