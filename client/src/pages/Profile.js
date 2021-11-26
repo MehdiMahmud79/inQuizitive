@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import "./style.css";
 import SingleCard from "../components/SingleCard";
+
 const Profile = ({userQuizes,userName}) => {
 
 const loading=false

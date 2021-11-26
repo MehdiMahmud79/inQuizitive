@@ -11,7 +11,7 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <Quiz />
+      {/* <Quiz /> */}
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/addquiz" element={<AddQuiz />} />

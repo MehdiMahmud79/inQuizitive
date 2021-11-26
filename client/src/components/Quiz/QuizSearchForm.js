@@ -3,18 +3,15 @@ import { Alert } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
 
 import AddedQuiz from "./AddedQuiz";
-
-import { addQuizMutation, getUserQuizzes } from "../../utils/queries";
 import Profile from "../../pages/Profile";
+import { addQuizMutation, getUserQuizzes } from "../../utils/queries";
 
 import {
   categoryOptions,
   difficultyOptions,
   typeOptions,
 } from "../../utils/valuesForQuizForm";
-
 import { searchQuiz } from "../../utils/trivaApi";
-
 import Auth from "../../utils/auth";
 
 const amountOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -119,135 +116,141 @@ function QuizSearchForm() {
     }
   };
   return (
-    <>
-      <form onSubmit={handleFormSubmit}>
-        {showAlert.Error ? (
-          <Alert
-            dismissible
-            onClose={() => setShowAlert(false)}
-            show={showAlert}
-            variant="danger"
-          >
-            {alertMessage}
-          </Alert>
-        ) : (
-          ""
-        )}
-        {showAlert.Success ? (
-          <Alert
-            dismissible
-            onClose={() => setShowAlert(false)}
-            show={showAlert}
-            variant="success"
-          >
-            {alertMessage}
-          </Alert>
-        ) : (
-          ""
-        )}
-        <div className="jumbotron">
-          <h1 className="display-4 text-center mt-3">Welcome to</h1>
-          <h2 className="display-4 text-center mb-3">
-            in<span className="text-red-700 font-bold">Q</span>uizitive
-          </h2>
-        </div>
-
-        <h1 className="text-green-800 m-3 text-center">Choose your Quiz</h1>
-        <div className="container w-25">
-          <label className="block text-left m-2" htmlFor="amount">
-            <span className="text-gray-700">Quiz Title: </span>
-            <input
-              type="text"
-              name="title"
-              placeholder="Place the Quiz title here"
-              className="bg-gray-100 my-2 text-green-600 font-bold shadow-md rounded  py-2 px-2  flex-1 "
-              value={userFormData.title}
-              onChange={handleInputChange}
-              required
-            />
-          </label>
-          <label className="block text-left m-2" htmlFor="amount">
-            <span className="text-gray-700">Amount of questions: </span>
-
-            <select
-              className="form-select block w-full mt-1"
-              value={userFormData.amount}
-              name="amount"
-              onChange={handleInputChange}
+    <div className="grid lg:grid-cols-2  gap-2">
+      <div className="flex-auto bg-purple-100 rounded-xl">
+        <form onSubmit={handleFormSubmit}>
+          {showAlert.Error ? (
+            <Alert
+              dismissible
+              onClose={() => setShowAlert(false)}
+              show={showAlert}
+              variant="danger"
             >
-              {amountOptions.map((number) => (
-                <option key={number} value={number}>
-                  {number}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label className="block text-left m-2" htmlFor="category">
-            <span className="text-gray-700">Select category:</span>
-
-            <select
-              className="form-select block w-full mt-1"
-              value={
-                userFormData.category.value + "," + userFormData.category.label
-              }
-              name="category"
-              onChange={handleInputChange}
+              {alertMessage}
+            </Alert>
+          ) : (
+            ""
+          )}
+          {showAlert.Success ? (
+            <Alert
+              dismissible
+              onClose={() => setShowAlert(false)}
+              show={showAlert}
+              variant="success"
             >
-              {categoryOptions.map(({ value, label }) => (
-                <option key={label} value={value + "," + label}>
-                  {label}
-                </option>
-              ))}
-            </select>
-          </label>
+              {alertMessage}
+            </Alert>
+          ) : (
+            ""
+          )}
+          {/* <div className="jumbotron">
+      <h1 className="display-4 text-center mt-3">Welcome to</h1>
+      <h2 className="display-4 text-center mb-3">
+        in<span className="text-red-700 font-bold">Q</span>uizitive
+      </h2>
+    </div> */}
 
-          <label className="block text-left m-2" htmlFor="difficulty">
-            <span className="text-gray-700">Difficulty:</span>
+          <h1 className="text-green-800 m-3 text-center">Add a New Quiz</h1>
+          <div className="container w-full">
+            <label className="block text-left m-2" htmlFor="amount">
+              <span className="text-gray-700">Quiz Title: </span>
+              <input
+                type="text"
+                name="title"
+                placeholder="Place the Quiz title here"
+                className="bg-gray-100 my-2 text-green-600 font-bold shadow-md rounded  py-2 px-2  flex-1 "
+                value={userFormData.title}
+                onChange={handleInputChange}
+                required
+              />
+            </label>
+            <label className="block text-left m-2" htmlFor="amount">
+              <span className="text-gray-700">Amount of questions: </span>
 
-            <select
-              className="form-select block w-full mt-1"
-              value={userFormData.difficulty.label}
-              name="difficulty"
-              onChange={handleInputChange}
+              <select
+                className="form-select block w-full mt-1"
+                value={userFormData.amount}
+                name="amount"
+                onChange={handleInputChange}
+              >
+                {amountOptions.map((number) => (
+                  <option key={number} value={number}>
+                    {number}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label className="block text-left m-2" htmlFor="category">
+              <span className="text-gray-700">Select category:</span>
+
+              <select
+                className="form-select block w-full mt-1"
+                value={
+                  userFormData.category.value +
+                  "," +
+                  userFormData.category.label
+                }
+                name="category"
+                onChange={handleInputChange}
+              >
+                {categoryOptions.map(({ value, label }) => (
+                  <option key={label} value={value + "," + label}>
+                    {label}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label className="block text-left m-2" htmlFor="difficulty">
+              <span className="text-gray-700">Difficulty:</span>
+
+              <select
+                className="form-select block w-full mt-1"
+                value={userFormData.difficulty.label}
+                name="difficulty"
+                onChange={handleInputChange}
+              >
+                {difficultyOptions.map(({ value, label }) => (
+                  <option key={label} value={value}>
+                    {label}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label className="block text-left m-2" htmlFor="type">
+              <span className="text-gray-700">Type of question:</span>
+
+              <select
+                className="form-select block w-full mt-1"
+                value={userFormData.type.label}
+                name="type"
+                onChange={handleInputChange}
+              >
+                {typeOptions.map(({ value, label }) => (
+                  <option key={label} value={value}>
+                    {label}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <button
+              disabled={!userFormData.title}
+              type="submit"
+              variant="success"
+              className="border-2 w-100 shadow-md rounded-full  border-green-500 px-12 py-2 inline-block mt-2 font-semibold text hover:bg-green-500 hover:text-white text-decoration-none"
             >
-              {difficultyOptions.map(({ value, label }) => (
-                <option key={label} value={value}>
-                  {label}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label className="block text-left m-2" htmlFor="type">
-            <span className="text-gray-700">Type of question:</span>
-
-            <select
-              className="form-select block w-full mt-1"
-              value={userFormData.type.label}
-              name="type"
-              onChange={handleInputChange}
-            >
-              {typeOptions.map(({ value, label }) => (
-                <option key={label} value={value}>
-                  {label}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <button
-            disabled={!userFormData.title}
-            type="submit"
-            variant="success"
-            className="border-2 w-100 shadow-md rounded-full  border-green-500 px-12 py-2 inline-block mt-2 font-semibold text hover:bg-green-500 hover:text-white text-decoration-none"
-          >
-            Submit
-          </button>
-        </div>
-      </form>
-      <Profile userQuizes={userQuizes} userName={userName} />
-    </>
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+      <div className="flex-auto shadow-md bg-gray-600 rounded-xl">
+        <Profile userQuizes={userQuizes} userName={userName} />
+      </div>
+    </div>
   );
 }
 
