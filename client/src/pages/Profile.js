@@ -35,7 +35,6 @@ return (
   </>
 );
 
->>>>>>> origin/main
 };
 
 export default Profile;

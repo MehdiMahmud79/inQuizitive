@@ -5,16 +5,17 @@ import { useMutation, useQuery } from "@apollo/client";
 import AddedQuiz from "./AddedQuiz";
 
 import { addQuizMutation, getUserQuizzes } from "../../utils/queries";
-import Profile from "../pages/Profile";
+import Profile from "../../pages/Profile";
 
 import {
   categoryOptions,
   difficultyOptions,
   typeOptions,
 } from "../../utils/valuesForQuizForm";
+
 import { searchQuiz } from "../../utils/trivaApi";
 
-import Auth from "../utils/auth";
+import Auth from "../../utils/auth";
 
 const amountOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 

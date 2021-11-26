@@ -5,7 +5,6 @@ import { getAllQuizzes } from "../utils/queries";
 
 import "./style.css";
 import SingleCard from "../components/SingleCard";
-import QuizSearchForm from "../components/QuizSearchForm";
 
 const Home = () => {
   const { loading, data } = useQuery(getAllQuizzes);
