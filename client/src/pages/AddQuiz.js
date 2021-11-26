@@ -1,5 +1,5 @@
 import React from "react";
-import QuizSearchForm from "../components/QuizSearchForm";
+import QuizSearchForm from "../components/Quiz/QuizSearchForm";
 
 const AddQuiz = () => {
   return (

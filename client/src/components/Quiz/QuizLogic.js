@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ListGroup, ProgressBar } from "react-bootstrap";
-import logo from "../images/logo.png";
+import logo from "../../images/logo.png";
 
 const quizQuestions = [
   {
@@ -136,11 +136,11 @@ const Quiz = ({ quizData: quizQuestionsA }) => {
           {" "}
           <i className="fas fa-question-circle text-blue-900"></i> Question
         </h2>
-        <p className="text-blue-600 font-bold text-2xl p-2">
+        <p className="text-blue-600 font-bold text-2xl p-2 h-20">
           {" "}
           {quizQuestions[questionNumber].question}
         </p>
-        <ListGroup as="ul">
+        <ListGroup as="ul" className="p-1 bg-blue-800 text-2xl">
           {answers.map((answer, index) =>
             `answer-${index}` === activeQuestion ? (
               <ListGroup.Item

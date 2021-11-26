@@ -4,14 +4,14 @@ import { useMutation } from "@apollo/client";
 
 import AddedQuiz from "./AddedQuiz";
 
-import { addQuizMutation } from "../utils/queries";
+import { addQuizMutation } from "../../utils/queries";
 
 import {
   categoryOptions,
   difficultyOptions,
   typeOptions,
-} from "../utils/valuesForQuizForm";
-import { searchQuiz } from "../utils/trivaApi";
+} from "../../utils/valuesForQuizForm";
+import { searchQuiz } from "../../utils/trivaApi";
 
 const amountOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
