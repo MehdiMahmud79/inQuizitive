@@ -38,7 +38,7 @@ const initialQuestions = [
     incorrect_answers: ["2,717 ft", "2,546 ft", "3,024 ft"],
   },
 ];
-
+var myQuestions=[]
 const TIME_PER_QUESTION = 100;
 
 const Quiz = () => {
@@ -50,9 +50,9 @@ const Quiz = () => {
 
   const [quizQuestions, setQuestions] = useState(initialQuestions);
   useEffect(
-    (loading) => {
-      if (loading) return;
-
+    () => {
+      if (!loading) return;
+if(!data)return
       const quizData = data?.getQuiz || "";
       console.log(quizData, quizId);
       const category = quizData.category;
@@ -61,7 +61,7 @@ const Quiz = () => {
       const author = quizData.author;
 
       const Questions = quizData?.questions || [];
-      const myQuestions = Questions.map((Q) => {
+       myQuestions = Questions.map((Q) => {
         const correct_answer = Q.correct_answer;
         const incorrect_answers = Q.incorrect_answers;
         const question = Q.correct_answer;
@@ -76,11 +76,17 @@ const Quiz = () => {
       });
       console.log(myQuestions);
       console.log(quizQuestions);
-      // setQuestions(myQuestions);
+      // if(data)setQuestions (myQuestions);
     },
-    [loading]
+    [loading,data]
   );
+
+  // useEffect(() => {
+  //   if(!myQuestions)return 
+  //   setQuestions(myQuestions);
+  // }, [myQuestions]);
   // console.log(quizQuestions);
+
   const [questionNumber, setquestionNumber] = useState(0);
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [correctAnswers, setCorrectAnswers] = useState(0);
@@ -229,6 +235,6 @@ const Quiz = () => {
       </div>
     );
   }
-};
+};;
 
 export default Quiz;
