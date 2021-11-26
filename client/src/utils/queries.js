@@ -13,8 +13,8 @@ export const getUser = gql`
 `;
 
 export const getSingleQuiz = gql`
-  query getQuiz {
-    getQuiz(_id: ID) {
+  query getQuiz($_id: ID!) {
+    getQuiz(_id: $_id) {
       _id
       title
       author_id

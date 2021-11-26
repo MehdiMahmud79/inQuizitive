@@ -4,7 +4,9 @@ import logo from "../../images/logo.png";
 import QuizResult from "./QuizResult";
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
+import { getSingleQuiz } from "../../utils/queries";
 
+// var quizQuestions = [];
 const quizQuestions = [
   {
     category: "Entertainment: Video Games",
@@ -39,7 +41,36 @@ const quizQuestions = [
 
 const TIME_PER_QUESTION = 100;
 
-const Quiz = ({ quizData: quizQuestionsA }) => {
+const Quiz = () => {
+  const { quizId } = useParams();
+  // console.log(quizId);
+  const { loading, data } = useQuery(getSingleQuiz, {
+    variables: { _id: quizId },
+  });
+
+  useEffect(
+    (loading) => {
+      if (loading) return;
+
+      const quizData = data?.getQuiz || "";
+      console.log(quizData, quizId);
+      const category = quizData.category;
+      const type = quizData.type;
+      const difficulty = quizData.difficulty;
+      const author = quizData.author;
+
+      const Questions = quizData.questions;
+      console.log(Questions);
+      // const quizQuestionss = Questions.map((questionData) => {
+      //   const correct_answer = questionData.correct_answer;
+      //   const incorrect_answers = questionData.incorrect_answers;
+      //   const question = questionData.correct_answer;
+      //   return { correct_answer, incorrect_answers, question };
+      // });
+    },
+    [data]
+  );
+  // console.log(quizQuestions);
   const [questionNumber, setquestionNumber] = useState(0);
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [correctAnswers, setCorrectAnswers] = useState(0);
@@ -49,9 +80,6 @@ const Quiz = ({ quizData: quizQuestionsA }) => {
   const [answers, setAnswers] = useState([]);
   const [isComplete, setComplete] = useState(false);
   const [score, setScore] = useState(0);
-
-  const { quizId } = useParams();
-  console.log(quizId);
 
   useEffect(() => {
     let answerArray = [];
@@ -143,11 +171,12 @@ const Quiz = ({ quizData: quizQuestionsA }) => {
           {" "}
           <i className="fas fa-question-circle text-blue-900"></i> Question
         </h2>
-        <p className="text-blue-600 font-bold text-2xl p-2 h-20">
+        <p className="text-blue-600 font-bold text-2xl m-2 p-2 h-20">
           {" "}
           {quizQuestions[questionNumber].question}
         </p>
-        <ListGroup as="ul" className="p-1 bg-blue-800 text-2xl">
+        <br />
+        <ListGroup as="ul" className=" text-2xl">
           {answers.map((answer, index) =>
             `answer-${index}` === activeQuestion ? (
               <ListGroup.Item
