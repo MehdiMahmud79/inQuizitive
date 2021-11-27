@@ -1,18 +1,16 @@
-import React, { useEffect } from "react";
-
-import { useQuery } from "@apollo/client";
-import { getAllQuizzes } from "../utils/queries";
-
+import React, { useState, useEffect } from "react";
 import "./style.css";
 import SingleCard from "../components/SingleCard";
-
+import { useQuery } from "@apollo/client";
+import { getAllQuizzes } from "../utils/queries";
 const Home = () => {
   const { loading, data } = useQuery(getAllQuizzes);
 
-  const quizData = data?.getAllQuizzes || [];
-
-
-  console.log(data);
+  const [Quizes, setAllQuizes] = useState([]);
+  useEffect(() => {
+    if (loading) return;
+    setAllQuizes(data.getAllQuizzes);
+  }, [loading, data]);
 
   return (
     <>
@@ -22,7 +20,6 @@ const Home = () => {
           in<span className="text-red-700 font-bold">Q</span>uizitive
         </h2>
       </div>
-
       <div className="flex flex-wrap justify-center bg-gray-100 m-3 p-3 rounded-xl shadow-md">
         {loading ? (
           <div
@@ -33,13 +30,13 @@ const Home = () => {
             <span className="sr-only">Loading...</span>
           </div>
         ) : (
-          quizData.map((quiz) => {
+          Quizes.map((quiz) => {
             return (
               <SingleCard
                 key={quiz._id}
                 quizData={quiz}
-                noOfQuestions={quiz.questions.length + 1}
-                toDelet="false"
+                noOfQuestions={quiz?.questions.length + 1}
+                toDelet={false}
                 userName={quiz.author}
               />
             );

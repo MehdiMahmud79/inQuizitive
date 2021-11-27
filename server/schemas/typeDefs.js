@@ -11,6 +11,14 @@ const typeDefs = gql`
     correct_answer: String!
     incorrect_answers: [String!]
   }
+  input Score {
+    user_id: ID
+    score: String
+  }
+  type ScoreType {
+    user_id: ID
+    score: String
+  }
   type Quiz {
     _id: ID!
     title: String!
@@ -22,7 +30,7 @@ const typeDefs = gql`
     type: String!
     difficulty: String!
     questions: [savedQuestion!]
-    scores: [String]
+    scores: [ScoreType]
   }
 
   type Token {
@@ -60,9 +68,9 @@ const typeDefs = gql`
       difficulty: String!
       amount: String!
       questions: [Question!]
-    ): Quiz!
-    AddScoreToQuiz(_id: ID!, score: String!): Quiz!
-    removeQuiz(_id: ID!): Quiz!
+    ): [Quiz]
+    AddScoreToQuiz(_id: ID!, score: Score!): Quiz!
+    removeQuiz(_id: ID!): [Quiz]
   }
 `;
 

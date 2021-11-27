@@ -8,11 +8,23 @@ import Auth from "../utils/auth";
 
 var date = new Date();
 var author = "";
-const SingleCard = ({ quizData, noOfQuestions, userName, toDelet }) => {
-  const [delQuiz, { data: userData, error: reqError }] =
-    useMutation(removeQuizMutation);
+const SingleCard = ({
+  quizData,
+  noOfQuestions,
+  userName,
+  toDelet,
+  setUserQuizes,
+}) => {
   author = userName;
 
+  const [delQuiz] = useMutation(removeQuizMutation);
+  const handleClick = async (_id) => {
+    const data = await delQuiz({ variables: { id: _id } });
+
+    const quizList = data.data.removeQuiz;
+    return setUserQuizes([...quizList]);
+    // if (!loading) setQuizData([...allData.data?.getAllQuizzes]);
+  };
   if (quizData.created_at) {
     date = quizData.created_at;
   }
@@ -25,7 +37,7 @@ const SingleCard = ({ quizData, noOfQuestions, userName, toDelet }) => {
       <div className="max-w-sm rounded-xl  overflow-hidden bg-gray-800 text-red-200 opacity-90 m-3 shadow-md ">
         <div className="flex justify-between ">
           <img
-            className="w-25 bg-yellow-100 rounded-xl m-2"
+            className="w-25 bg-gray-900  rounded-xl m-2 p-2"
             src={logo}
             alt="inquizer logo"
           />
@@ -76,10 +88,10 @@ const SingleCard = ({ quizData, noOfQuestions, userName, toDelet }) => {
                 <i className="fas fa-play-circle "></i> Login Start the Quiz
               </button>
             )}
-            {toDelet == "true" ? (
+            {toDelet ? (
               <button
                 onClick={() => {
-                  delQuiz(quizData._id);
+                  handleClick(quizData._id);
                 }}
                 className=" focus:outline-none hover:bg-red-600 rounded-r-xl bg-green-100 text-gray-800 "
               >

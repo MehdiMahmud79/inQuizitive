@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Navbar, Nav, Container, Modal, Tab } from "react-bootstrap";
 
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -10,7 +10,9 @@ import SignUpForm from "./SignupForm";
 import "./style.css";
 import logo from "../images/logo200.png";
 import Auth from "../utils/auth";
-
+function refreshPage() {
+  window.location.replace("/");
+}
 const AppNavbar = () => {
   // set modal display state
   const [showModal, setShowModal] = useState(false);
@@ -24,7 +26,7 @@ const AppNavbar = () => {
           fluid
           className="bg-gradient-to-r from-purple-100 to-purple-900"
         >
-          <Navbar.Brand as={Link} to="/">
+          <Navbar.Brand>
             {" "}
             <img src={logo} className="w-25" alt="logo" />
           </Navbar.Brand>
@@ -32,49 +34,41 @@ const AppNavbar = () => {
           <Navbar.Toggle aria-controls="navbar" />
           <Navbar.Collapse id="navbar">
             <Nav className="ml-auto">
-              {/* <Link
+              <NavLink
                 className="ml-2 px-2 cursor-pointer text-xl  bg-green-800 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
-                to="/profile"
-              >
-                Profile
-              </Link> */}
-              <Link
-                className="ml-2 px-2 cursor-pointer text-xl  bg-green-800 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
-                as={Link}
                 to="/"
+                onClick={refreshPage}
               >
-                Progress
-              </Link>
+                <i className="fas fa-home text-blue-300"></i> Home
+              </NavLink>
               {/* if user is logged in show saved books and logout */}
               {Auth.loggedIn() ? (
                 <>
                   {Auth.loggedIn() ? (
-                    <Link
+                    <NavLink
                       to="/profile"
                       className="ml-2 px-2 cursor-pointer text-xl  bg-green-800 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
                     >
                       Profile
-                    </Link>
+                    </NavLink>
                   ) : (
                     ""
                   )}
 
-                  <a
-                    as={Link}
+                  <button
                     className="ml-2 px-2 cursor-pointer text-xl  bg-green-800 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
                     onClick={Auth.logout}
                   >
                     <i className="fas fa-sign-out-alt text-red-200"></i> Logout
-                  </a>
+                  </button>
                 </>
               ) : (
-                <a
-                  as={Link}
+                <button
                   className="ml-2 px-2 cursor-pointer text-xl  bg-green-800 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
                   onClick={() => setShowModal(true)}
                 >
                   Login/Sign Up
-                </a>
+                </button>
               )}
             </Nav>
           </Navbar.Collapse>

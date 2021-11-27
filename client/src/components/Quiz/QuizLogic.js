@@ -4,20 +4,23 @@ import logo from "../../images/logo.png";
 import QuizResult from "./QuizResult";
 
 import parse from "html-react-parser";
+import Auth from "../../utils/auth";
 
 const TIME_PER_QUESTION = 10;
 
 const QuizLogic = ({ data, quizId }) => {
+  const userId = Auth.getProfile().data._id;
+  const user_name = Auth.getProfile().data.username;
   const quizData = data?.getQuiz || "";
-  console.log(quizData, quizId);
+  // console.log(quizData, quizId);
 
   const category = quizData.category;
   const type = quizData.type;
   const difficulty = quizData.difficulty;
-  const author = quizData.author;
+  // const author = quizData.author;
 
   const Questions = quizData?.questions || [];
-  const myQuestions = Questions.map((Q) => {
+  const quizQuestions = Questions.map((Q) => {
     const correct_answer = Q.correct_answer;
     const incorrect_answers = Q.incorrect_answers;
     const question = Q.question;
@@ -30,15 +33,6 @@ const QuizLogic = ({ data, quizId }) => {
       question,
     };
   });
-  console.log(myQuestions);
-
-  // if (data) setQuestions();
-  const quizQuestions = myQuestions;
-  // useEffect(() => {
-  //   if(!myQuestions)return
-  //   setQuestions(myQuestions);
-  // }, [myQuestions]);
-  // console.log(quizQuestions);
 
   const [questionNumber, setquestionNumber] = useState(0);
   const [activeQuestion, setActiveQuestion] = useState(0);
@@ -49,16 +43,17 @@ const QuizLogic = ({ data, quizId }) => {
   const [answers, setAnswers] = useState([]);
   const [isComplete, setComplete] = useState(false);
   const [score, setScore] = useState(0);
+  let answerArray = [];
+
+  quizQuestions[questionNumber].incorrect_answers.forEach((answer) => {
+    if (Math.round(Math.random())) {
+      answerArray.push(answer);
+    } else {
+      answerArray.unshift(answer);
+    }
+  });
 
   useEffect(() => {
-    let answerArray = [];
-    quizQuestions[questionNumber].incorrect_answers.forEach((answer) => {
-      if (Math.round(Math.random())) {
-        answerArray.push(answer);
-      } else {
-        answerArray.unshift(answer);
-      }
-    });
     setAnswers([
       ...[quizQuestions[questionNumber].correct_answer],
       ...answerArray,
@@ -76,7 +71,7 @@ const QuizLogic = ({ data, quizId }) => {
 
   const handleClick = (event) => {
     setActiveQuestion(event.target.id);
-    console.log(event.target.value);
+    // console.log(event.target.value);
   };
 
   const handleSubmit = (event) => {
@@ -108,6 +103,9 @@ const QuizLogic = ({ data, quizId }) => {
         correctAnswers={correctAnswers}
         quizLength={quizQuestions.length}
         Result={score}
+        quiz_id={quizId}
+        user_id={userId}
+        user_name={user_name}
       />
     );
   } else {

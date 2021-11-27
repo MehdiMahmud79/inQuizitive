@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Alert } from "react-bootstrap";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 
-import AddedQuiz from "./AddedQuiz";
 import ProfileCards from "../ProfileCards";
-import { addQuizMutation, getUserQuizzes } from "../../utils/queries";
+import { addQuizMutation } from "../../utils/queries";
 
 import {
   categoryOptions,
@@ -16,19 +15,17 @@ import Auth from "../../utils/auth";
 
 const amountOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-function QuizSearchForm() {
+function QuizSearchForm({ quizData }) {
   const userName = Auth.getProfile().data.username;
-  const [showAlert, setShowAlert] = useState({ Fail: false, Success: false });
+
+  const [showAlert, setShowAlert] = useState(false);
+  const [AlertType, setAlertType] = useState({ Fail: false, Success: false });
   const [alertMessage, setAlertMessage] = useState("");
 
-  const { loading, data: userQuizData } = useQuery(getUserQuizzes);
+  const [addQuiz] = useMutation(addQuizMutation);
 
-  const [userQuizes, setUserQuizes] = useState([]);
+  const [userQuizes, setUserQuizes] = useState([...quizData]);
 
-  useEffect(() => {
-    if (!userQuizData) return;
-    setUserQuizes([...userQuizData.getUserQuizzes]);
-  }, [userQuizData]);
   const [userFormData, setUserFormData] = useState({
     title: "",
     amount: amountOptions[0],
@@ -39,12 +36,6 @@ function QuizSearchForm() {
     type: typeOptions[0].value,
     difficulty: difficultyOptions[0].value,
   });
-  const [addQuiz, { data: quizData, error }] = useMutation(addQuizMutation);
-
-  useEffect(() => {
-    if (!quizData) return;
-    // do st
-  }, [quizData]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -68,7 +59,6 @@ function QuizSearchForm() {
       setUserFormData({ ...userFormData, [name]: value });
     }
   };
-  console.log(userFormData);
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     // check if form has everything (as per react-bootstrap docs)
@@ -76,7 +66,6 @@ function QuizSearchForm() {
     try {
       const { results } = await searchQuiz(userFormData);
 
-      // console.log(results);
       let Quiz = {};
       Quiz.title = userFormData.title;
       Quiz.amount = userFormData.amount.toString();
@@ -90,15 +79,13 @@ function QuizSearchForm() {
           return { question, correct_answer, incorrect_answers };
         }
       );
-      console.log(Quiz);
-      // update state to include new quiz here and then push to setQuiz([...quizData, Quiz])
-      setUserQuizes([...userQuizes, Quiz]);
-      const { data } = await addQuiz({ variables: Quiz });
-      const quiz_id = data.addQuiz._id;
 
-      // questions.map(async (currentQuestion) => {
-      console.log("quizDATA_id ", quiz_id);
-      setShowAlert({ Fail: false, Success: true });
+      const { data } = await addQuiz({ variables: Quiz });
+
+      // const quiz_id = data.addQuiz._id;
+      setUserQuizes([...data?.addQuiz]);
+      setShowAlert(true);
+      setAlertType({ Fail: false, Success: true });
       setAlertMessage("Your Quizz added successfully.");
       setUserFormData({
         title: "",
@@ -110,17 +97,17 @@ function QuizSearchForm() {
         type: typeOptions[0].value,
         difficulty: difficultyOptions[0].value,
       });
-      // return <AddedQuiz quizId={quizData} />;
     } catch (err) {
       setAlertMessage(err.message);
-      setShowAlert({ Fail: true, Success: false });
+      setShowAlert(true);
+      setAlertType({ Fail: true, Success: false });
     }
   };
   return (
     <div className=" grid grid-cols-1 lg:grid-cols-3 gap-2">
       <div className="w-100 bg-purple-100 rounded-xl ">
         <form onSubmit={handleFormSubmit}>
-          {showAlert.Error ? (
+          {AlertType.Fail ? (
             <Alert
               dismissible
               onClose={() => setShowAlert(false)}
@@ -132,7 +119,7 @@ function QuizSearchForm() {
           ) : (
             ""
           )}
-          {showAlert.Success ? (
+          {AlertType.Success ? (
             <Alert
               dismissible
               onClose={() => setShowAlert(false)}
@@ -144,12 +131,6 @@ function QuizSearchForm() {
           ) : (
             ""
           )}
-          {/* <div className="jumbotron">
-      <h1 className="display-4 text-center mt-3">Welcome to</h1>
-      <h2 className="display-4 text-center mb-3">
-        in<span className="text-red-700 font-bold">Q</span>uizitive
-      </h2>
-    </div> */}
 
           <h1 className="text-green-800 m-5 text-center">Add a New Quiz</h1>
           <div className="container w-full">
@@ -249,18 +230,24 @@ function QuizSearchForm() {
         </form>
       </div>
       <div className="col-span-2  shadow-md bg-gray-600 rounded-xl">
-        <ProfileCards userQuizes={userQuizes} userName={userName} />
+        {!userQuizes ? (
+          <div
+            key="loading"
+            className="spinner-border text-success"
+            role="status"
+          >
+            <span className="sr-only">Loading...</span>
+          </div>
+        ) : (
+          <ProfileCards
+            setUserQuizes={setUserQuizes}
+            userQuizes={userQuizes}
+            userName={userName}
+          />
+        )}
       </div>
     </div>
   );
 }
-
-// const query={
-//   amount:5,
-//   category:18,
-//   difficulty:"easy",
-//   type:"multiple"
-
-//   }
 
 export default QuizSearchForm;

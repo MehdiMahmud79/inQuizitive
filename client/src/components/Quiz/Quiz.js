@@ -15,7 +15,7 @@ const Quiz = () => {
     <div>
       {loading ? (
         <div className="spinner-border text-success" role="status">
-          <span class="sr-only">Loading...</span>
+          <span className="sr-only">Loading...</span>
         </div>
       ) : (
         <QuizLogic data={Data} quizId={quizId} />

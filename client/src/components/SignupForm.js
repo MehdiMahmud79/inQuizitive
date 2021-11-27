@@ -41,10 +41,8 @@ const SignupForm = ({ signUpForm }) => {
   const [alertMessage, setAlertMessage] = useState("");
 
   //Mutation request to crteate a user
-  let [createUser, { data: signUpData, error: signUpError }] =
-    useMutation(signUpMutation);
-  let [loginUser, { data: loginData, error: loginError }] =
-    useMutation(loginUserMutation);
+  let [createUser, { data: signUpData }] = useMutation(signUpMutation);
+  let [loginUser, { data: loginData }] = useMutation(loginUserMutation);
 
   useEffect(() => {
     if (signUpForm) {
@@ -54,7 +52,7 @@ const SignupForm = ({ signUpForm }) => {
       if (!loginData) return;
       Auth.login(loginData.login.token);
     }
-  }, [loginData, signUpData]);
+  }, [loginData, signUpForm, signUpData]);
 
   const handleInputChange = (event) => {
     setAlertMessage("");
@@ -74,7 +72,7 @@ const SignupForm = ({ signUpForm }) => {
     event.preventDefault();
     try {
       if (signUpForm) {
-        if (userFormData.password != userFormData.password2) {
+        if (userFormData.password !== userFormData.password2) {
           setShowAlert(true);
           setAlertMessage("passwords should match!");
         }
