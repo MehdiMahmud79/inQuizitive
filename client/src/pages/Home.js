@@ -1,19 +1,12 @@
-import React, { useEffect } from "react";
-
+import React from "react";
+import "./style.css";
+import SingleCard from "../components/SingleCard";
 import { useQuery } from "@apollo/client";
 import { getAllQuizzes } from "../utils/queries";
 
-import "./style.css";
-import SingleCard from "../components/SingleCard";
-
 const Home = () => {
   const { loading, data } = useQuery(getAllQuizzes);
-
-  const quizData = data?.getAllQuizzes || [];
-
-
-  console.log(data);
-
+  const Quizes = data?.getAllQuizzes || [];
   return (
     <>
       <div className="jumbotron">
@@ -33,7 +26,7 @@ const Home = () => {
             <span className="sr-only">Loading...</span>
           </div>
         ) : (
-          quizData.map((quiz) => {
+          Quizes.map((quiz) => {
             return (
               <SingleCard
                 key={quiz._id}

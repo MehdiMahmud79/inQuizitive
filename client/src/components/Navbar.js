@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Navbar, Nav, Container, Modal, Tab } from "react-bootstrap";
 
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -24,7 +24,7 @@ const AppNavbar = () => {
           fluid
           className="bg-gradient-to-r from-purple-100 to-purple-900"
         >
-          <Navbar.Brand as={Link} to="/">
+          <Navbar.Brand as={NavLink} to="/">
             {" "}
             <img src={logo} className="w-25" alt="logo" />
           </Navbar.Brand>
@@ -32,23 +32,22 @@ const AppNavbar = () => {
           <Navbar.Toggle aria-controls="navbar" />
           <Navbar.Collapse id="navbar">
             <Nav className="ml-auto">
-              <Link
+              <NavLink
                 className="ml-2 px-2 cursor-pointer text-xl  bg-green-800 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
-                as={Link}
                 to="/"
               >
                 Quiz Rooms
-              </Link>
+              </NavLink>
               {/* if user is logged in show saved books and logout */}
               {Auth.loggedIn() ? (
                 <>
                   {Auth.loggedIn() ? (
-                    <Link
+                    <NavLink
                       to="/profile"
                       className="ml-2 px-2 cursor-pointer text-xl  bg-green-800 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
                     >
                       Profile
-                    </Link>
+                    </NavLink>
                   ) : (
                     ""
                   )}

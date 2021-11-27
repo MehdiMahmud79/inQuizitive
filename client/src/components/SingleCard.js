@@ -1,10 +1,12 @@
 import React from "react";
 import logo from "../images/logo.png";
 import { Link } from "react-router-dom";
+import { useQuery } from "@apollo/client";
 
 import { removeQuizMutation } from "../utils/queries";
 import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
+import { getAllQuizzes } from "../utils/queries";
 
 var date = new Date();
 var author = "";
@@ -14,17 +16,18 @@ const SingleCard = ({
   userName,
   toDelet,
   setUserQuizes,
+  setQuizData,
 }) => {
   author = userName;
 
-  const [delQuiz, { data: userData, error: reqError }] =
-    useMutation(removeQuizMutation);
-
+  const [delQuiz] = useMutation(removeQuizMutation);
+  const { loading, data: allData } = useQuery(getAllQuizzes);
   const handleClick = async (_id) => {
     const data = await delQuiz({ variables: { id: _id } });
+
     const quizList = data.data.removeQuiz;
     setUserQuizes([...quizList]);
-    // console.log(quizList);
+    // if (!loading) setQuizData([...allData.data?.getAllQuizzes]);
   };
   if (quizData.created_at) {
     date = quizData.created_at;
@@ -38,7 +41,7 @@ const SingleCard = ({
       <div className="max-w-sm rounded-xl  overflow-hidden bg-gray-800 text-red-200 opacity-90 m-3 shadow-md ">
         <div className="flex justify-between ">
           <img
-            className="w-25 bg-yellow-100 rounded-xl m-2"
+            className="w-25 bg-gray-900  rounded-xl m-2 p-2"
             src={logo}
             alt="inquizer logo"
           />
