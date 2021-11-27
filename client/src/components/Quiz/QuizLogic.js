@@ -2,42 +2,9 @@ import React, { useEffect, useState } from "react";
 import { ListGroup, ProgressBar } from "react-bootstrap";
 import logo from "../../images/logo.png";
 import QuizResult from "./QuizResult";
-import { useQuery } from "@apollo/client";
-import { useParams } from "react-router-dom";
-import { getSingleQuiz } from "../../utils/queries";
 
-// var quizQuestions = [];
-const initialQuestions = [
-  {
-    category: "Entertainment: Video Games",
-    type: "multiple",
-    difficulty: "medium",
-    question: "Which company did Bethesda purchase the Fallout Series from?",
-    correct_answer: "Interplay Entertainment ",
-    incorrect_answers: ["Capcom", "Blizzard Entertainment", "Nintendo"],
-  },
-  {
-    category: "History",
-    type: "multiple",
-    difficulty: "hard",
-    question:
-      "What was the code name for the Allied invasion of Southern France on August 15th, 1944?",
-    correct_answer: "Operation Dragoon",
-    incorrect_answers: [
-      "Operation Overlord",
-      "Operation Market Garden",
-      "Operation Torch",
-    ],
-  },
-  {
-    category: "General Knowledge",
-    type: "multiple",
-    difficulty: "easy",
-    question: "How tall is the Burj Khalifa?",
-    correct_answer: "2,722 ft",
-    incorrect_answers: ["2,717 ft", "2,546 ft", "3,024 ft"],
-  },
-];
+import parse from "html-react-parser";
+
 const TIME_PER_QUESTION = 10;
 
 const QuizLogic = ({ data, quizId }) => {
@@ -175,7 +142,7 @@ const QuizLogic = ({ data, quizId }) => {
         </h2>
         <p className="text-blue-600 font-bold text-2xl m-2 p-2 h-20">
           {" "}
-          {quizQuestions[questionNumber].question}
+          {parse(quizQuestions[questionNumber].question)}
         </p>
         <br />
         <ListGroup as="ul" className=" text-2xl">
@@ -190,7 +157,7 @@ const QuizLogic = ({ data, quizId }) => {
                 id={`answer-${index}`}
               >
                 <i className="fas fa-angle-double-right text-yellow-400"></i>{" "}
-                {answer}
+                {parse(answer)}
               </ListGroup.Item>
             ) : (
               <ListGroup.Item
@@ -200,7 +167,7 @@ const QuizLogic = ({ data, quizId }) => {
                 onClick={handleClick}
                 id={`answer-${index}`}
               >
-                {answer}
+                {parse(answer)}
               </ListGroup.Item>
             )
           )}
