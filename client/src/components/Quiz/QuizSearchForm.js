@@ -15,20 +15,15 @@ import Auth from "../../utils/auth";
 
 const amountOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-function QuizSearchForm({ quizData, test, addTest }) {
+function QuizSearchForm({ quizData }) {
   const userName = Auth.getProfile().data.username;
 
   const [showAlert, setShowAlert] = useState({ Fail: false, Success: false });
   const [alertMessage, setAlertMessage] = useState("");
 
-  const [addQuiz, { data, error }] = useMutation(addQuizMutation);
+  const [addQuiz] = useMutation(addQuizMutation);
 
   const [userQuizes, setUserQuizes] = useState([...quizData]);
-  const [addedQuiz, setAddedQuiz] = useState(false);
-
-  // useEffect(() => {
-  //   if (!data) return;
-  // }, [data, test]);
 
   const [userFormData, setUserFormData] = useState({
     title: "",
@@ -70,7 +65,6 @@ function QuizSearchForm({ quizData, test, addTest }) {
     try {
       const { results } = await searchQuiz(userFormData);
 
-      // console.log(results);
       let Quiz = {};
       Quiz.title = userFormData.title;
       Quiz.amount = userFormData.amount.toString();
@@ -84,16 +78,11 @@ function QuizSearchForm({ quizData, test, addTest }) {
           return { question, correct_answer, incorrect_answers };
         }
       );
-      console.log(Quiz);
 
       const { data } = await addQuiz({ variables: Quiz });
-      // setAddedQuiz(true);
-      // addTest(true);
-      console.log("asasddas", data.addQuiz);
+
       const quiz_id = data.addQuiz._id;
       setUserQuizes([...data?.addQuiz]);
-      // questions.map(async (currentQuestion) => {
-      console.log("quizDATA_id ", quiz_id);
       setShowAlert({ Fail: false, Success: true });
       setAlertMessage("Your Quizz added successfully.");
       setUserFormData({
@@ -106,7 +95,6 @@ function QuizSearchForm({ quizData, test, addTest }) {
         type: typeOptions[0].value,
         difficulty: difficultyOptions[0].value,
       });
-      // return <AddedQuiz quizId={quizData} />;
     } catch (err) {
       setAlertMessage(err.message);
       setShowAlert({ Fail: true, Success: false });
@@ -140,12 +128,6 @@ function QuizSearchForm({ quizData, test, addTest }) {
           ) : (
             ""
           )}
-          {/* <div className="jumbotron">
-      <h1 className="display-4 text-center mt-3">Welcome to</h1>
-      <h2 className="display-4 text-center mb-3">
-        in<span className="text-red-700 font-bold">Q</span>uizitive
-      </h2>
-    </div> */}
 
           <h1 className="text-green-800 m-5 text-center">Add a New Quiz</h1>
           <div className="container w-full">
@@ -246,7 +228,13 @@ function QuizSearchForm({ quizData, test, addTest }) {
       </div>
       <div className="col-span-2  shadow-md bg-gray-600 rounded-xl">
         {!userQuizes ? (
-          "Loading..."
+          <div
+            key="loading"
+            className="spinner-border text-success"
+            role="status"
+          >
+            <span className="sr-only">Loading...</span>
+          </div>
         ) : (
           <ProfileCards
             setUserQuizes={setUserQuizes}
