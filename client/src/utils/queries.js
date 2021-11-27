@@ -23,7 +23,10 @@ export const getSingleQuiz = gql`
       category
       type
       difficulty
-      scores
+      scores {
+        user_id
+        score
+      }
       questions {
         question
         correct_answer
@@ -43,7 +46,10 @@ export const getAllQuizzes = gql`
       category
       type
       difficulty
-      scores
+      scores {
+        user_id
+        score
+      }
       questions {
         question
         correct_answer
@@ -64,7 +70,10 @@ export const getUserQuizzes = gql`
       category
       type
       difficulty
-      scores
+      scores {
+        user_id
+        score
+      }
       questions {
         question
         correct_answer
@@ -141,7 +150,10 @@ export const addQuizMutation = gql`
       category
       type
       difficulty
-      scores
+      scores {
+        user_id
+        score
+      }
       questions {
         question
         correct_answer
@@ -161,7 +173,10 @@ export const removeQuizMutation = gql`
       category
       type
       difficulty
-      scores
+      scores {
+        user_id
+        score
+      }
       questions {
         question
         correct_answer
@@ -171,7 +186,7 @@ export const removeQuizMutation = gql`
   }
 `;
 export const AddScoreToQuizMutation = gql`
-  mutation AddScoreToQuiz($id: ID!, $score: String!) {
+  mutation AddScoreToQuiz($id: ID!, $score: Score!) {
     AddScoreToQuiz(_id: $id, score: $score) {
       _id
       title
@@ -181,7 +196,10 @@ export const AddScoreToQuizMutation = gql`
       category
       type
       difficulty
-      scores
+      scores {
+        user_id
+        score
+      }
       questions {
         question
         correct_answer

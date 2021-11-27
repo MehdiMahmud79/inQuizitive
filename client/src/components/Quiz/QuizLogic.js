@@ -4,10 +4,13 @@ import logo from "../../images/logo.png";
 import QuizResult from "./QuizResult";
 
 import parse from "html-react-parser";
+import Auth from "../../utils/auth";
 
 const TIME_PER_QUESTION = 10;
 
 const QuizLogic = ({ data, quizId }) => {
+  const userId = Auth.getProfile().data._id;
+  const user_name = Auth.getProfile().data.username;
   const quizData = data?.getQuiz || "";
   console.log(quizData, quizId);
 
@@ -34,11 +37,6 @@ const QuizLogic = ({ data, quizId }) => {
 
   // if (data) setQuestions();
   const quizQuestions = myQuestions;
-  // useEffect(() => {
-  //   if(!myQuestions)return
-  //   setQuestions(myQuestions);
-  // }, [myQuestions]);
-  // console.log(quizQuestions);
 
   const [questionNumber, setquestionNumber] = useState(0);
   const [activeQuestion, setActiveQuestion] = useState(0);
@@ -108,6 +106,9 @@ const QuizLogic = ({ data, quizId }) => {
         correctAnswers={correctAnswers}
         quizLength={quizQuestions.length}
         Result={score}
+        quiz_id={quizId}
+        user_id={userId}
+        user_name={user_name}
       />
     );
   } else {
