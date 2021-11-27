@@ -24,7 +24,7 @@ const SingleCard = ({
     const data = await delQuiz({ variables: { id: _id } });
     const quizList = data.data.removeQuiz;
     setUserQuizes([...quizList]);
-    console.log(quizList);
+    // console.log(quizList);
   };
   if (quizData.created_at) {
     date = quizData.created_at;

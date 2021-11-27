@@ -68,7 +68,7 @@ const typeDefs = gql`
       difficulty: String!
       amount: String!
       questions: [Question!]
-    ): Quiz!
+    ): [Quiz]
     AddScoreToQuiz(_id: ID!, score: Score!): Quiz!
     removeQuiz(_id: ID!): [Quiz]
   }

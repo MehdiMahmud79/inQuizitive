@@ -110,7 +110,7 @@ const resolvers = {
             difficulty,
             questions: questions,
           });
-          return newQuiz;
+          return await Quiz.find({ author_id: user._id });
         } catch (err) {
           throw new AuthenticationError(err);
         }
