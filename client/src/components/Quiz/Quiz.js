@@ -12,7 +12,15 @@ const Quiz = () => {
   });
 
   return (
-    <div>{loading ? "loading" : <QuizLogic data={Data} quizId={quizId} />}</div>
+    <div>
+      {loading ? (
+        <div className="spinner-border text-success" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      ) : (
+        <QuizLogic data={Data} quizId={quizId} />
+      )}
+    </div>
   );
 };
 
