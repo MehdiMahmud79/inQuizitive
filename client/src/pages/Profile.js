@@ -8,7 +8,13 @@ const Profile = () => {
   return (
     <>
       {loading ? (
-        <div> Loading...</div>
+        <div
+          key="loading"
+          className="spinner-border text-success"
+          role="status"
+        >
+          <span className="sr-only">Loading...</span>
+        </div>
       ) : (
         <div>
           <QuizSearchForm quizData={data?.getUserQuizzes} />
