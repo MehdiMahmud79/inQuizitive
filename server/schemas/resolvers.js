@@ -124,7 +124,7 @@ const resolvers = {
       if (user) {
         try {
           const updatedQuiz = await Quiz.findByIdAndUpdate(_id, {
-            $addToSet: { scores: { score } },
+            $push: { scores: { score } },
           });
 
           return updatedQuiz;

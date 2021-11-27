@@ -12,7 +12,7 @@ const QuizLogic = ({ data, quizId }) => {
   const userId = Auth.getProfile().data._id;
   const user_name = Auth.getProfile().data.username;
   const quizData = data?.getQuiz || "";
-  console.log(quizData, quizId);
+  // console.log(quizData, quizId);
 
   const category = quizData.category;
   const type = quizData.type;
@@ -33,7 +33,7 @@ const QuizLogic = ({ data, quizId }) => {
       question,
     };
   });
-  console.log(myQuestions);
+  // console.log(myQuestions);
 
   // if (data) setQuestions();
   const quizQuestions = myQuestions;
