@@ -30,8 +30,8 @@ const Home = () => {
               <SingleCard
                 key={quiz._id}
                 quizData={quiz}
-                noOfQuestions={quiz.questions.length + 1}
-                toDelet="false"
+                noOfQuestions={quiz?.questions.length + 1}
+                toDelet={false}
                 userName={quiz.author}
               />
             );

@@ -17,7 +17,7 @@ const Profile = () => {
         </div>
       ) : (
         <div>
-          <QuizSearchForm quizData={data?.getUserQuizzes} />
+          <QuizSearchForm quizData={data.getUserQuizzes} />
         </div>
       )}
     </>

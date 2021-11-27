@@ -1,12 +1,10 @@
 import React from "react";
 import logo from "../images/logo.png";
 import { Link } from "react-router-dom";
-import { useQuery } from "@apollo/client";
 
 import { removeQuizMutation } from "../utils/queries";
 import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
-import { getAllQuizzes } from "../utils/queries";
 
 var date = new Date();
 var author = "";
@@ -16,12 +14,10 @@ const SingleCard = ({
   userName,
   toDelet,
   setUserQuizes,
-  setQuizData,
 }) => {
   author = userName;
 
   const [delQuiz] = useMutation(removeQuizMutation);
-  const { loading, data: allData } = useQuery(getAllQuizzes);
   const handleClick = async (_id) => {
     const data = await delQuiz({ variables: { id: _id } });
 
@@ -92,7 +88,7 @@ const SingleCard = ({
                 <i className="fas fa-play-circle "></i> Login Start the Quiz
               </button>
             )}
-            {toDelet == "true" ? (
+            {toDelet ? (
               <button
                 onClick={() => {
                   handleClick(quizData._id);

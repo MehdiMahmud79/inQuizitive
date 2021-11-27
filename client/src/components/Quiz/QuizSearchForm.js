@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Alert } from "react-bootstrap";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 
 import ProfileCards from "../ProfileCards";
 import { addQuizMutation } from "../../utils/queries";
@@ -18,7 +18,8 @@ const amountOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 function QuizSearchForm({ quizData }) {
   const userName = Auth.getProfile().data.username;
 
-  const [showAlert, setShowAlert] = useState({ Fail: false, Success: false });
+  const [showAlert, setShowAlert] = useState(false);
+  const [AlertType, setAlertType] = useState({ Fail: false, Success: false });
   const [alertMessage, setAlertMessage] = useState("");
 
   const [addQuiz] = useMutation(addQuizMutation);
@@ -81,9 +82,10 @@ function QuizSearchForm({ quizData }) {
 
       const { data } = await addQuiz({ variables: Quiz });
 
-      const quiz_id = data.addQuiz._id;
+      // const quiz_id = data.addQuiz._id;
       setUserQuizes([...data?.addQuiz]);
-      setShowAlert({ Fail: false, Success: true });
+      setShowAlert(true);
+      setAlertType({ Fail: false, Success: true });
       setAlertMessage("Your Quizz added successfully.");
       setUserFormData({
         title: "",
@@ -97,14 +99,15 @@ function QuizSearchForm({ quizData }) {
       });
     } catch (err) {
       setAlertMessage(err.message);
-      setShowAlert({ Fail: true, Success: false });
+      setShowAlert(true);
+      setAlertType({ Fail: true, Success: false });
     }
   };
   return (
     <div className=" grid grid-cols-1 lg:grid-cols-3 gap-2">
       <div className="w-100 bg-purple-100 rounded-xl ">
         <form onSubmit={handleFormSubmit}>
-          {showAlert.Error ? (
+          {AlertType.Fail ? (
             <Alert
               dismissible
               onClose={() => setShowAlert(false)}
@@ -116,7 +119,7 @@ function QuizSearchForm({ quizData }) {
           ) : (
             ""
           )}
-          {showAlert.Success ? (
+          {AlertType.Success ? (
             <Alert
               dismissible
               onClose={() => setShowAlert(false)}
@@ -246,6 +249,5 @@ function QuizSearchForm({ quizData }) {
     </div>
   );
 }
-
 
 export default QuizSearchForm;
