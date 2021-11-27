@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./style.css";
 import SingleCard from "./SingleCard";
 
-const Profile = ({ userQuizes, userName }) => {
+const ProfileCards = ({ userQuizes, userName }) => {
   const loading = false;
 
   return (
@@ -21,7 +21,7 @@ const Profile = ({ userQuizes, userName }) => {
           userQuizes.map((quiz) => {
             return (
               <SingleCard
-                key={quiz._id}
+                key={quiz._id + quiz.username}
                 quizData={quiz}
                 noOfQuestions={quiz.questions.length + 1}
                 userName={userName}
@@ -35,4 +35,4 @@ const Profile = ({ userQuizes, userName }) => {
   );
 };
 
-export default Profile;
+export default ProfileCards;

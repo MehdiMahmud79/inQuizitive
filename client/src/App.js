@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
-import QuizLogic from "./components/Quiz/QuizLogic";
+import Quiz from "./components/Quiz/Quiz";
 import Auth from "./utils/auth";
 
 function App() {
@@ -19,8 +19,8 @@ function App() {
           path="/profile"
           element={Auth.loggedIn() ? <Profile /> : <Home />}
         />
-        <Route exact path="/quiz/:quizId" element={<QuizLogic />} />
-        <Route exact path="/profile/quiz/:quizId" element={<QuizLogic />} />
+        <Route exact path="/quiz/:quizId" element={<Quiz />} />
+        <Route exact path="/profile/quiz/:quizId" element={<Quiz />} />
 
         {/* <Route exact path="/quiz" component={CreateQuiz} /> */}
         <Route render={() => <h1 className="display-2">Wrong page!</h1>} />

@@ -26,11 +26,9 @@ function QuizSearchForm() {
   const [userQuizes, setUserQuizes] = useState([]);
 
   useEffect(() => {
-    if (loading) return;
-    console.log("sdfsfdsd");
-    if (userQuizData) setUserQuizes([...userQuizData.getUserQuizzes]);
-  }, [userQuizData, loading]);
-
+    if (!userQuizData) return;
+    setUserQuizes([...userQuizData.getUserQuizzes]);
+  }, [userQuizData]);
   const [userFormData, setUserFormData] = useState({
     title: "",
     amount: amountOptions[0],
@@ -70,7 +68,7 @@ function QuizSearchForm() {
       setUserFormData({ ...userFormData, [name]: value });
     }
   };
-  // console.log(userFormData);
+  console.log(userFormData);
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     // check if form has everything (as per react-bootstrap docs)
@@ -94,6 +92,7 @@ function QuizSearchForm() {
       );
       console.log(Quiz);
       // update state to include new quiz here and then push to setQuiz([...quizData, Quiz])
+      setUserQuizes([...userQuizes, Quiz]);
       const { data } = await addQuiz({ variables: Quiz });
       const quiz_id = data.addQuiz._id;
 

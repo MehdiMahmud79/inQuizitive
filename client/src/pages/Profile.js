@@ -1,7 +1,7 @@
 import React from "react";
 import QuizSearchForm from "../components/Quiz/QuizSearchForm";
 
-const AddQuiz = () => {
+const Profile = () => {
   return (
     <div>
       <QuizSearchForm />
@@ -9,4 +9,4 @@ const AddQuiz = () => {
   );
 };
 
-export default AddQuiz;
+export default Profile;

@@ -11,9 +11,7 @@ const Home = () => {
 
   const quizData = data?.getAllQuizzes || [];
 
-  useEffect(() => {
-    if (data);
-  }, [data]);
+
   console.log(data);
 
   return (

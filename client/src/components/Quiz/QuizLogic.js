@@ -38,51 +38,37 @@ const initialQuestions = [
     incorrect_answers: ["2,717 ft", "2,546 ft", "3,024 ft"],
   },
 ];
-var myQuestions=[]
 const TIME_PER_QUESTION = 100;
 
-const Quiz = () => {
-  const { quizId } = useParams();
-  // console.log(quizId);
-  const { loading, data } = useQuery(getSingleQuiz, {
-    variables: { _id: quizId },
+const QuizLogic = ({ data, quizId }) => {
+  const quizData = data?.getQuiz || "";
+  console.log(quizData, quizId);
+
+  const category = quizData.category;
+  const type = quizData.type;
+  const difficulty = quizData.difficulty;
+  const author = quizData.author;
+
+  const Questions = quizData?.questions || [];
+  const myQuestions = Questions.map((Q) => {
+    const correct_answer = Q.correct_answer;
+    const incorrect_answers = Q.incorrect_answers;
+    const question = Q.question;
+    return {
+      category,
+      type,
+      difficulty,
+      correct_answer,
+      incorrect_answers,
+      question,
+    };
   });
+  console.log(myQuestions);
 
-  const [quizQuestions, setQuestions] = useState(initialQuestions);
-  useEffect(
-    () => {
-      if (!loading) return;
-if(!data)return
-      const quizData = data?.getQuiz || "";
-      console.log(quizData, quizId);
-      const category = quizData.category;
-      const type = quizData.type;
-      const difficulty = quizData.difficulty;
-      const author = quizData.author;
-
-      const Questions = quizData?.questions || [];
-       myQuestions = Questions.map((Q) => {
-        const correct_answer = Q.correct_answer;
-        const incorrect_answers = Q.incorrect_answers;
-        const question = Q.correct_answer;
-        return {
-          category,
-          type,
-          difficulty,
-          correct_answer,
-          incorrect_answers,
-          question,
-        };
-      });
-      console.log(myQuestions);
-      console.log(quizQuestions);
-      // if(data)setQuestions (myQuestions);
-    },
-    [loading,data]
-  );
-
+  // if (data) setQuestions();
+  const quizQuestions = myQuestions;
   // useEffect(() => {
-  //   if(!myQuestions)return 
+  //   if(!myQuestions)return
   //   setQuestions(myQuestions);
   // }, [myQuestions]);
   // console.log(quizQuestions);
@@ -235,6 +221,6 @@ if(!data)return
       </div>
     );
   }
-};;
+};
 
-export default Quiz;
+export default QuizLogic;
