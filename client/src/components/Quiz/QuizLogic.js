@@ -38,7 +38,7 @@ const initialQuestions = [
     incorrect_answers: ["2,717 ft", "2,546 ft", "3,024 ft"],
   },
 ];
-const TIME_PER_QUESTION = 100;
+const TIME_PER_QUESTION = 10;
 
 const QuizLogic = ({ data, quizId }) => {
   const quizData = data?.getQuiz || "";
