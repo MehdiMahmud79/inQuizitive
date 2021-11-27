@@ -13,8 +13,8 @@ export const getUser = gql`
 `;
 
 export const getSingleQuiz = gql`
-  query getQuiz {
-    getQuiz(_id: ID) {
+  query getQuiz($_id: ID!) {
+    getQuiz(_id: $_id) {
       _id
       title
       author_id
@@ -150,7 +150,26 @@ export const addQuizMutation = gql`
     }
   }
 `;
-
+export const removeQuizMutation = gql`
+  mutation removeQuiz($id: ID!) {
+    removeQuiz(_id: $id) {
+      _id
+      title
+      author_id
+      author
+      created_at
+      category
+      type
+      difficulty
+      scores
+      questions {
+        question
+        correct_answer
+        incorrect_answers
+      }
+    }
+  }
+`;
 export const AddScoreToQuizMutation = gql`
   mutation AddScoreToQuiz($id: ID!, $score: String!) {
     AddScoreToQuiz(_id: $id, score: $score) {

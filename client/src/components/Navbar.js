@@ -26,21 +26,20 @@ const AppNavbar = () => {
         >
           <Navbar.Brand as={Link} to="/">
             {" "}
-            <img src={logo} className="w-75" alt="logo" />
+            <img src={logo} className="w-25" alt="logo" />
           </Navbar.Brand>
 
           <Navbar.Toggle aria-controls="navbar" />
           <Navbar.Collapse id="navbar">
             <Nav className="ml-auto">
-              <Link
-                className="ml-2  px-2 cursor-pointer  bg-green-600 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
-                
+              {/* <Link
+                className="ml-2 px-2 cursor-pointer text-xl  bg-green-800 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
                 to="/profile"
               >
                 Profile
-              </Link>
+              </Link> */}
               <Link
-                className="ml-2 px-2 cursor-pointer  bg-green-600 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
+                className="ml-2 px-2 cursor-pointer text-xl  bg-green-800 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
                 as={Link}
                 to="/"
               >
@@ -49,31 +48,29 @@ const AppNavbar = () => {
               {/* if user is logged in show saved books and logout */}
               {Auth.loggedIn() ? (
                 <>
-                  <Link
-                    to="/addQuiz"
-                    className="ml-2 px-2 cursor-pointer  bg-red-600 py-1  rounded-lg text-red-100 no-underline hover:bg-red-100 hover:text-red-600"
-                  >
-                    add Quiz
-                  </Link>
-                  <Link
-                    className="ml-2 px-2 cursor-pointer  bg-green-600 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
-                    as={Link}
-                    to="/quizes"
-                  >
-                    See Your quizzes
-                  </Link>
+                  {Auth.loggedIn() ? (
+                    <Link
+                      to="/profile"
+                      className="ml-2 px-2 cursor-pointer text-xl  bg-green-800 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
+                    >
+                      Profile
+                    </Link>
+                  ) : (
+                    ""
+                  )}
+
                   <a
                     as={Link}
-                    className="ml-2 px-2 cursor-pointer  bg-green-600 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
+                    className="ml-2 px-2 cursor-pointer text-xl  bg-green-800 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
                     onClick={Auth.logout}
                   >
-                    Logout
+                    <i className="fas fa-sign-out-alt text-red-200"></i> Logout
                   </a>
                 </>
               ) : (
                 <a
                   as={Link}
-                  className="ml-2 px-2 cursor-pointer  bg-green-600 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
+                  className="ml-2 px-2 cursor-pointer text-xl  bg-green-800 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
                   onClick={() => setShowModal(true)}
                 >
                   Login/Sign Up
@@ -91,7 +88,7 @@ const AppNavbar = () => {
         onHide={() => setShowModal(false)}
         aria-labelledby="signup-modal"
       >
-        <img src={logo} href="/" className="w-35 my-2 mx-auto" alt="logo" />
+        <img src={logo} href="/" className="w-25 my-2 mx-auto" alt="logo" />
 
         <Tab.Container defaultActiveKey="login">
           <Modal.Header closeButton>
