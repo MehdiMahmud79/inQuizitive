@@ -17,7 +17,7 @@ const QuizLogic = ({ data, quizId }) => {
   const category = quizData.category;
   const type = quizData.type;
   const difficulty = quizData.difficulty;
-  const author = quizData.author;
+  // const author = quizData.author;
 
   const Questions = quizData?.questions || [];
   const myQuestions = Questions.map((Q) => {
@@ -74,7 +74,7 @@ const QuizLogic = ({ data, quizId }) => {
 
   const handleClick = (event) => {
     setActiveQuestion(event.target.id);
-    console.log(event.target.value);
+    // console.log(event.target.value);
   };
 
   const handleSubmit = (event) => {

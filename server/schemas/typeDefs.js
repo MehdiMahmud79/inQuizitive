@@ -12,12 +12,12 @@ const typeDefs = gql`
     incorrect_answers: [String!]
   }
   input Score {
-    user_id: ID!
-    score: String!
+    user_id: ID
+    score: String
   }
   type ScoreType {
-    user_id: ID!
-    score: [String]!
+    user_id: ID
+    score: String
   }
   type Quiz {
     _id: ID!

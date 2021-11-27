@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Alert } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
 
-import AddedQuiz from "./AddedQuiz";
 import ProfileCards from "../ProfileCards";
 import { addQuizMutation, getUserQuizzes } from "../../utils/queries";
 
@@ -16,19 +15,21 @@ import Auth from "../../utils/auth";
 
 const amountOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-function QuizSearchForm() {
+function QuizSearchForm({ quizData, test, addTest }) {
   const userName = Auth.getProfile().data.username;
+
   const [showAlert, setShowAlert] = useState({ Fail: false, Success: false });
   const [alertMessage, setAlertMessage] = useState("");
 
-  const { loading, data: userQuizData } = useQuery(getUserQuizzes);
+  const [addQuiz, { data, error }] = useMutation(addQuizMutation);
 
-  const [userQuizes, setUserQuizes] = useState([]);
+  const [userQuizes, setUserQuizes] = useState([...quizData]);
+  const [addedQuiz, setAddedQuiz] = useState(false);
 
   useEffect(() => {
-    if (!userQuizData) return;
-    setUserQuizes([...userQuizData.getUserQuizzes]);
-  }, [userQuizData]);
+    addTest(!test);
+    // setUserQuizes([...userQuizData?.getUserQuizzes]);
+  }, [data]);
 
   const [userFormData, setUserFormData] = useState({
     title: "",
@@ -40,12 +41,6 @@ function QuizSearchForm() {
     type: typeOptions[0].value,
     difficulty: difficultyOptions[0].value,
   });
-  const [addQuiz, { data: quizData, error }] = useMutation(addQuizMutation);
-
-  useEffect(() => {
-    if (!quizData) return;
-    // do st
-  }, [quizData]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -93,8 +88,11 @@ function QuizSearchForm() {
       );
       console.log(Quiz);
       // update state to include new quiz here and then push to setQuiz([...quizData, Quiz])
-      setUserQuizes([...userQuizes, Quiz]);
+      // setUserQuizes([...userQuizes, Quiz]);
+
       const { data } = await addQuiz({ variables: Quiz });
+      setAddedQuiz(true);
+
       const quiz_id = data.addQuiz._id;
 
       // questions.map(async (currentQuestion) => {
@@ -250,11 +248,15 @@ function QuizSearchForm() {
         </form>
       </div>
       <div className="col-span-2  shadow-md bg-gray-600 rounded-xl">
-        <ProfileCards
-          setUserQuizes={setUserQuizes}
-          userQuizes={userQuizes}
-          userName={userName}
-        />
+        {!userQuizes ? (
+          "Loading..."
+        ) : (
+          <ProfileCards
+            setUserQuizes={setUserQuizes}
+            userQuizes={userQuizes}
+            userName={userName}
+          />
+        )}
       </div>
     </div>
   );

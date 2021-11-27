@@ -1,6 +1,7 @@
 const { Schema, model } = require("mongoose");
 const questionSchema = require("./questionSchema");
 const dateFormat = require("../utils/dateFormat");
+const scoreSchema = require("./scoreSchema");
 
 const quizSchema = new Schema(
   {
@@ -26,7 +27,7 @@ const quizSchema = new Schema(
     amount: { type: String, required: true },
     difficulty: { type: String, required: true },
     questions: [questionSchema],
-    scores: [String],
+    scores: [scoreSchema],
   },
   // set this to use virtual below
   {

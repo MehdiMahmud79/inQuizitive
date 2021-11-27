@@ -120,28 +120,33 @@ const resolvers = {
     },
     AddScoreToQuiz: async (parent, { _id, score }, { user }) => {
       console.log("add score to a quiz");
-      // console.log("user", context);
-      if (user) {
-        try {
-          const updatedQuiz = await Quiz.findByIdAndUpdate(_id, {
-            $push: { scores: { score } },
-          });
+     const scoreDta = JSON.stringify(score, null, 2);
+     console.log("data", _id, score);
+     console.log("data", _id, scoreDta);
 
-          return updatedQuiz;
-        } catch (err) {
-          throw new AuthenticationError(err);
-        }
-      } else {
-        throw new AuthenticationError("Login first please!");
-      }
+     if (user) {
+       try {
+         const updatedQuiz = await Quiz.findByIdAndUpdate(_id, {
+           $push: { scores: { scoreDta } },
+         });
+
+         return updatedQuiz;
+       } catch (err) {
+         throw new AuthenticationError(err);
+       }
+     } else {
+       throw new AuthenticationError("Login first please!");
+     }
     },
+
     removeQuiz: async (parent, { _id }, { user }) => {
       if (user) {
         const quiz = await Quiz.findOneAndDelete({
           $and: [{ _id: _id }, { author_id: user._id }],
         });
 
-        return Quiz.find();
+        return await Quiz.find({ author_id: user._id });
+
       }
       throw new AuthenticationError("You need to be logged in!");
     },
