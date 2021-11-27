@@ -3,7 +3,7 @@ import { Alert } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
 
 import ProfileCards from "../ProfileCards";
-import { addQuizMutation, getUserQuizzes } from "../../utils/queries";
+import { addQuizMutation } from "../../utils/queries";
 
 import {
   categoryOptions,

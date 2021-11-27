@@ -36,7 +36,7 @@ const AppNavbar = () => {
                 className="ml-2 px-2 cursor-pointer text-xl  bg-green-800 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
                 to="/"
               >
-                Quiz Rooms
+                <i className="fas fa-home text-blue-300"></i> Home
               </NavLink>
               {/* if user is logged in show saved books and logout */}
               {Auth.loggedIn() ? (
