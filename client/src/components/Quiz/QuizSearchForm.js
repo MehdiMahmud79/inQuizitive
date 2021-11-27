@@ -29,6 +29,7 @@ function QuizSearchForm() {
     if (!userQuizData) return;
     setUserQuizes([...userQuizData.getUserQuizzes]);
   }, [userQuizData]);
+
   const [userFormData, setUserFormData] = useState({
     title: "",
     amount: amountOptions[0],
@@ -249,7 +250,11 @@ function QuizSearchForm() {
         </form>
       </div>
       <div className="col-span-2  shadow-md bg-gray-600 rounded-xl">
-        <ProfileCards userQuizes={userQuizes} userName={userName} />
+        <ProfileCards
+          setUserQuizes={setUserQuizes}
+          userQuizes={userQuizes}
+          userName={userName}
+        />
       </div>
     </div>
   );

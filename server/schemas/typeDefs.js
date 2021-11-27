@@ -62,7 +62,7 @@ const typeDefs = gql`
       questions: [Question!]
     ): Quiz!
     AddScoreToQuiz(_id: ID!, score: String!): Quiz!
-    removeQuiz(_id: ID!): Quiz!
+    removeQuiz(_id: ID!): [Quiz]
   }
 `;
 

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./style.css";
 import SingleCard from "./SingleCard";
 
-const ProfileCards = ({ userQuizes, userName }) => {
+const ProfileCards = ({ userQuizes, userName, setUserQuizes }) => {
   const loading = false;
 
   return (
@@ -26,6 +26,7 @@ const ProfileCards = ({ userQuizes, userName }) => {
                 noOfQuestions={quiz.questions.length + 1}
                 userName={userName}
                 toDelet="true"
+                setUserQuizes={setUserQuizes}
               />
             );
           })

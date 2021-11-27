@@ -138,11 +138,10 @@ const resolvers = {
     removeQuiz: async (parent, { _id }, { user }) => {
       if (user) {
         const quiz = await Quiz.findOneAndDelete({
-          _id: _id,
-          author_id: user._id,
+          $and: [{ _id: _id }, { author_id: user._id }],
         });
 
-        return quiz;
+        return Quiz.find();
       }
       throw new AuthenticationError("You need to be logged in!");
     },
