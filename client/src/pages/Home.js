@@ -15,7 +15,6 @@ const Home = () => {
           in<span className="text-red-700 font-bold">Q</span>uizitive
         </h2>
       </div>
-
       <div className="flex flex-wrap justify-center bg-gray-100 m-3 p-3 rounded-xl shadow-md">
         {loading ? (
           <div
