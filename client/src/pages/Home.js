@@ -10,7 +10,7 @@ const Home = () => {
   useEffect(() => {
     if (loading) return;
     setAllQuizes(data.getAllQuizzes);
-  }, [loading]);
+  }, [loading, data]);
 
   return (
     <>
