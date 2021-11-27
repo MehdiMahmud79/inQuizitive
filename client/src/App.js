@@ -6,6 +6,7 @@ import Profile from "./pages/Profile";
 import Quiz from "./components/Quiz/Quiz";
 import Auth from "./utils/auth";
 
+
 function App() {
   
   return (

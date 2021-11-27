@@ -22,7 +22,7 @@ const SingleCard = ({
     const data = await delQuiz({ variables: { id: _id } });
 
     const quizList = data.data.removeQuiz;
-    setUserQuizes([...quizList]);
+    return setUserQuizes([...quizList]);
     // if (!loading) setQuizData([...allData.data?.getAllQuizzes]);
   };
   if (quizData.created_at) {

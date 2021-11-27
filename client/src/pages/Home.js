@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./style.css";
 import SingleCard from "../components/SingleCard";
 import { useQuery } from "@apollo/client";
 import { getAllQuizzes } from "../utils/queries";
-
 const Home = () => {
   const { loading, data } = useQuery(getAllQuizzes);
-  const Quizes = data?.getAllQuizzes || [];
+
+  const [Quizes, setAllQuizes] = useState([]);
+  useEffect(() => {
+    if (loading) return;
+    setAllQuizes(data.getAllQuizzes);
+  }, [loading]);
+
   return (
     <>
       <div className="jumbotron">
