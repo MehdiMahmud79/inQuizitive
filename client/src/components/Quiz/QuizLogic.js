@@ -20,7 +20,7 @@ const QuizLogic = ({ data, quizId }) => {
   // const author = quizData.author;
 
   const Questions = quizData?.questions || [];
-  const myQuestions = Questions.map((Q) => {
+  const quizQuestions = Questions.map((Q) => {
     const correct_answer = Q.correct_answer;
     const incorrect_answers = Q.incorrect_answers;
     const question = Q.question;
@@ -33,10 +33,6 @@ const QuizLogic = ({ data, quizId }) => {
       question,
     };
   });
-  // console.log(myQuestions);
-
-  // if (data) setQuestions();
-  const quizQuestions = myQuestions;
 
   const [questionNumber, setquestionNumber] = useState(0);
   const [activeQuestion, setActiveQuestion] = useState(0);
@@ -47,16 +43,17 @@ const QuizLogic = ({ data, quizId }) => {
   const [answers, setAnswers] = useState([]);
   const [isComplete, setComplete] = useState(false);
   const [score, setScore] = useState(0);
+  let answerArray = [];
+
+  quizQuestions[questionNumber].incorrect_answers.forEach((answer) => {
+    if (Math.round(Math.random())) {
+      answerArray.push(answer);
+    } else {
+      answerArray.unshift(answer);
+    }
+  });
 
   useEffect(() => {
-    let answerArray = [];
-    quizQuestions[questionNumber].incorrect_answers.forEach((answer) => {
-      if (Math.round(Math.random())) {
-        answerArray.push(answer);
-      } else {
-        answerArray.unshift(answer);
-      }
-    });
     setAnswers([
       ...[quizQuestions[questionNumber].correct_answer],
       ...answerArray,
