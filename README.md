@@ -1,9 +1,38 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+![badmath](https://img.shields.io/github/issues/Esper06/inQuizitive)
+![badmath](https://img.shields.io/github/forks/Esper06/inQuizitive)
+![badmath](https://img.shields.io/github/stars/Esper06/inQuizitive)
+
 # inQuizitive
-project3
+
+## Table of Contents
+- [Mockup](#mock-up)
+
+- [Installation](#installation)
+
+- [UserStory](#user-story)
+
+- [webpages](#webpages)
+
+## Mock-Up
+
+The following animation show a mock-up of the app and functionality:
+
+![📸 A gif animation of the app](./assets/screen.gif)
+
+## Installation
+
+```bash
+npm i
+npm run install
+npm run develop
+```
 
 
-First User Story; 
 
+## User Story
+```
 1. AS a user when I open the application I’m presented with a homepage 
 
 2. WHERE I’m given the option to log in, OR join a quiz as a guest.
@@ -36,5 +65,12 @@ First User Story;
         10.2.2. IF my application is accepted I'm taken to a page where I can see the other team members user names.
         10.2.3 IF my request is reject I'm told I must select another team and I'm returned to a screen where I can see all active teams and their team names
     10.3.1 IF I select to take the quiz on my own, I'm then taken to a waiting screen to wait for the quiz to start. 
-    
+```   
+## WebPages
+
+  * the URL to Heroku:  https://uk-inquizitive.herokuapp.com/
+
+  * the URL to the Github repository: https://github.com/MehdiMahmud79/inQuizitive
+
+
 
