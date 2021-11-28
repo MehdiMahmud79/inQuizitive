@@ -26,7 +26,7 @@
   },
   "scripts": {
     "start": "set PORT=3006 && craco start",
-    "build": "craco build ",
+    "build": "craco build && mv puild ../public",
     "test": "craco test",
     "eject": "react-scripts eject"
   },
