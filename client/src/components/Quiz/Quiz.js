@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
-import { getSingleQuiz } from "../../utils/queries";
+
 import QuizLogic from "./QuizLogic";
+import { getSingleQuiz } from "../../utils/queries";
+
 
 const Quiz = () => {
   const { quizId } = useParams();
-  // console.log(quizId);
+
   const { loading, data } = useQuery(getSingleQuiz, {
     variables: { _id: quizId },
   });

@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Navbar, Nav, Container, Modal, Tab } from "react-bootstrap";
-
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import SignUpForm from "./SignupForm";
-import "./style.css";
-import logo from "../images/logo200.png";
 import Auth from "../utils/auth";
+import logo from "../images/logo200.png";
+import "./style.css";
+
 function refreshPage() {
   window.location.replace("/");
 }
@@ -41,7 +40,6 @@ const AppNavbar = () => {
               >
                 <i className="fas fa-home text-blue-300"></i> Home
               </NavLink>
-              {/* if user is logged in show saved books and logout */}
               {Auth.loggedIn() ? (
                 <>
                   {Auth.loggedIn() ? (

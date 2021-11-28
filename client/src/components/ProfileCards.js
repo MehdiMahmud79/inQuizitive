@@ -12,7 +12,7 @@ const ProfileCards = ({ userQuizes, userName, setUserQuizes }) => {
             <SingleCard
               key={quiz._id}
               quizData={quiz}
-              noOfQuestions={quiz.questions.length + 1}
+              noOfQuestions={quiz.questions.length}
               userName={userName}
               toDelet={true}
               setUserQuizes={setUserQuizes}

@@ -1,13 +1,13 @@
 import React from "react";
-import logo from "../images/logo.png";
 import { Link } from "react-router-dom";
 
 import { removeQuizMutation } from "../utils/queries";
 import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
+import logo from "../images/logo.png";
 
-var date = new Date();
-var author = "";
+let date = new Date();
+let author = "";
 const SingleCard = ({
   quizData,
   noOfQuestions,
@@ -23,7 +23,6 @@ const SingleCard = ({
 
     const quizList = data.data.removeQuiz;
     return setUserQuizes([...quizList]);
-    // if (!loading) setQuizData([...allData.data?.getAllQuizzes]);
   };
   if (quizData.created_at) {
     date = quizData.created_at;
