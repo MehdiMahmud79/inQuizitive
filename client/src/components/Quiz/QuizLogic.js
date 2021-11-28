@@ -4,6 +4,7 @@ import logo from "../../images/logo.png";
 import QuizResult from "./QuizResult";
 import { useMutation } from "@apollo/client";
 import { AddScoreToQuizMutation } from "../../utils/queries";
+import "./style.css";
 
 import parse from "html-react-parser";
 import Auth from "../../utils/auth";
@@ -49,26 +50,23 @@ const QuizLogic = ({ quizData, quizId }) => {
   const [isComplete, setComplete] = useState(false);
   const [score, setScore] = useState(0);
 
-
- 
-
-    function shuffle1(arr){
-      return Array(arr.length).fill(null)
-          .map((_, i) => [Math.random(), i])
-          .sort(([a], [b]) => a - b)
-          .map(([, i]) => arr[i])
+  function shuffle1(arr) {
+    return Array(arr.length)
+      .fill(null)
+      .map((_, i) => [Math.random(), i])
+      .sort(([a], [b]) => a - b)
+      .map(([, i]) => arr[i]);
   }
 
-let  answerArray = []
-var arr1=[...quizQuestions[questionNumber].incorrect_answers]
-  var arr2=quizQuestions[questionNumber].correct_answer
-  let answerArray1 = [...arr1,arr2]
-   
-  answerArray = answerArray1
+  let answerArray = [];
+  var arr1 = [...quizQuestions[questionNumber].incorrect_answers];
+  var arr2 = quizQuestions[questionNumber].correct_answer;
+  let answerArray1 = [...arr1, arr2];
+
+  answerArray = answerArray1;
 
   useEffect(() => {
-    
-     answerArray = shuffle1(answerArray1)
+    answerArray = shuffle1(answerArray1);
   }, [questionNumber, answerArray]);
   const timer = setTimeout(() => {
     if (timeLeft <= 0) {
@@ -85,11 +83,12 @@ var arr1=[...quizQuestions[questionNumber].incorrect_answers]
   };
 
   const handleSubmit = (event) => {
-    setActiveQuestion(0)
+    setActiveQuestion(0);
     if (activeQuestion !== 0) {
       const answerIndex = parseInt(activeQuestion.replace(/[^0-9]/g, ""));
       if (
-        answerArray[answerIndex] === quizQuestions[questionNumber].correct_answer
+        answerArray[answerIndex] ===
+        quizQuestions[questionNumber].correct_answer
       ) {
         setCorrectAnswers(correctAnswers + 1);
       }
@@ -142,7 +141,18 @@ var arr1=[...quizQuestions[questionNumber].incorrect_answers]
           <span>
             <i className="fas fa-hourglass-half text-red-700"></i>
           </span>{" "}
-          Time left {timeLeft}
+          Time left
+          <div>
+            <ProgressBar
+              id="bar"
+              striped
+              animated
+              max={TIME_PER_QUESTION * quizQuestions.length}
+              now={timeLeft}
+              label={`${timeLeft} sec`}
+              variant="danger"
+            />
+          </div>
         </h3>
         <hr />
         <h2>
