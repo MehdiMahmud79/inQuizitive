@@ -59,21 +59,6 @@ const QuizLogic = ({ quizData, quizId }) => {
           .map(([, i]) => arr[i])
   }
 
-  
-  // answerArray=quizQuestions[questionNumber].incorrect_answers.forEach((answer) => {
-  //   if (Math.round(Math.random())) {
-  //     answerArray.push(answer);
-  //   } else {
-  //     answerArray.unshift(answer);
-  //   }
-  // });
-
-  // useEffect(async () => {
-  //   if (!isComplete) return;
-  //   const scores = { user_id: userId, score: score.toString() };
-  //   const mydata = await Scores({ variables: { id: quizId, score: scores } });
-  //   console.log("mydata", mydata);
-  // }, [isComplete]);
 let  answerArray = []
 var arr1=[...quizQuestions[questionNumber].incorrect_answers]
   var arr2=quizQuestions[questionNumber].correct_answer
