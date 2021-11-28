@@ -16,8 +16,8 @@ const typeDefs = gql`
     score: String!
   }
   type ScoreType {
-    user_id: ID
-    score: String
+    user_id: ID!
+    score: String!
   }
   type Quiz {
     _id: ID!
