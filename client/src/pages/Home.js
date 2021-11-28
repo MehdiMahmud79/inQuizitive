@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
-import "./style.css";
-import SingleCard from "../components/SingleCard";
 import { useQuery } from "@apollo/client";
+
+import SingleCard from "../components/SingleCard";
 import { getAllQuizzes } from "../utils/queries";
+
+import "./style.css";
+
 const Home = () => {
   const { loading, data } = useQuery(getAllQuizzes);
 

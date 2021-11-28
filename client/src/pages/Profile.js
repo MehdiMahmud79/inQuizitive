@@ -1,6 +1,7 @@
 import React from "react";
-import QuizSearchForm from "../components/Quiz/QuizSearchForm";
 import { useQuery } from "@apollo/client";
+
+import QuizSearchForm from "../components/Quiz/QuizSearchForm";
 import { getUserQuizzes } from "../utils/queries";
 
 const Profile = () => {

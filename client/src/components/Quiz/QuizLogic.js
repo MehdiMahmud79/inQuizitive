@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { ListGroup, ProgressBar } from "react-bootstrap";
-import logo from "../../images/logo.png";
-import QuizResult from "./QuizResult";
 import { useMutation } from "@apollo/client";
+import parse from "html-react-parser";
+
+import QuizResult from "./QuizResult";
 import { AddScoreToQuizMutation } from "../../utils/queries";
 import "./style.css";
-
-import parse from "html-react-parser";
 import Auth from "../../utils/auth";
+import logo from "../../images/logo.png";
 
 const TIME_PER_QUESTION = 10;
 
@@ -17,12 +17,9 @@ const QuizLogic = ({ quizData, quizId }) => {
 
   let [addScore, { data: ScoreData }] = useMutation(AddScoreToQuizMutation);
 
-  // console.log(quizData, quizId);
-
   const category = quizData.category;
   const type = quizData.type;
   const difficulty = quizData.difficulty;
-  // const author = quizData.author;
 
   const Questions = quizData.questions || [];
   const quizQuestions = Questions.map((Q) => {
@@ -47,7 +44,6 @@ const QuizLogic = ({ quizData, quizId }) => {
     TIME_PER_QUESTION * quizQuestions.length
   );
 
-  const [answers, setAnswers] = useState([]);
   const [isComplete, setComplete] = useState(false);
   const [score, setScore] = useState(0);
 
@@ -80,7 +76,6 @@ const QuizLogic = ({ quizData, quizId }) => {
 
   const handleClick = (event) => {
     setActiveQuestion(event.target.id);
-    // console.log(event.target.value);
   };
 
   const handleSubmit = async (event) => {

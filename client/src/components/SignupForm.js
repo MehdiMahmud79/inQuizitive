@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Form, Alert } from "react-bootstrap";
+
 // react icons
 import { FaRegEnvelope } from "react-icons/fa";
 import { MdLockOutline } from "react-icons/md";
@@ -7,12 +8,9 @@ import { FaUserAlt } from "react-icons/fa";
 
 import { useMutation } from "@apollo/client";
 
-import { signUpMutation } from "../utils/queries";
-import { loginUserMutation } from "../utils/queries";
 import Avatars from "../utils/avatars";
-
 import Auth from "../utils/auth";
-
+import { signUpMutation, loginUserMutation } from "../utils/queries";
 import { setStyle } from "../utils/validate";
 
 const SignupForm = ({ signUpForm }) => {
