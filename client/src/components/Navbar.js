@@ -121,12 +121,12 @@ const AppNavbar = () => {
         </Tab.Container>
       </Modal>
       {Auth.loggedIn() ? (
-        <h4 className="px-3 bg-gradient-to-r from-purple-900 to-purple-100 text-center p-2 ">
+        <h1 className="px-3 text-3xl shadow-md bg-gradient-to-r from-purple-900 to-purple-100 text-center p-2 ">
           <FontAwesomeIcon icon={faUser} className="text-danger ml-4" />{" "}
           <span className="text-white p-2">
-            {Auth.getProfile().data.username}
+            {Auth.getProfile().data.username.toUpperCase()}
           </span>{" "}
-        </h4>
+        </h1>
       ) : (
         ""
       )}
