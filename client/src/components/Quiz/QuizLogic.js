@@ -14,7 +14,8 @@ const TIME_PER_QUESTION = 10;
 const QuizLogic = ({ quizData, quizId }) => {
   const userId = Auth.getProfile().data._id;
   const user_name = Auth.getProfile().data.username;
-  let [Scores, { data: ScoreData }] = useMutation(AddScoreToQuizMutation);
+
+  let [addScore, { data: ScoreData }] = useMutation(AddScoreToQuizMutation);
 
   // console.log(quizData, quizId);
 
@@ -82,7 +83,7 @@ const QuizLogic = ({ quizData, quizId }) => {
     // console.log(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     setActiveQuestion(0);
     if (activeQuestion !== 0) {
       const answerIndex = parseInt(activeQuestion.replace(/[^0-9]/g, ""));
@@ -102,6 +103,14 @@ const QuizLogic = ({ quizData, quizId }) => {
           (timer / totalQuestions) *
           TIME_PER_QUESTION;
         setScore(Math.round(totalScore));
+        const scoreString = score.toString();
+        console.log(scoreString);
+        const quizScore = { score: scoreString, user_id: userId };
+        const mydata = await addScore({
+          variables: { id: quizId, score: quizScore },
+        });
+        console.log(mydata);
+
         setComplete(true);
       }
     }
