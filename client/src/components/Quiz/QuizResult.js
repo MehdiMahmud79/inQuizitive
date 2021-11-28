@@ -3,7 +3,7 @@ import SummaryCard from "./SummaryCard";
 const QuizResult = ({ correctAnswers, quizLength, result, summary }) => {
   return (
     <div className="container bg-purple-100 rounded-xl shadow-md p-3">
-      <h1 className="text-center m-3  "> Quiz Result</h1>
+      <h1 className="text-center m-3 text-3xl "> Quiz Result</h1>
       <hr />
       <h2 className=" p-1 text-3xl my-2 ">
         <i className="fas fa-check-square text-green-500 text-3xl"></i>{" "}
