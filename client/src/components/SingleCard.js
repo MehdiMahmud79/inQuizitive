@@ -85,7 +85,7 @@ const SingleCard = ({
                 className=" disabled:opacity-50  rounded-xl bg-red-500 w-100 text-red-100 m-3 p-2 cursor-help"
                 disabled
               >
-                <i className="fas fa-play-circle "></i> Login Start the Quiz
+                <i className="fas fa-play-circle "></i> Login and Start the Quiz
               </button>
             )}
             {toDelet ? (
