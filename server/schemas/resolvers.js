@@ -44,7 +44,7 @@ const resolvers = {
       console.log("new user sign up");
       if (password != password2) {
         throw new AuthenticationError("passwords should match!");
-        return;
+
       }
 
       try {
@@ -118,16 +118,17 @@ const resolvers = {
         throw new AuthenticationError("Login first please!");
       }
     },
+
     AddScoreToQuiz: async (parent, { _id, score }, { user }) => {
       console.log("add score to a quiz");
-      const scoreDta = JSON.stringify(score, null, 2);
+      const scoreData = JSON.stringify(score, null, 2);
       //  console.log("data", _id, score);
-      console.log("data", _id, scoreDta);
+      console.log("data", _id, scoreData, typeof score);
 
       if (user) {
         try {
           const updatedQuiz = await Quiz.findByIdAndUpdate(_id, {
-            $addToSet: { scores: { scoreDta } },
+            $addToSet: { scores: score },
           });
 
           return updatedQuiz;
