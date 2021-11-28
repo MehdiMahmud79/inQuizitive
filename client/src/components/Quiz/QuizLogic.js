@@ -40,6 +40,7 @@ const QuizLogic = ({ quizData, quizId }) => {
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [answers, setAnswers] = useState([])
+  const [summary, setSummary] = useState([]);
 
   const [timeLeft, setTimeLeft] = useState(
     TIME_PER_QUESTION * quizQuestions.length
@@ -49,17 +50,20 @@ const QuizLogic = ({ quizData, quizId }) => {
   const [score, setScore] = useState(0);
 
   function shuffle1(arr) {
-    setAnswers(Array(arr.length)
-      .fill(null)
-      .map((_, i) => [Math.random(), i])
-      .sort(([a], [b]) => a - b)
-      .map(([, i]) => arr[i]))
+    setAnswers(
+      Array(arr.length)
+        .fill(null)
+        .map((_, i) => [Math.random(), i])
+        .sort(([a], [b]) => a - b)
+        .map(([, i]) => arr[i])
+    );
   }
 
-
-
   useEffect(() => {
-    shuffle1([quizQuestions[questionNumber].correct_answer, ...quizQuestions[questionNumber].incorrect_answers]);
+    shuffle1([
+      quizQuestions[questionNumber].correct_answer,
+      ...quizQuestions[questionNumber].incorrect_answers,
+    ]);
   }, [questionNumber]);
   const timer = setTimeout(() => {
     if (timeLeft <= 0) {
@@ -79,12 +83,19 @@ const QuizLogic = ({ quizData, quizId }) => {
     if (activeQuestion !== 0) {
       const answerIndex = parseInt(activeQuestion.replace(/[^0-9]/g, ""));
       if (
-        answers[answerIndex] ===
-        quizQuestions[questionNumber].correct_answer
+        answers[answerIndex] === quizQuestions[questionNumber].correct_answer
       ) {
         setCorrectAnswers(correctAnswers + 1);
+        setSummary([
+          ...summary,
+          { question: quizQuestions[questionNumber].question, res: true },
+        ]);
+      } else {
+        setSummary([
+          ...summary,
+          { question: quizQuestions[questionNumber].question, res: false },
+        ]);
       }
-
       if (questionNumber < quizQuestions.length - 1) {
         setquestionNumber(questionNumber + 1);
       } else {
@@ -98,14 +109,14 @@ const QuizLogic = ({ quizData, quizId }) => {
 
         const quizScore = {
           score: `${Math.round(totalScore)}`,
-          user_id: userId
+          user_id: userId,
         };
 
         const mydata = await addScore({
           variables: { id: quizId, score: quizScore },
         });
-        console.log(mydata);
 
+        clearTimeout(timer);
         setComplete(true);
       }
     }
@@ -117,9 +128,7 @@ const QuizLogic = ({ quizData, quizId }) => {
         correctAnswers={correctAnswers}
         quizLength={quizQuestions.length}
         result={score}
-        quiz_id={quizId}
-        user_id={userId}
-        user_name={user_name}
+        summary={summary}
       />
     );
   } else {
@@ -130,9 +139,9 @@ const QuizLogic = ({ quizData, quizId }) => {
           src={logo}
           alt="inquizer logo"
         />{" "}
-        <h1>
+        <h1 className="text-xl p-2">
           <span>
-            <i className="fas fa-check-double text-green-700"></i>
+            <i className="fas fa-check-double text-green-700 "></i>
           </span>{" "}
           Correct answers:{" "}
           <span className="text-green-600 font-mono font-bold">
@@ -140,8 +149,7 @@ const QuizLogic = ({ quizData, quizId }) => {
           </span>
         </h1>
         <hr />
-        <h3>
-          {" "}
+        <h3 className="text-xl p-2">
           <span>
             <i className="fas fa-hourglass-half text-red-700"></i>
           </span>{" "}
@@ -159,16 +167,16 @@ const QuizLogic = ({ quizData, quizId }) => {
           </div>
         </h3>
         <hr />
-        <h2>
+        <h2 className="text-xl p-2">
           {" "}
-          <i className="fas fa-question-circle text-blue-900"></i> Question
+          <i className="fas fa-question-circle text-blue-900 "></i> Question
         </h2>
-        <p className="text-blue-600 font-bold text-2xl m-2 p-2 h-20">
+        <p className="text-blue-600 font-bold text-xl m-2 p-2">
           {" "}
           {parse(quizQuestions[questionNumber].question)}
         </p>
         <br />
-        <ListGroup as="ul" className=" text-2xl">
+        <ListGroup as="ul" className=" text-xl">
           {answers.map((answer, index) =>
             `answer-${index}` === activeQuestion ? (
               <ListGroup.Item
@@ -199,7 +207,7 @@ const QuizLogic = ({ quizData, quizId }) => {
         <hr />
         <div className="d-grid gap-2">
           <button
-            className="bg-green-900 text-green-100 rounded-full text-2xl py-2"
+            className="bg-green-900 text-green-100 rounded-full text-xl py-2"
             onClick={handleSubmit}
           >
             <i className="fas fa-forward  text-yellow-200"></i>{" "}
