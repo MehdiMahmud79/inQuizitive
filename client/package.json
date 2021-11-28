@@ -2,7 +2,7 @@
   "name": "mindgjm",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5000",
+  "home": "https://uk-inquizitive.herokuapp.com/",
   "dependencies": {
     "@apollo/client": "^3.4.17",
     "@craco/craco": "^6.4.0",
@@ -26,7 +26,7 @@
   },
   "scripts": {
     "start": "set PORT=3006 && craco start",
-    "build": "craco build",
+    "build": "craco build && mv build ../public",
     "test": "craco test",
     "eject": "react-scripts eject"
   },
