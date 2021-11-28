@@ -23,7 +23,7 @@ const QuizResult = ({ correctAnswers, quizLength, result, summary }) => {
           Quiz summary
         </h1>
 
-        <div>
+        <div className="grid grid-cols-3 divide-x divide-gray-500 p-2 shadow-lg">
           {summary.map((question, index) => {
             return <SummaryCard key={index} questionRes={question} />;
           })}

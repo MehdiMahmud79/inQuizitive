@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
+
 import { ListGroup, ProgressBar } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 import parse from "html-react-parser";
@@ -39,7 +41,7 @@ const QuizLogic = ({ quizData, quizId }) => {
   const [questionNumber, setquestionNumber] = useState(0);
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [correctAnswers, setCorrectAnswers] = useState(0);
-  const [answers, setAnswers] = useState([])
+  const [answers, setAnswers] = useState([]);
   const [summary, setSummary] = useState([]);
 
   const [timeLeft, setTimeLeft] = useState(
@@ -139,6 +141,15 @@ const QuizLogic = ({ quizData, quizId }) => {
           src={logo}
           alt="inquizer logo"
         />{" "}
+        <NavLink
+          className="bg-red-600 text-green-100 rounded-lg text-xl py-2 px-2 float-right"
+          to={"/"}
+        >
+          <span className="font-bold text-white">
+            {" "}
+            <i className="fas fa-window-close"></i> Cancel
+          </span>
+        </NavLink>
         <h1 className="text-xl p-2">
           <span>
             <i className="fas fa-check-double text-green-700 "></i>

@@ -2,7 +2,7 @@ import React from "react";
 
 const SummaryCard = ({ questionRes }) => {
   return (
-    <div className=" flex-1 divide-x-4 divide-gray-200 float-left m-2">
+    <div className=" flex divide-x-4 divide-gray-400  m-2 ">
       {questionRes.res ? (
         <>
           <div className="text-green-900 flex-auto p-2 float-left">
