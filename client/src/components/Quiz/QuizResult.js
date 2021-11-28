@@ -11,14 +11,14 @@ const QuizResult = ({
 }) => {
   let [addScore, { data, error }] = useMutation(AddScoreToQuizMutation);
   const scoreString = Result.toString();
-  console.log(scoreString, typeof Result);
+  // console.log(scoreString, typeof Result);
   const quizScore = { score: Result, user_id: user_id };
   useEffect(async () => {
     if (!data) return;
     const mydata = await addScore({
       variables: { id: quiz_id, score: quizScore },
     });
-    console.log(mydata);
+    // console.log(mydata);
   }, []);
   return (
     <div className="container bg-purple-100 rounded-xl shadow-md p-3">

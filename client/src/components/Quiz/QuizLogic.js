@@ -48,30 +48,43 @@ const QuizLogic = ({ quizData, quizId }) => {
   const [answers, setAnswers] = useState([]);
   const [isComplete, setComplete] = useState(false);
   const [score, setScore] = useState(0);
-  let answerArray = [];
 
-  quizQuestions[questionNumber].incorrect_answers.forEach((answer) => {
-    if (Math.round(Math.random())) {
-      answerArray.push(answer);
-    } else {
-      answerArray.unshift(answer);
-    }
-  });
 
-  useEffect(async () => {
-    if (!isComplete) return;
-    const scores = { user_id: userId, score: score.toString() };
-    const mydata = await Scores({ variables: { id: quizId, score: scores } });
-    console.log("mydata", mydata);
-  }, [isComplete]);
+ 
+
+    function shuffle1(arr){
+      return Array(arr.length).fill(null)
+          .map((_, i) => [Math.random(), i])
+          .sort(([a], [b]) => a - b)
+          .map(([, i]) => arr[i])
+  }
+
+  
+  // answerArray=quizQuestions[questionNumber].incorrect_answers.forEach((answer) => {
+  //   if (Math.round(Math.random())) {
+  //     answerArray.push(answer);
+  //   } else {
+  //     answerArray.unshift(answer);
+  //   }
+  // });
+
+  // useEffect(async () => {
+  //   if (!isComplete) return;
+  //   const scores = { user_id: userId, score: score.toString() };
+  //   const mydata = await Scores({ variables: { id: quizId, score: scores } });
+  //   console.log("mydata", mydata);
+  // }, [isComplete]);
+let  answerArray = []
+var arr1=[...quizQuestions[questionNumber].incorrect_answers]
+  var arr2=quizQuestions[questionNumber].correct_answer
+  let answerArray1 = [...arr1,arr2]
+   
+  answerArray = answerArray1
 
   useEffect(() => {
-    setAnswers([
-      ...[quizQuestions[questionNumber].correct_answer],
-      ...answerArray,
-    ]);
-  }, [questionNumber]);
-
+    
+     answerArray = shuffle1(answerArray1)
+  }, [questionNumber, answerArray]);
   const timer = setTimeout(() => {
     if (timeLeft <= 0) {
       clearTimeout(timer);
@@ -87,10 +100,11 @@ const QuizLogic = ({ quizData, quizId }) => {
   };
 
   const handleSubmit = (event) => {
+    setActiveQuestion(0)
     if (activeQuestion !== 0) {
       const answerIndex = parseInt(activeQuestion.replace(/[^0-9]/g, ""));
       if (
-        answers[answerIndex] === quizQuestions[questionNumber].correct_answer
+        answerArray[answerIndex] === quizQuestions[questionNumber].correct_answer
       ) {
         setCorrectAnswers(correctAnswers + 1);
       }
@@ -156,7 +170,7 @@ const QuizLogic = ({ quizData, quizId }) => {
         </p>
         <br />
         <ListGroup as="ul" className=" text-2xl">
-          {answers.map((answer, index) =>
+          {answerArray.map((answer, index) =>
             `answer-${index}` === activeQuestion ? (
               <ListGroup.Item
                 className="list-group-item-primary rounded-b-2xl"
@@ -198,6 +212,6 @@ const QuizLogic = ({ quizData, quizId }) => {
       </div>
     );
   }
-};
+};;
 
 export default QuizLogic;
