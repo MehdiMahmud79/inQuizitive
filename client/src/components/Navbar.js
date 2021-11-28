@@ -35,7 +35,7 @@ const AppNavbar = () => {
             <Nav className="ml-auto">
               <div className="flex">
                 <NavLink
-                  className="m-2 px-2 cursor-pointer text-xl  bg-green-500 py-1  rounded-lg text-green-100 no-underline hover:bg-green-400 hover:text-green-900"
+                  className="m-2 px-2 cursor-pointer text-xl  bg-yellow-500 py-1  rounded-lg text-green-100 no-underline hover:bg-yellow-400 hover:text-green-900"
                   to="/"
                   onClick={refreshPage}
                 >
@@ -45,7 +45,7 @@ const AppNavbar = () => {
                   <>
                     <NavLink
                       to="/profile"
-                      className="my-2 px-2 cursor-pointer text-xl  bg-green-500 py-1  rounded-lg text-green-100 no-underline hover:bg-green-400 hover:text-green-900"
+                      className="my-2 px-2 cursor-pointer text-xl  bg-green-600 py-1  rounded-lg text-green-100 no-underline hover:bg-green-400 hover:text-green-900"
                     >
                       <i className="far fa-address-card text-blue-900"></i>{" "}
                       Profile
@@ -62,7 +62,7 @@ const AppNavbar = () => {
                   </>
                 ) : (
                   <button
-                    className="my-2 px-2 cursor-pointer text-xl  bg-green-500 py-1  rounded-lg text-gray-700 no-underline hover:bg-green-400 hover:text-green-900"
+                    className="my-2 px-2 cursor-pointer text-xl  bg-green-600 py-1  rounded-lg text-gray-700 no-underline hover:bg-green-400 hover:text-green-900"
                     onClick={() => setShowModal(true)}
                   >
                     Login/Sign Up
