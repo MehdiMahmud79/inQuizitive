@@ -2,16 +2,21 @@ import React, { useEffect, useState } from "react";
 import { ListGroup, ProgressBar } from "react-bootstrap";
 import logo from "../../images/logo.png";
 import QuizResult from "./QuizResult";
+import { useMutation } from "@apollo/client";
+import { AddScoreToQuizMutation } from "../../utils/queries";
+import "./style.css";
 
 import parse from "html-react-parser";
 import Auth from "../../utils/auth";
 
 const TIME_PER_QUESTION = 10;
 
-const QuizLogic = ({ data, quizId }) => {
+const QuizLogic = ({ quizData, quizId }) => {
   const userId = Auth.getProfile().data._id;
   const user_name = Auth.getProfile().data.username;
-  const quizData = data?.getQuiz || "";
+
+  let [addScore, { data: ScoreData }] = useMutation(AddScoreToQuizMutation);
+
   // console.log(quizData, quizId);
 
   const category = quizData.category;
@@ -19,7 +24,7 @@ const QuizLogic = ({ data, quizId }) => {
   const difficulty = quizData.difficulty;
   // const author = quizData.author;
 
-  const Questions = quizData?.questions || [];
+  const Questions = quizData.questions || [];
   const quizQuestions = Questions.map((Q) => {
     const correct_answer = Q.correct_answer;
     const incorrect_answers = Q.incorrect_answers;
@@ -37,29 +42,33 @@ const QuizLogic = ({ data, quizId }) => {
   const [questionNumber, setquestionNumber] = useState(0);
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [correctAnswers, setCorrectAnswers] = useState(0);
+
   const [timeLeft, setTimeLeft] = useState(
     TIME_PER_QUESTION * quizQuestions.length
   );
+
   const [answers, setAnswers] = useState([]);
   const [isComplete, setComplete] = useState(false);
   const [score, setScore] = useState(0);
-  let answerArray = [];
 
-  quizQuestions[questionNumber].incorrect_answers.forEach((answer) => {
-    if (Math.round(Math.random())) {
-      answerArray.push(answer);
-    } else {
-      answerArray.unshift(answer);
-    }
-  });
+  function shuffle1(arr) {
+    return Array(arr.length)
+      .fill(null)
+      .map((_, i) => [Math.random(), i])
+      .sort(([a], [b]) => a - b)
+      .map(([, i]) => arr[i]);
+  }
+
+  let answerArray = [];
+  var arr1 = [...quizQuestions[questionNumber].incorrect_answers];
+  var arr2 = quizQuestions[questionNumber].correct_answer;
+  let answerArray1 = [...arr1, arr2];
+
+  answerArray = answerArray1;
 
   useEffect(() => {
-    setAnswers([
-      ...[quizQuestions[questionNumber].correct_answer],
-      ...answerArray,
-    ]);
-  }, [questionNumber]);
-
+    answerArray = shuffle1(answerArray1);
+  }, [questionNumber, answerArray]);
   const timer = setTimeout(() => {
     if (timeLeft <= 0) {
       clearTimeout(timer);
@@ -74,11 +83,13 @@ const QuizLogic = ({ data, quizId }) => {
     // console.log(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
+    setActiveQuestion(0);
     if (activeQuestion !== 0) {
       const answerIndex = parseInt(activeQuestion.replace(/[^0-9]/g, ""));
       if (
-        answers[answerIndex] === quizQuestions[questionNumber].correct_answer
+        answerArray[answerIndex] ===
+        quizQuestions[questionNumber].correct_answer
       ) {
         setCorrectAnswers(correctAnswers + 1);
       }
@@ -92,6 +103,14 @@ const QuizLogic = ({ data, quizId }) => {
           (timer / totalQuestions) *
           TIME_PER_QUESTION;
         setScore(Math.round(totalScore));
+        const scoreString = score.toString();
+        console.log(scoreString);
+        const quizScore = { score: scoreString, user_id: userId };
+        const mydata = await addScore({
+          variables: { id: quizId, score: quizScore },
+        });
+        console.log(mydata);
+
         setComplete(true);
       }
     }
@@ -131,7 +150,18 @@ const QuizLogic = ({ data, quizId }) => {
           <span>
             <i className="fas fa-hourglass-half text-red-700"></i>
           </span>{" "}
-          Time left {timeLeft}
+          Time left
+          <div>
+            <ProgressBar
+              id="bar"
+              striped
+              animated
+              max={TIME_PER_QUESTION * quizQuestions.length}
+              now={timeLeft}
+              label={`${timeLeft} sec`}
+              variant="danger"
+            />
+          </div>
         </h3>
         <hr />
         <h2>
@@ -144,7 +174,7 @@ const QuizLogic = ({ data, quizId }) => {
         </p>
         <br />
         <ListGroup as="ul" className=" text-2xl">
-          {answers.map((answer, index) =>
+          {answerArray.map((answer, index) =>
             `answer-${index}` === activeQuestion ? (
               <ListGroup.Item
                 className="list-group-item-primary rounded-b-2xl"
@@ -186,6 +216,6 @@ const QuizLogic = ({ data, quizId }) => {
       </div>
     );
   }
-};
+};;
 
 export default QuizLogic;

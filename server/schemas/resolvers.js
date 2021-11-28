@@ -120,23 +120,23 @@ const resolvers = {
     },
     AddScoreToQuiz: async (parent, { _id, score }, { user }) => {
       console.log("add score to a quiz");
-     const scoreDta = JSON.stringify(score, null, 2);
-     console.log("data", _id, score);
-     console.log("data", _id, scoreDta);
+      const scoreDta = JSON.stringify(score, null, 2);
+      //  console.log("data", _id, score);
+      console.log("data", _id, scoreDta);
 
-     if (user) {
-       try {
-         const updatedQuiz = await Quiz.findByIdAndUpdate(_id, {
-           $push: { scores: { scoreDta } },
-         });
+      if (user) {
+        try {
+          const updatedQuiz = await Quiz.findByIdAndUpdate(_id, {
+            $addToSet: { scores: { scoreDta } },
+          });
 
-         return updatedQuiz;
-       } catch (err) {
-         throw new AuthenticationError(err);
-       }
-     } else {
-       throw new AuthenticationError("Login first please!");
-     }
+          return updatedQuiz;
+        } catch (err) {
+          throw new AuthenticationError(err);
+        }
+      } else {
+        throw new AuthenticationError("Login first please!");
+      }
     },
 
     removeQuiz: async (parent, { _id }, { user }) => {
