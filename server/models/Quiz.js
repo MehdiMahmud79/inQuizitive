@@ -1,7 +1,7 @@
-const { Schema, model } = require("mongoose");
-const questionSchema = require("./questionSchema");
-const dateFormat = require("../utils/dateFormat");
-const scoreSchema = require("./scoreSchema");
+import { Schema, model } from "mongoose";
+import questionSchema from "./questionSchema";
+import dateFormat from "../utils/dateFormat";
+import scoreSchema from "./scoreSchema";
 
 const quizSchema = new Schema(
   {
@@ -37,6 +37,4 @@ const quizSchema = new Schema(
   }
 );
 
-const Quiz = model("Quiz", quizSchema);
-
-module.exports = Quiz;
+export const Quiz = model("Quiz", quizSchema);

@@ -1,7 +1,5 @@
-const { Schema, model } = require("mongoose");
-const bcrypt = require("bcrypt");
-
-// import schema from Book.js
+import { Schema, model } from "mongoose";
+import bcrypt from "bcrypt";
 
 const userSchema = new Schema(
   {
@@ -55,6 +53,5 @@ userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-const User = model("User", userSchema);
+export const User = model("User", userSchema);
 
-module.exports = User;

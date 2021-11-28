@@ -1,4 +1,7 @@
-const User = require("./User");
-const Quiz = require("./Quiz");
+import User from "./User"
+import Quiz from "./Quiz"
 
-module.exports = { User, Quiz };
+module.exports = {
+    User,
+    Quiz
+};
