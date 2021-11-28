@@ -8,18 +8,7 @@
     width: 100px;
     /* box-shadow: rgba(235, 235, 235, 0.25) 0px 30px 60px -12px, rgb(255, 255, 255) 0px 18px 36px -18px; */
 }
-.modal-dialog {
-    position: absolute;
-    top: 60px;
-    right: 100px;
-    bottom: 0;
-    left: 0;
-    z-index: 10040;
-    overflow: auto;
-    overflow-y: auto;
-    /* box-shadow: rgb(0, 0, 0) 0px 30px 60px -12px, rgb(32, 32, 32) 0px 18px 36px -18px;  */
 
-  }
   .inline-errormsg {
     color: red;
     font-size: 12px;
@@ -30,3 +19,17 @@
     max-height:100px;
     /* box-shadow: rgba(235, 235, 235, 0.25) 0px 30px 60px -12px, rgb(255, 255, 255) 0px 18px 36px -18px; */
 }
+
+.modal-dialog {
+    position: absolute;
+    top: 10%;
+    right: 100px;
+    bottom: 0;
+    left: 0;
+    z-index: 10040;
+    overflow: none;
+    overflow-y: none;
+    min-height: 100vh;
+    /* box-shadow: rgb(0, 0, 0) 0px 30px 60px -12px, rgb(32, 32, 32) 0px 18px 36px -18px;  */
+
+  }

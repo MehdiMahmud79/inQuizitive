@@ -33,41 +33,42 @@ const AppNavbar = () => {
           <Navbar.Toggle aria-controls="navbar" />
           <Navbar.Collapse id="navbar">
             <Nav className="ml-auto">
-              <NavLink
-                className="ml-2 px-2 cursor-pointer text-xl  bg-green-800 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
-                to="/"
-                onClick={refreshPage}
-              >
-                <i className="fas fa-home text-blue-300"></i> Home
-              </NavLink>
-              {Auth.loggedIn() ? (
-                <>
-                  {Auth.loggedIn() ? (
+              <div className="flex">
+                <NavLink
+                  className="m-2 px-2 cursor-pointer text-xl  bg-green-500 py-1  rounded-lg text-green-100 no-underline hover:bg-green-400 hover:text-green-900"
+                  to="/"
+                  onClick={refreshPage}
+                >
+                  <i className="fas fa-home text-blue-900"></i> Home
+                </NavLink>
+                {Auth.loggedIn() ? (
+                  <>
                     <NavLink
                       to="/profile"
-                      className="ml-2 px-2 cursor-pointer text-xl  bg-green-800 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
+                      className="my-2 px-2 cursor-pointer text-xl  bg-green-500 py-1  rounded-lg text-green-100 no-underline hover:bg-green-400 hover:text-green-900"
                     >
+                      <i className="far fa-address-card text-blue-900"></i>{" "}
                       Profile
                     </NavLink>
-                  ) : (
-                    ""
-                  )}
-
+                    <div className="mx-2">
+                      <button
+                        className="my-2 px-2 cursor-pointer text-xl  bg-green-600 py-1  rounded-lg text-green-100 no-underline hover:bg-green-400 hover:text-green-900"
+                        onClick={Auth.logout}
+                      >
+                        <i className="fas fa-sign-out-alt text-blue-800"></i>{" "}
+                        Logout
+                      </button>
+                    </div>
+                  </>
+                ) : (
                   <button
-                    className="ml-2 px-2 cursor-pointer text-xl  bg-green-800 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
-                    onClick={Auth.logout}
+                    className="my-2 px-2 cursor-pointer text-xl  bg-green-500 py-1  rounded-lg text-gray-700 no-underline hover:bg-green-400 hover:text-green-900"
+                    onClick={() => setShowModal(true)}
                   >
-                    <i className="fas fa-sign-out-alt text-red-200"></i> Logout
+                    Login/Sign Up
                   </button>
-                </>
-              ) : (
-                <button
-                  className="ml-2 px-2 cursor-pointer text-xl  bg-green-800 py-1  rounded-lg text-green-100 no-underline hover:bg-green-100 hover:text-green-600"
-                  onClick={() => setShowModal(true)}
-                >
-                  Login/Sign Up
-                </button>
-              )}
+                )}
+              </div>
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -75,6 +76,7 @@ const AppNavbar = () => {
       {/* set modal data up */}
 
       <Modal
+        id="modal"
         size="md"
         show={showModal}
         onHide={() => setShowModal(false)}
@@ -87,7 +89,7 @@ const AppNavbar = () => {
             <Modal.Title id="signup-modal">
               <Nav variant="tabs">
                 <Nav.Item>
-                  <Nav.Link className="btn " eventKey="login">
+                  <Nav.Link className="btn" eventKey="login">
                     Login
                   </Nav.Link>
                 </Nav.Item>
@@ -100,7 +102,7 @@ const AppNavbar = () => {
             </Modal.Title>
           </Modal.Header>
 
-          <Modal.Body className="bg-gray-100 m-3 shadow-md rounded-xl">
+          <Modal.Body className="bg-gray-100 p-4 m-2 shadow-md rounded-xl">
             <Tab.Content>
               <Tab.Pane eventKey="login">
                 <SignUpForm

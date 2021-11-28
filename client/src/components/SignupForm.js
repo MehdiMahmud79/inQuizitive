@@ -137,8 +137,7 @@ const SignupForm = ({ signUpForm }) => {
 
         {signUpForm ? (
           <Form.Group>
-            <Form.Label htmlFor="username">Username</Form.Label>
-            <div className="bg-gray-200 rounded-xl  w-100 p-2 flex items-center mb-3 ">
+            <div className="bg-gray-200 rounded-xl  w-100 p-2 flex items-center mb-2 ">
               <FaUserAlt className={FaUserAltSate} />
               <input
                 type="text"
@@ -155,8 +154,7 @@ const SignupForm = ({ signUpForm }) => {
           ""
         )}
         <Form.Group>
-          <Form.Label htmlFor="email">Email</Form.Label>
-          <div className="bg-gray-200 rounded-xl w-100 p-2 flex items-center mb-3 ">
+          <div className="bg-gray-200 rounded-xl w-100 p-2 flex items-center mb-2 ">
             <FaRegEnvelope className={FaRegEnvelopeState} />
             <input
               type="email"
@@ -170,8 +168,7 @@ const SignupForm = ({ signUpForm }) => {
           </div>
         </Form.Group>
         <Form.Group>
-          <Form.Label htmlFor="password">Password</Form.Label>
-          <div className="bg-gray-200  rounded-xl w-100 p-2 flex items-center ">
+          <div className="bg-gray-200 rounded-xl w-100 p-2 flex items-center mb-2 ">
             <MdLockOutline className={MdLockOutlineSate} />
             <input
               type="password"
@@ -186,8 +183,7 @@ const SignupForm = ({ signUpForm }) => {
         </Form.Group>
         {signUpForm ? (
           <Form.Group>
-            <Form.Label htmlFor="password2">Repeat Password</Form.Label>
-            <div className="bg-gray-200 rounded-xl  w-100 p-2 flex items-center ">
+            <div className="bg-gray-200 rounded-xl w-100 p-2 flex items-center mb-2 ">
               <MdLockOutline className={MdLockOutlineSate2} />
               <input
                 type="password"
