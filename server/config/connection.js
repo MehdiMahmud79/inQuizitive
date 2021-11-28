@@ -1,6 +1,5 @@
-import mongoose from "mongoose";
-import * as dotenv from 'dotenv';
-dotenv.config();
+const mongoose = require('mongoose');
+require("dotenv").config();
 
 mongoose.connect(
   process.env.MONGODB_URI || 'mongodb://localhost/mindGjm',

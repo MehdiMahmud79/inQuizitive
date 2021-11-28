@@ -1,4 +1,4 @@
-import { Schema } from "mongoose"
+const { Schema } = require("mongoose");
 
 const questionSchema = new Schema({
   question: {
@@ -13,6 +13,7 @@ const questionSchema = new Schema({
     type: String,
     required: true
   }],
+
 });
 
 module.exports = questionSchema;

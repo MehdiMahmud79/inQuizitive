@@ -1,6 +1,6 @@
-import { Schema } from "mongoose";
+const { Schema } = require("mongoose");
 
-export const scoreSchema = new Schema({
+const scoreSchema = new Schema({
   user_id: {
     type: String,
     required: true
@@ -10,3 +10,5 @@ export const scoreSchema = new Schema({
     required: true
   },
 });
+
+module.exports = scoreSchema;
