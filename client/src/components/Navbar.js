@@ -121,8 +121,8 @@ const AppNavbar = () => {
         </Tab.Container>
       </Modal>
       {Auth.loggedIn() ? (
-        <h1 className="px-3 text-3xl shadow-md bg-gradient-to-r from-purple-900 to-purple-100 text-center p-2 ">
-          <FontAwesomeIcon icon={faUser} className="text-danger ml-4" />{" "}
+        <h1 className="  px-3 text-3xl shadow-md bg-gradient-to-r from-purple-900 to-purple-100 text-center p-2 ">
+          <FontAwesomeIcon icon={faUser} className="text-green-200 ml-4   " />{" "}
           <span className="text-white p-2">
             {Auth.getProfile().data.username.toUpperCase()}
           </span>{" "}
