@@ -21,15 +21,22 @@ const QuizResult = ({ correctAnswers, quizLength, result, summary }) => {
 
       <div className="flex flex-wrap justify-center bg-gray-100 m-3 p-3 rounded-xl shadow-md">
         <hr />
-        <h1 className="text-bold text-blue-600 text-xl border-x-2 border-solid border-b-2 w-100 text-center">
-          Quiz summary
-        </h1>
 
-        <div className="grid grid-cols-3 divide-x divide-gray-500 p-2 shadow-lg">
-          {summary.map((question, index) => {
-            return <SummaryCard key={index} questionRes={question} />;
-          })}
-        </div>
+        {summary.length > 0 ? (
+          <>
+            <h1 className="text-bold text-blue-600 text-xl border-x-2 border-solid border-b-2 w-100 text-center">
+              Quiz summary
+            </h1>
+            <div className="grid grid-cols-3 divide-x divide-gray-500 p-2 shadow-lg">
+              {summary.map((question, index) => {
+                return <SummaryCard key={index} questionRes={question} />;
+              })}
+            </div>
+          </>
+        ) : (
+          ""
+        )}
+
         <NavLink
           className="bg-yellow-600 text-yellow-100 rounded-lg text-xl py-1 px-1 my-2"
           to={"/"}
