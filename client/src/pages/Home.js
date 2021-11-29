@@ -3,7 +3,6 @@ import { useQuery } from "@apollo/client";
 
 import SingleCard from "../components/SingleCard";
 import { getAllQuizzes } from "../utils/queries";
-import ScoreChart from "../components/Quiz/ScoreChart";
 
 import "./style.css";
 
@@ -46,7 +45,7 @@ const Home = () => {
             );
           })
         )}
-        <ScoreChart />
+        <scoreChart />
       </div>
     </>
   );
