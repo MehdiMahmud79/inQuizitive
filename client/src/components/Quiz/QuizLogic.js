@@ -15,9 +15,9 @@ const TIME_PER_QUESTION = 10;
 
 const QuizLogic = ({ quizData, quizId }) => {
   const userId = Auth.getProfile().data._id;
-  const user_name = Auth.getProfile().data.username;
+  const userName = Auth.getProfile().data.username;
 
-  let [addScore, { data: ScoreData }] = useMutation(AddScoreToQuizMutation);
+  const [addScore, { data: ScoreData }] = useMutation(AddScoreToQuizMutation);
 
   const category = quizData.category;
   const type = quizData.type;
@@ -41,6 +41,7 @@ const QuizLogic = ({ quizData, quizId }) => {
   const [questionNumber, setquestionNumber] = useState(0);
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [correctAnswers, setCorrectAnswers] = useState(0);
+  const [quizScores, setQuizScores] = useState([]);
   const [answers, setAnswers] = useState([]);
   const [summary, setSummary] = useState([]);
 
@@ -112,12 +113,14 @@ const QuizLogic = ({ quizData, quizId }) => {
         const quizScore = {
           score: `${Math.round(totalScore)}`,
           user_id: userId,
+          userName: userName,
         };
 
-        const mydata = await addScore({
+        const scoresData = await addScore({
           variables: { id: quizId, score: quizScore },
         });
-
+        setQuizScores([...scoresData.data.AddScoreToQuiz.scores]);
+        // console.log("All scores", scoresData.data.AddScoreToQuiz.scores);
         clearTimeout(timer);
         setComplete(true);
       }
@@ -131,6 +134,8 @@ const QuizLogic = ({ quizData, quizId }) => {
         quizLength={quizQuestions.length}
         result={score}
         summary={summary}
+        quizScores={quizScores}
+        userName={userName}
       />
     );
   } else {

@@ -121,17 +121,16 @@ const resolvers = {
 
     AddScoreToQuiz: async (parent, { _id, score }, { user }) => {
       console.log("add score to a quiz");
-      const scoreData = JSON.stringify(score, null, 2);
-      //  console.log("data", _id, score);
-      console.log("data", _id, scoreData, typeof score);
+     
+      
 
       if (user) {
         try {
-          const updatedQuiz = await Quiz.findByIdAndUpdate(_id, {
+          await Quiz.findByIdAndUpdate(_id, {
             $addToSet: { scores: score },
           });
 
-          return updatedQuiz;
+          return await Quiz.findById(_id);
         } catch (err) {
           throw new AuthenticationError(err);
         }

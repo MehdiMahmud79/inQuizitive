@@ -4,12 +4,17 @@ const scoreSchema = new Schema({
   user_id: {
     type: String,
     required: true,
-    default: ''
+    default: "",
+  },
+  userName: {
+    type: String,
+    required: true,
+    default: "",
   },
   score: {
     type: String,
     required: true,
-    default: ''
+    default: "",
   },
 });
 

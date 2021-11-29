@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
+import { Alert } from "react-bootstrap";
 
 import SingleCard from "../components/SingleCard";
 import { getAllQuizzes } from "../utils/queries";
@@ -8,6 +9,7 @@ import "./style.css";
 
 const Home = () => {
   const { loading, data } = useQuery(getAllQuizzes);
+  const [showAlert, setShowAlert] = useState(false);
 
   const [Quizes, setAllQuizes] = useState([]);
   useEffect(() => {
@@ -46,6 +48,18 @@ const Home = () => {
           })
         )}
       </div>
+      {Quizes.length === 0 ? (
+        <Alert
+          dismissible
+          onClose={() => setShowAlert(false)}
+          show="true"
+          variant="danger"
+        >
+          There is no Quizzes in the Database. Login and create one!
+        </Alert>
+      ) : (
+        ""
+      )}
     </>
   );
 };

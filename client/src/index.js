@@ -8,6 +8,7 @@ import {
   ApolloLink,
   concat,
 } from "@apollo/client";
+import * as V from "victory";
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';

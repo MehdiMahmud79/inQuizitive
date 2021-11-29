@@ -13,10 +13,12 @@ const typeDefs = gql`
   }
   input Score {
     user_id: ID!
+    userName: String!
     score: String!
   }
   type ScoreType {
     user_id: ID!
+    userName: String!
     score: String!
   }
   type Quiz {
