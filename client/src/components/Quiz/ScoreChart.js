@@ -50,12 +50,12 @@ const ScoreChart = ({ quizScores }) => {
     console.log("Quiz data ", quizScores);
   }, []);
   return (
-    <div className="bg-gray-300 p-2 m-3">
+    <div className="bg-gray-300 p-2 my-3">
       <h1 className="bg-gray-600 text-white p-2 text-center">
         {" "}
         <i className="fas fa-chart-line"></i> Max Scores
       </h1>
-      <Line data={data} options={options} />
+      <Line width={600} data={data} options={options} />
     </div>
   );
 };
