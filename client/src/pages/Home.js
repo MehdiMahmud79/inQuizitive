@@ -13,7 +13,6 @@ const Home = () => {
   useEffect(() => {
     if (loading) return;
     setAllQuizes(data.getAllQuizzes);
-    console.log(data)
   }, [loading, data]);
 
   return (
