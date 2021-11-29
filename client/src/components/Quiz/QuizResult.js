@@ -10,6 +10,7 @@ const QuizResult = ({
   result,
   summary,
   quizScores,
+  userName,
 }) => {
   return (
     <div className="container bg-purple-100 rounded-xl shadow-md p-3">
@@ -44,7 +45,11 @@ const QuizResult = ({
           ""
         )}
         {/* adding barchart for the scores */}
-        <ScoreChart quizScores={quizScores} />{" "}
+        <ScoreChart
+          quizScores={quizScores}
+          userName={userName}
+          result={result}
+        />{" "}
       </div>
       <div className="bg-purple-400 text-white rounded-lg  p-3 my-auto mx-auto text-center">
         <NavLink

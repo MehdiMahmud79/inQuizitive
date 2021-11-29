@@ -15,7 +15,7 @@ const TIME_PER_QUESTION = 10;
 
 const QuizLogic = ({ quizData, quizId }) => {
   const userId = Auth.getProfile().data._id;
-  const user_name = Auth.getProfile().data.username;
+  const userName = Auth.getProfile().data.username;
 
   const [addScore, { data: ScoreData }] = useMutation(AddScoreToQuizMutation);
 
@@ -113,7 +113,7 @@ const QuizLogic = ({ quizData, quizId }) => {
         const quizScore = {
           score: `${Math.round(totalScore)}`,
           user_id: userId,
-          userName: user_name,
+          userName: userName,
         };
 
         const scoresData = await addScore({
@@ -135,6 +135,7 @@ const QuizLogic = ({ quizData, quizId }) => {
         result={score}
         summary={summary}
         quizScores={quizScores}
+        userName={userName}
       />
     );
   } else {
