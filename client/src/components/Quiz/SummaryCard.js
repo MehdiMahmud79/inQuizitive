@@ -1,4 +1,5 @@
 import React from "react";
+import parse from "html-react-parser";
 
 const SummaryCard = ({ questionRes }) => {
   return (
@@ -7,14 +8,14 @@ const SummaryCard = ({ questionRes }) => {
         <>
           <div className="text-green-900 flex-auto p-2 float-left">
             <i className="fas fa-check-circle text-green-600"></i>{" "}
-            {questionRes.question}{" "}
+            {parse(questionRes.question)}{" "}
           </div>
         </>
       ) : (
         <>
           <div className="text-red-900 flex-auto p-2 float-left">
             <i className=" fas fa-times-circle text-red-600"></i>{" "}
-            {questionRes.question}{" "}
+            {parse(questionRes.question)}{" "}
           </div>
         </>
       )}
