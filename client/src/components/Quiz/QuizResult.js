@@ -1,4 +1,6 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
+
 import SummaryCard from "./SummaryCard";
 const QuizResult = ({ correctAnswers, quizLength, result, summary }) => {
   return (
@@ -28,9 +30,17 @@ const QuizResult = ({ correctAnswers, quizLength, result, summary }) => {
             return <SummaryCard key={index} questionRes={question} />;
           })}
         </div>
+        <NavLink
+          className="bg-yellow-600 text-yellow-100 rounded-lg text-xl py-1 px-1 my-2"
+          to={"/"}
+        >
+          <span className="font-bold text-white">
+            {" "}
+            <i className="fas fa-reply-all"></i> Try again
+          </span>
+        </NavLink>
       </div>
     </div>
   );
 };
-
 export default QuizResult;
