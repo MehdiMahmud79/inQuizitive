@@ -25,6 +25,8 @@ export const getSingleQuiz = gql`
       difficulty
       scores {
         user_id
+        userName
+
         score
       }
       questions {
@@ -48,6 +50,8 @@ export const getAllQuizzes = gql`
       difficulty
       scores {
         user_id
+        userName
+
         score
       }
       questions {
@@ -72,6 +76,8 @@ export const getUserQuizzes = gql`
       difficulty
       scores {
         user_id
+        userName
+
         score
       }
       questions {
@@ -152,6 +158,8 @@ export const addQuizMutation = gql`
       difficulty
       scores {
         user_id
+        userName
+
         score
       }
       questions {
@@ -175,6 +183,8 @@ export const removeQuizMutation = gql`
       difficulty
       scores {
         user_id
+        userName
+
         score
       }
       questions {
@@ -198,6 +208,7 @@ export const AddScoreToQuizMutation = gql`
       difficulty
       scores {
         user_id
+        userName
         score
       }
       questions {
