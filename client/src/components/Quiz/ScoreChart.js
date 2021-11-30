@@ -38,9 +38,9 @@ const ScoreChart = ({ quizScores, userName, result }) => {
   const [userNames, setUserNames] = useState([]);
   useEffect(() => {
     // console.log("Quiz data ", quizScores);
-    quizScores.sort(function (a, b) {
-      return a.score - b.score;
-    });
+    // quizScores.sort(function (a, b) {
+    //   return a.score - b.score;
+    // });
     const userNames = quizScores.map((user) => {
       return user.userName;
     });
