@@ -33,7 +33,7 @@ const SingleCard = ({
 
   return (
     <>
-      <div className="max-w-sm rounded-xl  overflow-hidden bg-gray-900 text-red-100 opacity-90 m-3 shadow-md ">
+      <div className="max-w-sm rounded-xl overflow-hidden bg-gray-900 text-red-100 opacity-90 m-3 shadow-md ">
         <div className="flex justify-between ">
           <img
             id="cardLogo"

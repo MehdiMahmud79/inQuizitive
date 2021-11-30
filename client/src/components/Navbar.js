@@ -27,7 +27,7 @@ const AppNavbar = () => {
         >
           <Navbar.Brand>
             {" "}
-            <img src={logo} className="w-25" alt="logo" />
+            <img src={logo} className="w-24" alt="logo" />
           </Navbar.Brand>
 
           <Navbar.Toggle aria-controls="navbar" />

@@ -13,7 +13,7 @@ const QuizResult = ({
   userName,
 }) => {
   return (
-    <div className="container bg-purple-100 rounded-xl shadow-md p-3">
+    <div className="container bg-purple-100 rounded-xl shadow-md p-3 overflow-hidden">
       <h1 className="text-center m-3 text-3xl "> Quiz Result</h1>
       <hr />
       <h2 className=" p-1 text-3xl my-2 ">
@@ -27,7 +27,6 @@ const QuizResult = ({
         your Score: {result}{" "}
       </h2>
       <hr />
-
       <div className="flex flex-wrap justify-center bg-gray-100 m-3 p-3 rounded-xl shadow-md">
         <hr />
         {summary.length > 0 ? (
@@ -35,7 +34,7 @@ const QuizResult = ({
             <h1 className="text-bold text-blue-600 text-xl border-x-2 border-solid border-b-2 w-100 text-center">
               Quiz summary
             </h1>
-            <div className="grid grid-cols-3 divide-x divide-gray-500 p-2 shadow-lg">
+            <div className="grid grid-cols-1 md:grid-cols-3 divide-x divide-gray-500 p-2 shadow-lg">
               {summary.map((question, index) => {
                 return <SummaryCard key={index} questionRes={question} />;
               })}
@@ -45,6 +44,8 @@ const QuizResult = ({
           ""
         )}
         {/* adding barchart for the scores */}
+      </div>
+      <div className="container">
         <ScoreChart
           quizScores={quizScores}
           userName={userName}
