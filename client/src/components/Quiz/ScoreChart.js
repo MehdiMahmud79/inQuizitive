@@ -78,10 +78,10 @@ const ScoreChart = ({ quizScores, userName, result }) => {
     ],
   };
   return (
-    <div className="bg-gray-300 p-2 my-3">
+    <div className="bg-gray-00 p-2 my-3">
       <h1 className="bg-gray-600 text-white p-2 text-center">
         {" "}
-        <i className="fas fa-chart-line text-yellow-300 text-3xl"></i> Max
+        <i className="fas fa-chart-line text-yellow-300 text-2xl"></i> All
         Scores
       </h1>
       <Line width={600} data={data} options={options} />

@@ -19,13 +19,13 @@ const Home = () => {
 
   return (
     <>
-      <div className="jumbotron">
-        <h1 className="display-4 text-center mt-3">Welcome to</h1>
-        <h2 className="display-4 text-center mb-3">
+      <div className="bg-gray-200 p-2">
+        <h1 className="text-2xl text-center my-2">Welcome to</h1>
+        <h2 className="display-4 text-center mb-2">
           in<span className="text-red-700 font-bold">Q</span>uizitive
         </h2>
       </div>
-      <div className="flex flex-wrap justify-center bg-gray-100 m-3 p-3 rounded-xl shadow-md">
+      <div className="flex flex-wrap justify-center bg-gray-100 m-2 p-2 rounded-xl shadow-md">
         {loading ? (
           <div
             key="loading"

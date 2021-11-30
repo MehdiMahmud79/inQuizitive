@@ -27,7 +27,7 @@ const AppNavbar = () => {
         >
           <Navbar.Brand>
             {" "}
-            <img src={logo} className="w-25" alt="logo" />
+            <img src={logo} className="w-24" alt="logo" />
           </Navbar.Brand>
 
           <Navbar.Toggle aria-controls="navbar" />
@@ -47,8 +47,8 @@ const AppNavbar = () => {
                       to="/profile"
                       className="my-2 px-2 cursor-pointer text-xl  bg-green-600 py-1  rounded-lg text-green-100 no-underline hover:bg-green-400 hover:text-green-900"
                     >
-                      <i className="far fa-address-card text-blue-900"></i>{" "}
-                      Profile
+                      <i className="fas fa-plus-square text-blue-900"></i> Add
+                      Quiz
                     </NavLink>
                     <div className="mx-2">
                       <button
