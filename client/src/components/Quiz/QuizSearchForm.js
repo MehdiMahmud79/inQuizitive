@@ -104,7 +104,7 @@ function QuizSearchForm({ quizData }) {
     }
   };
   return (
-    <div className=" grid grid-cols-1 lg:grid-cols-3 gap-2">
+    <div className="md:grid flex-1 md:grid-flow-col md:grid-cols-4 overflow-hidden m-2 p-1">
       <div className="w-100 bg-purple-100 rounded-xl ">
         <form onSubmit={handleFormSubmit}>
           {AlertType.Fail ? (
@@ -132,7 +132,9 @@ function QuizSearchForm({ quizData }) {
             ""
           )}
 
-          <h1 className="text-green-800 m-5 text-center">Add a New Quiz</h1>
+          <h1 className="text-green-800 my-2 text-3xl text-center bg-gray-200 shadow-sm">
+            Add a New Quiz
+          </h1>
           <div className="container w-full">
             <label className="block text-left m-2" htmlFor="amount">
               <span className="text-gray-700">Quiz Title: </span>
@@ -229,7 +231,7 @@ function QuizSearchForm({ quizData }) {
           </div>
         </form>
       </div>
-      <div className="col-span-2  shadow-md bg-gray-600 rounded-xl">
+      <div className="shadow-md col-span-3  bg-gray-600 rounded-xl p-1 m-2 ">
         {!userQuizes ? (
           <div
             key="loading"
