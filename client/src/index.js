@@ -13,7 +13,7 @@ import * as V from "victory";
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Auth from "./utils/auth";
-// import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import './index.css';
 
 
