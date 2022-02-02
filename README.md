@@ -91,6 +91,7 @@ npm run develop
 ![Apollo](./assets/apollo.png)
 ![ChartJs](./assets/chartjs.png)
 ![JWT](./assets/jwt.png)
+![Heroku](https://img.shields.io/badge/heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white)
 
 ## WebPages
 
